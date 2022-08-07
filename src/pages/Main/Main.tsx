@@ -7,7 +7,7 @@ import { toggleColorScheme } from 'app/appSlice/appSlice';
 import { selectColorScheme } from 'app/appSlice/selectors';
 import { useAppDispatch, useAppSelector } from 'store';
 
-export const Test: FC = () => {
+export const Main: FC = () => {
   const colorScheme = useAppSelector(selectColorScheme);
   const dispatch = useAppDispatch();
   const isDark = colorScheme === 'dark';

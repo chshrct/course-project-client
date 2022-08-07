@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { MantineProvider } from '@mantine/core';
 
 import { selectColorScheme } from 'app';
-import { Test } from 'pages';
+import { AppRouter } from 'routes';
 import { useAppSelector } from 'store';
 
 export const App: FC = () => {
@@ -11,7 +11,7 @@ export const App: FC = () => {
 
   return (
     <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-      <Test />
+      <AppRouter />
     </MantineProvider>
   );
 };
