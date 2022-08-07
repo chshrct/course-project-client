@@ -1,21 +1,18 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 
-import './App.css';
-import { Test } from 'pages/Test';
+import { selectColorScheme } from 'app';
+import { Test } from 'pages';
+import { useAppSelector } from 'store';
 
 export const App: FC = () => {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
-  const toggleColorScheme = (value?: ColorScheme): void =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const colorScheme = useAppSelector(selectColorScheme);
 
   return (
-    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-      <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-        <Test />
-      </MantineProvider>
-    </ColorSchemeProvider>
+    <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+      <Test />
+    </MantineProvider>
   );
 };
 
