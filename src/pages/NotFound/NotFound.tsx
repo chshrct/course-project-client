@@ -7,7 +7,7 @@ import NotFoundImage from 'assets/images/404.jpg';
 export const NotFound: FC = () => {
   return (
     <Container>
-      <Center style={{ minHeight: '100vh' }}>
+      <Center sx={{ minHeight: '100vh' }}>
         <Image src={NotFoundImage} />
       </Center>
     </Container>

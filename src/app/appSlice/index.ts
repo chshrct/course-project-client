@@ -1,2 +1,2 @@
-export { appSlice, toggleColorScheme } from './appSlice';
-export { selectColorScheme } from './selectors';
+export { appSlice, toggleColorScheme, toggleLanguage } from './appSlice';
+export { selectColorScheme, selectLanguage } from './selectors';

@@ -1,2 +1,8 @@
 export { App } from './App';
-export { appSlice, selectColorScheme, toggleColorScheme } from './appSlice';
+export {
+  appSlice,
+  selectColorScheme,
+  selectLanguage,
+  toggleColorScheme,
+  toggleLanguage,
+} from './appSlice';
