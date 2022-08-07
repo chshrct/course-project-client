@@ -17,7 +17,11 @@ export const AppRouter: FC = () => {
       path: APP_ROUTES.ANY,
       element: <Navigate to={APP_ROUTES.NOT_FOUND} />,
     },
-    { path: APP_ROUTES.NOT_FOUND, element: <NotFound /> },
+    {
+      path: APP_ROUTES.NOT_FOUND,
+      element: <Layout />,
+      children: [{ index: true, element: <NotFound /> }],
+    },
     {
       path: APP_ROUTES.MAIN,
       element: <Layout />,
