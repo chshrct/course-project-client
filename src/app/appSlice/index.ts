@@ -1,2 +1,18 @@
-export { appSlice, toggleColorScheme, toggleLanguage } from './appSlice';
-export { selectColorScheme, selectLanguage } from './selectors';
+export {
+  appSlice,
+  toggleColorScheme,
+  toggleLocale,
+  signOut,
+  setRememberMe,
+} from './appSlice';
+export {
+  selectColorScheme,
+  selectLocale,
+  selectIsSignedIn,
+  selectToken,
+  selectUserAccess,
+  selectUserId,
+  selectUserName,
+  selectIsDark,
+  selectIsEnglish,
+} from './selectors';

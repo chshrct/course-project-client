@@ -5,7 +5,7 @@ import { Container, Text } from '@mantine/core';
 export const Main: FC = () => {
   return (
     <Container>
-      <Text>Welcome to Mantine!</Text>
+      <Text mt={50}>Welcome to Mantine!</Text>
     </Container>
   );
 };

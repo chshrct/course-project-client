@@ -17,32 +17,37 @@ import {
   IconSun,
 } from '@tabler/icons';
 
-import { SignInForm } from './SignInForm/SignInForm';
-import { SignUpForm } from './SignUpForm/SignUpForm';
+import { SignInForm } from './SignInForm';
+import { SignUpForm } from './SignUpForm';
 
 import {
-  selectColorScheme,
-  selectLanguage,
+  selectIsDark,
+  selectIsEnglish,
+  selectIsSignedIn,
+  selectUserName,
+  signOut,
   toggleColorScheme,
-  toggleLanguage,
+  toggleLocale,
 } from 'app';
 import { useAppDispatch, useAppSelector } from 'store';
 
 export const AppHeader: FC = () => {
-  const colorScheme = useAppSelector(selectColorScheme);
-  const language = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const [opened, setOpened] = useState(false);
+  const isSignedIn = useAppSelector(selectIsSignedIn);
+  const userName = useAppSelector(selectUserName);
+  const isDark = useAppSelector(selectIsDark);
+  const isEnglish = useAppSelector(selectIsEnglish);
+  const isSignedInHeaderMessage = `Hi! Nice to meet you, ${userName}`;
+
   const [hasAccount, setHasAccount] = useState(true);
-  const isDark = colorScheme === 'dark';
-  const isEnglish = language === 'en';
+  const [opened, setOpened] = useState(false);
 
   return (
     <>
-      <Header height={52} p="sm">
+      <Header height={52} p="sm" style={{ position: 'absolute' }}>
         <Container>
           <Group align="center" position="apart" noWrap>
-            <Text>Head</Text>
+            <Text>{isSignedIn && isSignedInHeaderMessage}</Text>
             <Group spacing="xs">
               <Button
                 color={isDark ? 'gray' : 'dark'}
@@ -50,7 +55,7 @@ export const AppHeader: FC = () => {
                 sx={{ width: '100px' }}
                 size="xs"
                 p={0}
-                title="Search items"
+                title="Search for items"
               >
                 <Group position="right">
                   <IconSearch size={16} color="gray" />
@@ -61,14 +66,14 @@ export const AppHeader: FC = () => {
               </Button>
               <ActionIcon
                 variant="default"
-                onClick={() => dispatch(toggleLanguage())}
+                onClick={() => dispatch(toggleLocale())}
                 title={isEnglish ? 'Russian' : 'English'}
                 size={30}
               >
                 {isEnglish ? (
-                  <IconAlphabetLatin size={18} />
-                ) : (
                   <IconAlphabetCyrillic size={18} />
+                ) : (
+                  <IconAlphabetLatin size={18} />
                 )}
               </ActionIcon>
               <ActionIcon
@@ -83,16 +88,29 @@ export const AppHeader: FC = () => {
                   <IconMoonStars size={18} />
                 )}
               </ActionIcon>
-              <Button
-                variant="default"
-                color={isDark ? 'gray' : 'dark'}
-                size="xs"
-                p={5}
-                title="Sign in/up"
-                onClick={() => setOpened(true)}
-              >
-                Sign in/up
-              </Button>
+              {isSignedIn ? (
+                <Button
+                  variant="default"
+                  color={isDark ? 'gray' : 'dark'}
+                  size="xs"
+                  p={5}
+                  title="Sign out"
+                  onClick={() => dispatch(signOut())}
+                >
+                  Sign out
+                </Button>
+              ) : (
+                <Button
+                  variant="default"
+                  color={isDark ? 'gray' : 'dark'}
+                  size="xs"
+                  p={5}
+                  title="Sign in/up"
+                  onClick={() => setOpened(true)}
+                >
+                  Sign in/up
+                </Button>
+              )}
             </Group>
           </Group>
         </Container>
@@ -106,7 +124,7 @@ export const AppHeader: FC = () => {
         position="right"
       >
         {hasAccount ? (
-          <SignInForm setHasAccount={setHasAccount} />
+          <SignInForm setHasAccount={setHasAccount} setOpened={setOpened} />
         ) : (
           <SignUpForm setHasAccount={setHasAccount} />
         )}

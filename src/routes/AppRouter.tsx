@@ -5,7 +5,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import { APP_ROUTES } from './enums';
 
 import { Layout } from 'components';
-import { Main, NotFound } from 'pages';
+import { Admin, Main, NotFound } from 'pages';
 
 export const AppRouter: FC = () => {
   const appRoutes = useRoutes([
@@ -29,6 +29,16 @@ export const AppRouter: FC = () => {
         {
           index: true,
           element: <Main />,
+        },
+      ],
+    },
+    {
+      path: APP_ROUTES.ADMIN,
+      element: <Layout />,
+      children: [
+        {
+          index: true,
+          element: <Admin />,
         },
       ],
     },

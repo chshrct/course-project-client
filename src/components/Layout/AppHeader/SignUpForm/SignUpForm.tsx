@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import {
   Anchor,
@@ -6,12 +6,15 @@ import {
   Button,
   Center,
   Group,
+  LoadingOverlay,
   PasswordInput,
   Space,
-  TextInput,
   Text,
+  TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+
+import { useSignUpMutation } from 'api';
 
 type PropsType = {
   setHasAccount: (val: boolean) => void;
@@ -20,6 +23,8 @@ type PropsType = {
 const PASSWORD_LENGTH = 6;
 
 export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
+  const [signUp, { isSuccess, isLoading }] = useSignUpMutation();
+
   const form = useForm({
     initialValues: {
       name: '',
@@ -38,9 +43,20 @@ export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
     },
   });
 
+  useEffect(() => {
+    if (isSuccess) {
+      setHasAccount(true);
+    }
+  }, [form, isSuccess, setHasAccount]);
+
+  const onSignUpSubmit = ({ email, name, password }: typeof form.values): void => {
+    signUp({ email, name, password });
+  };
+
   return (
     <Box sx={{ maxWidth: 300 }} mx="auto">
-      <form onSubmit={form.onSubmit(values => console.log(values))}>
+      <LoadingOverlay visible={isLoading} overlayBlur={2} />
+      <form onSubmit={form.onSubmit(onSignUpSubmit)}>
         <TextInput
           required
           label="Name"

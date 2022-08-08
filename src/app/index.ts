@@ -2,7 +2,16 @@ export { App } from './App';
 export {
   appSlice,
   selectColorScheme,
-  selectLanguage,
+  selectLocale,
   toggleColorScheme,
-  toggleLanguage,
+  toggleLocale,
+  selectIsSignedIn,
+  selectToken,
+  selectUserAccess,
+  selectUserId,
+  selectUserName,
+  signOut,
+  setRememberMe,
+  selectIsDark,
+  selectIsEnglish,
 } from './appSlice';
