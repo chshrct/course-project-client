@@ -7,3 +7,26 @@ export type UserType = {
   access: UserAccessType;
   status: UserStatusType;
 };
+
+export type GetAllUsersRequestQueryType = {
+  page: number;
+  limit: number;
+};
+
+export type GetAllUsersResponseBodyType = {
+  users: UserType[];
+  count: number;
+};
+
+export type UpdateUsersStatusRequestBodyType = GetAllUsersRequestQueryType & {
+  userIds: string[];
+  status: UserStatusType;
+};
+export type UpdateUsersAccessRequestBodyType = GetAllUsersRequestQueryType & {
+  userIds: string[];
+  access: UserAccessType;
+};
+
+export type DeleteUsersRequestBodyType = GetAllUsersRequestQueryType & {
+  userIds: string[];
+};
