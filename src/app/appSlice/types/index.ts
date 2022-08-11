@@ -14,4 +14,10 @@ export type AppStateType = {
     token: string;
     rememberMe: boolean;
   };
+  error: ErrorType;
+};
+
+export type ErrorType = {
+  title: string;
+  message: string;
 };

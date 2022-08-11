@@ -86,7 +86,7 @@ export const SignInForm: FC<PropsType> = ({ setHasAccount, setOpened }) => {
           {...form.getInputProps('rememberMe', { type: 'checkbox' })}
         />
         <Group position="right" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Sign in</Button>
         </Group>
       </form>
       <Space h="xl" />

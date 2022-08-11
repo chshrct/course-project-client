@@ -10,7 +10,9 @@ import {
   SignInResponseBodyType,
   SignUpRequestBodyType,
   UpdateUsersAccessRequestBodyType,
+  UpdateUsersAccessResponseBodyType,
   UpdateUsersStatusRequestBodyType,
+  UpdateUsersStatusResponseBodyType,
 } from './types';
 
 import { RootState } from 'store';
@@ -58,7 +60,10 @@ export const appApi = createApi({
       }),
       providesTags: ['USERS'],
     }),
-    updateUsersStatus: builder.mutation<void, UpdateUsersStatusRequestBodyType>({
+    updateUsersStatus: builder.mutation<
+      UpdateUsersStatusResponseBodyType,
+      UpdateUsersStatusRequestBodyType
+    >({
       query: body => ({
         url: '/user/status',
         method: 'POST',
@@ -81,7 +86,10 @@ export const appApi = createApi({
         });
       },
     }),
-    updateUsersAccess: builder.mutation<void, UpdateUsersAccessRequestBodyType>({
+    updateUsersAccess: builder.mutation<
+      UpdateUsersAccessResponseBodyType,
+      UpdateUsersAccessRequestBodyType
+    >({
       query: body => ({
         url: '/user/access',
         method: 'POST',

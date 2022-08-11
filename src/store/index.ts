@@ -2,6 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import { throttle } from 'lodash';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
+import { errorMiddleware } from './errorMiddleware';
+
 import { appApi } from 'api';
 import { appReducer } from 'app/appSlice/appSlice';
 import { loadState, saveItem } from 'utils';
@@ -16,13 +18,14 @@ export const store = configureStore({
     app: appReducer,
   },
   preloadedState,
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(appApi.middleware),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(appApi.middleware).concat(errorMiddleware),
 });
 
 store.subscribe(
   throttle(() => {
     saveItem('colorScheme', store.getState().app.colorScheme, true);
-    saveItem('language', store.getState().app.locale, true);
+    saveItem('locale', store.getState().app.locale, true);
     saveItem(
       'token',
       store.getState().app.userData.token,

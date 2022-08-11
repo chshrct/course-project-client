@@ -1,9 +1,10 @@
 export {
-  appSlice,
   toggleColorScheme,
   toggleLocale,
   signOut,
   setRememberMe,
+  setError,
+  setUserAccessBasic,
 } from './appSlice';
 export {
   selectColorScheme,
@@ -15,4 +16,7 @@ export {
   selectUserName,
   selectIsDark,
   selectIsEnglish,
+  selectErrorMessage,
+  selectErrorTitle,
+  selectIsAdmin,
 } from './selectors';

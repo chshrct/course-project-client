@@ -1,6 +1,5 @@
 export { App } from './App';
 export {
-  appSlice,
   selectColorScheme,
   selectLocale,
   toggleColorScheme,
@@ -14,4 +13,9 @@ export {
   setRememberMe,
   selectIsDark,
   selectIsEnglish,
+  selectErrorMessage,
+  selectErrorTitle,
+  setError,
+  setUserAccessBasic,
+  selectIsAdmin,
 } from './appSlice';

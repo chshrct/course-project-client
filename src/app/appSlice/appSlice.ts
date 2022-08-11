@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AppStateType } from './types';
+import { AppStateType, ErrorType } from './types';
 
 import { appApi } from 'api';
 
@@ -14,12 +14,19 @@ const initialState: AppStateType = {
     token: '',
     rememberMe: false,
   },
+  error: {
+    title: '',
+    message: '',
+  },
 };
 
 export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
+    setUserAccessBasic: state => {
+      state.userData.access = 'basic';
+    },
     toggleColorScheme: state => {
       state.colorScheme = state.colorScheme === 'dark' ? 'light' : 'dark';
     },
@@ -34,6 +41,9 @@ export const appSlice = createSlice({
     },
     setRememberMe: (state, { payload }: PayloadAction<boolean>) => {
       state.userData.rememberMe = payload;
+    },
+    setError: (state, { payload }: PayloadAction<ErrorType>) => {
+      state.error = payload;
     },
   },
   extraReducers: builder => {
@@ -58,5 +68,11 @@ export const appSlice = createSlice({
 });
 
 export const appReducer = appSlice.reducer;
-export const { toggleColorScheme, toggleLocale, signOut, setRememberMe } =
-  appSlice.actions;
+export const {
+  toggleColorScheme,
+  toggleLocale,
+  signOut,
+  setRememberMe,
+  setError,
+  setUserAccessBasic,
+} = appSlice.actions;

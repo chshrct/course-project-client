@@ -8,6 +8,8 @@ import {
   useUpdateUsersAccessMutation,
   useUpdateUsersStatusMutation,
 } from 'api';
+import { selectUserId, setUserAccessBasic, signOut } from 'app';
+import { useAppDispatch, useAppSelector } from 'store';
 
 type PropsType = {
   userIds: string[];
@@ -22,18 +24,46 @@ export const AdminToolbar: FC<PropsType> = ({
   page,
   setSelectedUserIds,
 }) => {
-  const [updateUsersStatus, { isLoading: isStatusLoading }] =
-    useUpdateUsersStatusMutation();
-  const [updateUsersAccess, { isLoading: isAccessLoading }] =
-    useUpdateUsersAccessMutation();
+  const [
+    updateUsersStatus,
+    { data: statusData, isLoading: isStatusLoading, isSuccess: isStatusSuccess },
+  ] = useUpdateUsersStatusMutation();
+  const [
+    updateUsersAccess,
+    { data: accessData, isLoading: isAccessLoading, isSuccess: isAccessSuccess },
+  ] = useUpdateUsersAccessMutation();
   const [deleteUsers, { isLoading: isDeleteLoading, isSuccess: isDeleteSuccess }] =
     useDeleteUsersMutation();
-
-  useEffect(() => {
-    if (isDeleteSuccess) setSelectedUserIds([]);
-  }, [isDeleteSuccess, setSelectedUserIds]);
+  const dispatch = useAppDispatch();
+  const signedInUserId = useAppSelector(selectUserId);
   const isDisabled =
     userIds.length === 0 || isStatusLoading || isAccessLoading || isDeleteLoading;
+
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      setSelectedUserIds([]);
+    }
+  }, [dispatch, isDeleteSuccess, setSelectedUserIds, signedInUserId]);
+
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      if (userIds.includes(signedInUserId)) dispatch(signOut());
+    }
+  }, [dispatch, isDeleteSuccess, setSelectedUserIds, signedInUserId, userIds]);
+
+  useEffect(() => {
+    if (isAccessSuccess && accessData) {
+      if (userIds.includes(signedInUserId) && accessData.access === 'basic')
+        dispatch(setUserAccessBasic());
+    }
+  }, [accessData, dispatch, isAccessSuccess, signedInUserId, userIds]);
+
+  useEffect(() => {
+    if (isStatusSuccess && statusData) {
+      if (userIds.includes(signedInUserId) && statusData.status === 'blocked')
+        dispatch(signOut());
+    }
+  }, [statusData, dispatch, isStatusSuccess, signedInUserId, userIds]);
 
   const onBlockUsersClick = (): void => {
     updateUsersStatus({ userIds, status: 'blocked', limit, page });

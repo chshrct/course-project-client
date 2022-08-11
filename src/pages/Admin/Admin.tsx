@@ -11,14 +11,21 @@ import {
   Stack,
   Table,
 } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 
 import { AdminToolbar } from './AdminToolbar';
 
 import { useGetUsersQuery } from 'api';
+import { selectUserAccess, setError } from 'app';
+import { APP_ROUTES } from 'routes/enums';
+import { useAppDispatch, useAppSelector } from 'store';
 
 const DEFAULT_USERS_PAGE_LIMIT = 5;
 
 export const Admin: FC = () => {
+  const userAccess = useAppSelector(selectUserAccess);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [limit, setLimit] = useState(DEFAULT_USERS_PAGE_LIMIT);
   const [page, setPage] = useState(1);
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
@@ -81,6 +88,15 @@ export const Admin: FC = () => {
         );
       })
     : [];
+
+  useEffect(() => {
+    if (userAccess === 'basic') {
+      navigate(APP_ROUTES.MAIN);
+      dispatch(
+        setError({ title: 'Not allowed', message: 'Only admins can visit this page' }),
+      );
+    }
+  }, [dispatch, navigate, userAccess]);
 
   return (
     <Container>

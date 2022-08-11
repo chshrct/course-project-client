@@ -1,3 +1,5 @@
+import { AppStateType } from 'app/appSlice/types';
+
 /* eslint-disable no-console */
 const getItem = (key: string): any => {
   try {
@@ -39,15 +41,20 @@ export const saveItem = (
 
 export const loadState = (): any => {
   try {
-    const state = {
+    const state: { app: AppStateType } = {
       app: {
         colorScheme: 'light',
-        language: 'en',
+        locale: 'en',
         userData: {
           id: '',
           name: '',
           access: 'basic',
           token: '',
+          rememberMe: false,
+        },
+        error: {
+          title: '',
+          message: '',
         },
       },
     };
@@ -56,9 +63,9 @@ export const loadState = (): any => {
 
     if (colorScheme) state.app.colorScheme = colorScheme;
 
-    const language = getItem('language');
+    const locale = getItem('locale');
 
-    if (language) state.app.language = language;
+    if (locale) state.app.locale = locale;
 
     const token = getItem('token');
 

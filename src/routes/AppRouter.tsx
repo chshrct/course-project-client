@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { Navigate, useRoutes } from 'react-router-dom';
 
+import { AuthCheck } from './AuthCheck';
 import { APP_ROUTES } from './enums';
 
 import { Layout } from 'components';
@@ -34,7 +35,11 @@ export const AppRouter: FC = () => {
     },
     {
       path: APP_ROUTES.ADMIN,
-      element: <Layout />,
+      element: (
+        <AuthCheck>
+          <Layout />
+        </AuthCheck>
+      ),
       children: [
         {
           index: true,

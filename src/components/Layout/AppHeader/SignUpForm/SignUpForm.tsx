@@ -85,7 +85,7 @@ export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
           {...form.getInputProps('confirmPassword')}
         />
         <Group position="right" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Sign up</Button>
         </Group>
       </form>
       <Space h="xl" />

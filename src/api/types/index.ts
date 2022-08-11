@@ -16,4 +16,6 @@ export type {
   UpdateUsersStatusRequestBodyType,
   UpdateUsersAccessRequestBodyType,
   DeleteUsersRequestBodyType,
+  UpdateUsersAccessResponseBodyType,
+  UpdateUsersStatusResponseBodyType,
 } from './users';

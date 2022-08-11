@@ -22,8 +22,14 @@ export type UpdateUsersStatusRequestBodyType = GetAllUsersRequestQueryType & {
   userIds: string[];
   status: UserStatusType;
 };
+export type UpdateUsersStatusResponseBodyType = {
+  status: UserStatusType;
+};
 export type UpdateUsersAccessRequestBodyType = GetAllUsersRequestQueryType & {
   userIds: string[];
+  access: UserAccessType;
+};
+export type UpdateUsersAccessResponseBodyType = {
   access: UserAccessType;
 };
 
