@@ -93,7 +93,10 @@ export const Admin: FC = () => {
     if (userAccess === 'basic') {
       navigate(APP_ROUTES.MAIN);
       dispatch(
-        setError({ title: 'Not allowed', message: 'Only admins can visit this page' }),
+        setError({
+          title: 'Not allowed',
+          message: 'You are not allowed to access this resource',
+        }),
       );
     }
   }, [dispatch, navigate, userAccess]);
