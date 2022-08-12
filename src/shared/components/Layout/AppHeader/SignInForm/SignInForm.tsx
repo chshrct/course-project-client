@@ -14,9 +14,10 @@ import {
   LoadingOverlay,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useTranslation } from 'react-i18next';
 
-import { useSignInMutation } from 'api';
 import { setRememberMe } from 'app';
+import { useSignInMutation } from 'shared/api';
 import { useAppDispatch } from 'store';
 
 type PropsType = {
@@ -28,6 +29,7 @@ const PASSWORD_LENGTH = 6;
 
 export const SignInForm: FC<PropsType> = ({ setHasAccount, setOpened }) => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const [signIn, { isSuccess, isLoading }] = useSignInMutation();
 
   const form = useForm({
@@ -38,9 +40,8 @@ export const SignInForm: FC<PropsType> = ({ setHasAccount, setOpened }) => {
     },
 
     validate: {
-      email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      password: value =>
-        value.length >= PASSWORD_LENGTH ? null : 'Password length should be 6 and more',
+      email: value => (/^\S+@\S+$/.test(value) ? null : t('error_email')),
+      password: value => (value.length >= PASSWORD_LENGTH ? null : t('error_password')),
     },
   });
 
@@ -69,24 +70,24 @@ export const SignInForm: FC<PropsType> = ({ setHasAccount, setOpened }) => {
       <form onSubmit={form.onSubmit(onSignInSubmit)}>
         <TextInput
           required
-          label="Email"
+          label={t('label_email')}
           placeholder="your@email.com"
           {...form.getInputProps('email')}
         />
         <PasswordInput
           required
           placeholder="123456"
-          label="Password"
+          label={t('label_password')}
           mt="md"
           {...form.getInputProps('password')}
         />
         <Checkbox
           mt="md"
-          label="Remember me"
+          label={t('label_rememberMe')}
           {...form.getInputProps('rememberMe', { type: 'checkbox' })}
         />
         <Group position="right" mt="md">
-          <Button type="submit">Sign in</Button>
+          <Button type="submit">{t('button_signIn')}</Button>
         </Group>
       </form>
       <Space h="xl" />
@@ -99,9 +100,9 @@ export const SignInForm: FC<PropsType> = ({ setHasAccount, setOpened }) => {
               setHasAccount(false);
             }}
           >
-            Sign up
+            {t('button_signUp')}
           </Anchor>{' '}
-          if you don&apos;t have an account
+          {t('button_text_signUp')}
         </Text>
       </Center>
     </Box>

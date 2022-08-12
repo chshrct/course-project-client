@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import {
   ActionIcon,
@@ -18,6 +18,7 @@ import {
   IconSearch,
   IconSun,
 } from '@tabler/icons';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { SignInForm } from './SignInForm';
@@ -38,6 +39,7 @@ import { useAppDispatch, useAppSelector } from 'store';
 export const AppHeader: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const isSignedIn = useAppSelector(selectIsSignedIn);
   const isAdmin = useAppSelector(selectIsAdmin);
   const isDark = useAppSelector(selectIsDark);
@@ -46,6 +48,10 @@ export const AppHeader: FC = () => {
   const [hasAccount, setHasAccount] = useState(true);
   const [opened, setOpened] = useState(false);
 
+  useEffect(() => {
+    i18n.changeLanguage(isEnglish ? 'en' : 'ru');
+  }, [i18n, isEnglish]);
+
   return (
     <Header height={52} p="sm" style={{ position: 'fixed' }}>
       <Container>
@@ -53,7 +59,7 @@ export const AppHeader: FC = () => {
           <ActionIcon
             variant="transparent"
             onClick={() => navigate(APP_ROUTES.MAIN)}
-            title="Home page"
+            title={t('button_title_homePage')}
             size={30}
           >
             <IconHome size={18} />
@@ -64,13 +70,13 @@ export const AppHeader: FC = () => {
               variant="default"
               size="xs"
               p={5}
-              title="Search for items"
+              title={t('button_search')}
             >
               <Group position="right">
                 <IconSearch size={16} color="gray" />
                 <MediaQuery smallerThan="xs" styles={{ display: 'none' }}>
                   <Text size={14} color="dimmed">
-                    Search
+                    {t('button_search')}
                   </Text>
                 </MediaQuery>
               </Group>
@@ -78,7 +84,7 @@ export const AppHeader: FC = () => {
             <ActionIcon
               variant="default"
               onClick={() => dispatch(toggleLocale())}
-              title={isEnglish ? 'Russian' : 'English'}
+              title={t(isEnglish ? 'button_russian' : 'button_english')}
               size={30}
             >
               {isEnglish ? (
@@ -90,7 +96,7 @@ export const AppHeader: FC = () => {
             <ActionIcon
               variant="default"
               onClick={() => dispatch(toggleColorScheme())}
-              title="Toggle color scheme"
+              title={t('button_title_toggleColorScheme')}
               size={30}
             >
               {isDark ? (
@@ -105,10 +111,10 @@ export const AppHeader: FC = () => {
                 color={isDark ? 'gray' : 'dark'}
                 size="xs"
                 p={5}
-                title="Admin panel"
+                title={t('button_adminPanel')}
                 onClick={() => navigate(APP_ROUTES.ADMIN)}
               >
-                Admin panel
+                {t('button_adminPanel')}
               </Button>
             )}
             {isSignedIn ? (
@@ -117,10 +123,10 @@ export const AppHeader: FC = () => {
                 color={isDark ? 'gray' : 'dark'}
                 size="xs"
                 p={5}
-                title="Sign out"
+                title={t('button_signOut')}
                 onClick={() => dispatch(signOut())}
               >
-                Sign out
+                {t('button_signOut')}
               </Button>
             ) : (
               <Button
@@ -128,10 +134,10 @@ export const AppHeader: FC = () => {
                 color={isDark ? 'gray' : 'dark'}
                 size="xs"
                 p={5}
-                title="Sign in/up"
+                title={t('button_signIn')}
                 onClick={() => setOpened(true)}
               >
-                Sign in
+                {t('button_signIn')}
               </Button>
             )}
           </Group>
@@ -140,7 +146,7 @@ export const AppHeader: FC = () => {
       <Drawer
         opened={opened}
         onClose={() => setOpened(false)}
-        title={hasAccount ? 'Sign in' : 'Sign up'}
+        title={t(hasAccount ? 'button_signIn' : 'title_signUp')}
         padding="xl"
         size="xl"
         position="right"

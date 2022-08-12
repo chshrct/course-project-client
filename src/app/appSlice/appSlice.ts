@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppStateType, ErrorType } from './types';
 
-import { appApi } from 'api';
+import { appApi } from 'shared/api';
 
 const initialState: AppStateType = {
   colorScheme: 'light',

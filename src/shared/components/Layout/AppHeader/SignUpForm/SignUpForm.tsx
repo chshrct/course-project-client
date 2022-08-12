@@ -13,8 +13,9 @@ import {
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useTranslation } from 'react-i18next';
 
-import { useSignUpMutation } from 'api';
+import { useSignUpMutation } from 'shared/api';
 
 type PropsType = {
   setHasAccount: (val: boolean) => void;
@@ -23,6 +24,7 @@ type PropsType = {
 const PASSWORD_LENGTH = 6;
 
 export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
+  const { t } = useTranslation();
   const [signUp, { isSuccess, isLoading }] = useSignUpMutation();
 
   const form = useForm({
@@ -34,12 +36,11 @@ export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
     },
 
     validate: {
-      name: value => (value ? null : 'Name required'),
-      email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      password: value =>
-        value.length >= PASSWORD_LENGTH ? null : 'Password length should be 6 and more',
+      name: value => (value ? null : t('error_name')),
+      email: value => (/^\S+@\S+$/.test(value) ? null : t('error_email')),
+      password: value => (value.length >= PASSWORD_LENGTH ? null : t('error_password')),
       confirmPassword: (value, values) =>
-        value === values.password ? null : 'Passwords do not match',
+        value === values.password ? null : t('error_confirm_password'),
     },
   });
 
@@ -59,14 +60,14 @@ export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
       <form onSubmit={form.onSubmit(onSignUpSubmit)}>
         <TextInput
           required
-          label="Name"
-          placeholder="Alesha Popovich"
+          label={t('label_name')}
+          placeholder={t('placeholder_name')}
           {...form.getInputProps('name')}
         />
         <TextInput
           mt="md"
           required
-          label="Email"
+          label={t('label_email')}
           placeholder="your@email.com"
           {...form.getInputProps('email')}
         />
@@ -74,18 +75,18 @@ export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
           mt="md"
           required
           placeholder="123456"
-          label="Password"
+          label={t('label_password')}
           {...form.getInputProps('password')}
         />
         <PasswordInput
           mt="md"
           required
           placeholder="123456"
-          label="Confirm password"
+          label={t('label_confirm_password')}
           {...form.getInputProps('confirmPassword')}
         />
         <Group position="right" mt="md">
-          <Button type="submit">Sign up</Button>
+          <Button type="submit">{t('button_signUp')}</Button>
         </Group>
       </form>
       <Space h="xl" />
@@ -98,9 +99,9 @@ export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
               setHasAccount(true);
             }}
           >
-            Sign in
+            {t('button_signIn')}
           </Anchor>{' '}
-          if you have an account
+          {t('button_text_signIn')}
         </Text>
       </Center>
     </Box>

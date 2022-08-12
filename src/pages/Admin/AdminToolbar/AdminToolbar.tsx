@@ -2,13 +2,14 @@ import { FC, useEffect } from 'react';
 
 import { ActionIcon, Button, Group } from '@mantine/core';
 import { IconLock, IconLockOpen } from '@tabler/icons';
+import { useTranslation } from 'react-i18next';
 
+import { selectUserId, setUserAccessBasic, signOut } from 'app';
 import {
   useDeleteUsersMutation,
   useUpdateUsersAccessMutation,
   useUpdateUsersStatusMutation,
-} from 'api';
-import { selectUserId, setUserAccessBasic, signOut } from 'app';
+} from 'shared/api';
 import { useAppDispatch, useAppSelector } from 'store';
 
 type PropsType = {
@@ -24,6 +25,7 @@ export const AdminToolbar: FC<PropsType> = ({
   page,
   setSelectedUserIds,
 }) => {
+  const { t } = useTranslation();
   const [
     updateUsersStatus,
     { data: statusData, isLoading: isStatusLoading, isSuccess: isStatusSuccess },
@@ -87,7 +89,7 @@ export const AdminToolbar: FC<PropsType> = ({
     <Group spacing="xs">
       <ActionIcon
         variant="filled"
-        title="Block user"
+        title={t('button_title_blockUser')}
         color="orange"
         size={30}
         disabled={isDisabled}
@@ -97,7 +99,7 @@ export const AdminToolbar: FC<PropsType> = ({
       </ActionIcon>
       <ActionIcon
         variant="filled"
-        title="Unblock user"
+        title={t('button_title_unBlockUser')}
         color="green"
         size={30}
         disabled={isDisabled}
@@ -109,31 +111,31 @@ export const AdminToolbar: FC<PropsType> = ({
         variant="filled"
         color="red"
         size="xs"
-        title="Delete user"
+        title={t('button_title_deleteUser')}
         disabled={isDisabled}
         onClick={onDeleteUsersClick}
       >
-        Delete
+        {t('button_text_delete')}
       </Button>
       <Button
         variant="filled"
         size="xs"
-        title="Admin rights"
+        title={t('button_title_adminRights')}
         color="yellow"
         disabled={isDisabled}
         onClick={onAdminUsersClick}
       >
-        Admin
+        {t('button_text_admin')}
       </Button>
 
       <Button
         variant="default"
         size="xs"
-        title="Basic rights"
+        title={t('button_title_basicRights')}
         disabled={isDisabled}
         onClick={onBasicUsersClick}
       >
-        Basic
+        {t('button_text_basic')}
       </Button>
     </Group>
   );

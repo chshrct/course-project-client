@@ -3,7 +3,6 @@ import { FC, useEffect, useRef } from 'react';
 import { LoadingOverlay, MantineProvider, Notification } from '@mantine/core';
 import { IconX } from '@tabler/icons';
 
-import { useLazyAuthCheckQuery } from 'api';
 import {
   selectColorScheme,
   selectErrorMessage,
@@ -13,7 +12,9 @@ import {
   setError,
 } from 'app';
 import { AppRouter } from 'routes';
+import { useLazyAuthCheckQuery } from 'shared/api';
 import { useAppDispatch, useAppSelector } from 'store';
+import 'shared/localization/i18n';
 
 const HIDE_ERROR_DELAY = 5000;
 

@@ -11,18 +11,20 @@ import {
   Stack,
   Table,
 } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { AdminToolbar } from './AdminToolbar';
 
-import { useGetUsersQuery } from 'api';
 import { selectUserAccess, setError } from 'app';
 import { APP_ROUTES } from 'routes/enums';
+import { useGetUsersQuery } from 'shared/api';
 import { useAppDispatch, useAppSelector } from 'store';
 
 const DEFAULT_USERS_PAGE_LIMIT = 5;
 
 export const Admin: FC = () => {
+  const { t } = useTranslation();
   const userAccess = useAppSelector(selectUserAccess);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -94,12 +96,12 @@ export const Admin: FC = () => {
       navigate(APP_ROUTES.MAIN);
       dispatch(
         setError({
-          title: 'Not allowed',
-          message: 'You are not allowed to access this resource',
+          title: t('error_title_userAccess'),
+          message: t('error_message_userAccess'),
         }),
       );
     }
-  }, [dispatch, navigate, userAccess]);
+  }, [dispatch, navigate, t, userAccess]);
 
   return (
     <Container>
@@ -121,15 +123,15 @@ export const Admin: FC = () => {
                       size="xs"
                       onChange={onUsersChange}
                       checked={usersChecked}
-                      title="Toggle all"
+                      title={t('button_title_toggleAll')}
                     />
                   </th>
                   <th>#</th>
                   <th>Id</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Access</th>
-                  <th>Status</th>
+                  <th>{t('label_name')}</th>
+                  <th>{t('label_email')}</th>
+                  <th>{t('title_access')}</th>
+                  <th>{t('title_status')}</th>
                 </tr>
               </thead>
               <tbody>{rows}</tbody>
@@ -139,7 +141,7 @@ export const Admin: FC = () => {
           <Group position="apart">
             {total > 1 && (
               <Pagination
-                title="Choose page"
+                title={t('button_title_choosePage')}
                 total={total}
                 size="sm"
                 page={page}
@@ -148,7 +150,7 @@ export const Admin: FC = () => {
               />
             )}
             <Select
-              title="Choose limit"
+              title={t('button_title_pageSize')}
               size="xs"
               style={{ width: '70px' }}
               value={String(limit)}
