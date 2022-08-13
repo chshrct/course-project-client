@@ -84,8 +84,10 @@ export const Admin: FC = () => {
             <td>{id}</td>
             <td>{name}</td>
             <td>{email}</td>
-            <td>{access}</td>
-            <td>{status}</td>
+            <td>{t(access === 'admin' ? 'text_access_admin' : 'text_access_basic')}</td>
+            <td>
+              {t(status === 'active' ? 'text_access_active' : 'text_access_blocked')}
+            </td>
           </tr>
         );
       })

@@ -50,6 +50,10 @@ const resources = {
       error_message_accountExists: 'You can sign up to create new account',
       error_title_emailTaken: 'Email allready taken',
       error_message_emailTaken: 'If its your email you can sign in',
+      text_access_admin: 'admin',
+      text_access_basic: 'basic user',
+      text_access_active: 'active',
+      text_access_blocked: 'blocked',
     },
   },
   ru: {
@@ -97,6 +101,10 @@ const resources = {
       error_message_accountExists: 'Вам нужно зарегистрироваться в системе',
       error_title_emailTaken: 'Почтовый адрес занят',
       error_message_emailTaken: 'Если это ваш почтовый адрес, вы можете войти в систему',
+      text_access_admin: 'администратор',
+      text_access_basic: 'обычный пользователь',
+      text_access_active: 'активен',
+      text_access_blocked: 'заблокирован',
     },
   },
 };
