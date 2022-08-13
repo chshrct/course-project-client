@@ -2,7 +2,7 @@ import { ColorScheme } from '@mantine/core';
 
 import { LanguageType } from './types';
 
-import { UserAccessType } from 'shared/api/types';
+import { UserAccessType } from 'shared/api';
 import { RootState } from 'store';
 
 export const selectColorScheme = (state: RootState): ColorScheme => state.app.colorScheme;

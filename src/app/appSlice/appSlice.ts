@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppStateType, ErrorType } from './types';
 
-import { appApi } from 'shared/api';
+import { authApi } from 'shared/api/auth/authApi';
 
 const initialState: AppStateType = {
   colorScheme: 'light',
@@ -48,7 +48,7 @@ export const appSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addMatcher(
-      appApi.endpoints.authCheck.matchFulfilled,
+      authApi.endpoints.authCheck.matchFulfilled,
       (state, { payload: { access, id, name } }) => {
         state.userData.access = access;
         state.userData.id = id;
@@ -56,7 +56,7 @@ export const appSlice = createSlice({
       },
     );
     builder.addMatcher(
-      appApi.endpoints.signIn.matchFulfilled,
+      authApi.endpoints.signIn.matchFulfilled,
       (state, { payload: { access, id, name, token } }) => {
         state.userData.access = access;
         state.userData.id = id;

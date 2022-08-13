@@ -1,6 +1,6 @@
 import { ColorScheme } from '@mantine/core';
 
-import { UserAccessType } from 'shared/api/types';
+import { UserAccessType } from 'shared/api';
 
 export type LanguageType = 'ru' | 'en';
 
