@@ -17,20 +17,14 @@ export type GetAllUsersResponseBodyType = {
   users: UserType[];
   count: number;
 };
+export type UpdateUsersRequestBodyType = {
+  pageInfo: GetAllUsersRequestQueryType;
+  userIds: string[];
+  update: { access?: UserAccessType; status?: UserStatusType };
+};
 
-export type UpdateUsersStatusRequestBodyType = GetAllUsersRequestQueryType & {
-  userIds: string[];
-  status: UserStatusType;
-};
-export type UpdateUsersStatusResponseBodyType = {
-  status: UserStatusType;
-};
-export type UpdateUsersAccessRequestBodyType = GetAllUsersRequestQueryType & {
-  userIds: string[];
-  access: UserAccessType;
-};
-export type UpdateUsersAccessResponseBodyType = {
-  access: UserAccessType;
+export type UpdateUsersResponseBodyType = {
+  users: UserType[];
 };
 
 export type DeleteUsersRequestBodyType = GetAllUsersRequestQueryType & {

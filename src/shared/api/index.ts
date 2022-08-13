@@ -2,9 +2,8 @@ export { appApi } from './appApi';
 export { useLazyAuthCheckQuery, useSignInMutation, useSignUpMutation } from './auth';
 export {
   useGetUsersQuery,
-  useUpdateUsersStatusMutation,
   useDeleteUsersMutation,
-  useUpdateUsersAccessMutation,
+  useUpdateUsersMutation,
 } from './users';
 
 export type { TokenPayloadType, UserAccessType, UserStatusType } from './auth';

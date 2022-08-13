@@ -4,12 +4,8 @@ import { ActionIcon, Button, Group } from '@mantine/core';
 import { IconLock, IconLockOpen } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 
-import { selectUserId, setUserAccessBasic, signOut } from 'app';
-import {
-  useDeleteUsersMutation,
-  useUpdateUsersAccessMutation,
-  useUpdateUsersStatusMutation,
-} from 'shared/api';
+import { selectUserId, setError, setUserAccessBasic, signOut } from 'app';
+import { useDeleteUsersMutation, useUpdateUsersMutation } from 'shared/api';
 import { useAppDispatch, useAppSelector } from 'store';
 
 type PropsType = {
@@ -27,19 +23,15 @@ export const AdminToolbar: FC<PropsType> = ({
 }) => {
   const { t } = useTranslation();
   const [
-    updateUsersStatus,
-    { data: statusData, isLoading: isStatusLoading, isSuccess: isStatusSuccess },
-  ] = useUpdateUsersStatusMutation();
-  const [
-    updateUsersAccess,
-    { data: accessData, isLoading: isAccessLoading, isSuccess: isAccessSuccess },
-  ] = useUpdateUsersAccessMutation();
+    updateUsers,
+    { data: usersData, isLoading: isUpdateLoading, isSuccess: isUpdateSuccess },
+  ] = useUpdateUsersMutation();
+
   const [deleteUsers, { isLoading: isDeleteLoading, isSuccess: isDeleteSuccess }] =
     useDeleteUsersMutation();
   const dispatch = useAppDispatch();
   const signedInUserId = useAppSelector(selectUserId);
-  const isDisabled =
-    userIds.length === 0 || isStatusLoading || isAccessLoading || isDeleteLoading;
+  const isDisabled = userIds.length === 0 || isUpdateLoading || isDeleteLoading;
 
   useEffect(() => {
     if (isDeleteSuccess) {
@@ -49,37 +41,47 @@ export const AdminToolbar: FC<PropsType> = ({
 
   useEffect(() => {
     if (isDeleteSuccess) {
-      if (userIds.includes(signedInUserId)) dispatch(signOut());
-    }
-  }, [dispatch, isDeleteSuccess, setSelectedUserIds, signedInUserId, userIds]);
-
-  useEffect(() => {
-    if (isAccessSuccess && accessData) {
-      if (userIds.includes(signedInUserId) && accessData.access === 'basic')
-        dispatch(setUserAccessBasic());
-    }
-  }, [accessData, dispatch, isAccessSuccess, signedInUserId, userIds]);
-
-  useEffect(() => {
-    if (isStatusSuccess && statusData) {
-      if (userIds.includes(signedInUserId) && statusData.status === 'blocked')
+      if (userIds.includes(signedInUserId)) {
+        dispatch(
+          setError({
+            title: t('error_title_accountExists'),
+            message: t('error_message_accountExists'),
+          }),
+        );
         dispatch(signOut());
+      }
     }
-  }, [statusData, dispatch, isStatusSuccess, signedInUserId, userIds]);
+  }, [dispatch, isDeleteSuccess, setSelectedUserIds, signedInUserId, t, userIds]);
+
+  useEffect(() => {
+    if (isUpdateSuccess && usersData) {
+      if (userIds.includes(signedInUserId) && usersData.users[0].access === 'basic')
+        dispatch(setUserAccessBasic());
+      if (userIds.includes(signedInUserId) && usersData.users[0].status === 'blocked') {
+        dispatch(
+          setError({
+            title: t('error_title_userStatus'),
+            message: t('error_message_userStatus'),
+          }),
+        );
+        dispatch(signOut());
+      }
+    }
+  }, [dispatch, isUpdateSuccess, signedInUserId, t, userIds, usersData]);
 
   const onBlockUsersClick = (): void => {
-    updateUsersStatus({ userIds, status: 'blocked', limit, page });
+    updateUsers({ userIds, update: { status: 'blocked' }, pageInfo: { limit, page } });
   };
   const onUnblockUsersClick = (): void => {
-    updateUsersStatus({ userIds, status: 'active', limit, page });
+    updateUsers({ userIds, update: { status: 'active' }, pageInfo: { limit, page } });
   };
 
   const onAdminUsersClick = (): void => {
-    updateUsersAccess({ userIds, access: 'admin', limit, page });
+    updateUsers({ userIds, update: { access: 'admin' }, pageInfo: { limit, page } });
   };
 
   const onBasicUsersClick = (): void => {
-    updateUsersAccess({ userIds, access: 'basic', limit, page });
+    updateUsers({ userIds, update: { access: 'basic' }, pageInfo: { limit, page } });
   };
   const onDeleteUsersClick = (): void => {
     deleteUsers({ userIds, limit, page });
@@ -107,16 +109,7 @@ export const AdminToolbar: FC<PropsType> = ({
       >
         <IconLockOpen size={18} />
       </ActionIcon>
-      <Button
-        variant="filled"
-        color="red"
-        size="xs"
-        title={t('button_title_deleteUser')}
-        disabled={isDisabled}
-        onClick={onDeleteUsersClick}
-      >
-        {t('button_text_delete')}
-      </Button>
+
       <Button
         variant="filled"
         size="xs"
@@ -136,6 +129,16 @@ export const AdminToolbar: FC<PropsType> = ({
         onClick={onBasicUsersClick}
       >
         {t('button_text_basic')}
+      </Button>
+      <Button
+        variant="filled"
+        color="red"
+        size="xs"
+        title={t('button_title_deleteUser')}
+        disabled={isDisabled}
+        onClick={onDeleteUsersClick}
+      >
+        {t('button_text_delete')}
       </Button>
     </Group>
   );

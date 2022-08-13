@@ -1,16 +1,6 @@
 export {
   useDeleteUsersMutation,
   useGetUsersQuery,
-  useUpdateUsersAccessMutation,
-  useUpdateUsersStatusMutation,
+  useUpdateUsersMutation,
 } from './usersApi';
-export type {
-  DeleteUsersRequestBodyType,
-  GetAllUsersRequestQueryType,
-  GetAllUsersResponseBodyType,
-  UpdateUsersAccessRequestBodyType,
-  UpdateUsersAccessResponseBodyType,
-  UpdateUsersStatusRequestBodyType,
-  UpdateUsersStatusResponseBodyType,
-  UserType,
-} from './types';
+export type { UserType } from './types';

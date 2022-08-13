@@ -93,7 +93,7 @@ const resources = {
       button_text_basic: 'Обычный пользователь',
       error_title_userStatus: 'Аккаунт заблокирован',
       error_message_userStatus: 'Свяжитесь с администратором',
-      error_title_accountExists: 'Аккаунт не создан',
+      error_title_accountExists: 'Аккаунт отсутствует',
       error_message_accountExists: 'Вам нужно зарегистрироваться в системе',
       error_title_emailTaken: 'Почтовый адрес занят',
       error_message_emailTaken: 'Если это ваш почтовый адрес, вы можете войти в систему',

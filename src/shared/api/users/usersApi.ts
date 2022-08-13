@@ -5,10 +5,8 @@ import {
   DeleteUsersRequestBodyType,
   GetAllUsersRequestQueryType,
   GetAllUsersResponseBodyType,
-  UpdateUsersAccessRequestBodyType,
-  UpdateUsersAccessResponseBodyType,
-  UpdateUsersStatusRequestBodyType,
-  UpdateUsersStatusResponseBodyType,
+  UpdateUsersRequestBodyType,
+  UpdateUsersResponseBodyType,
 } from './types';
 
 export const usersApi = appApi.injectEndpoints({
@@ -20,49 +18,22 @@ export const usersApi = appApi.injectEndpoints({
       }),
       providesTags: ['USERS'],
     }),
-    updateUsersStatus: builder.mutation<
-      UpdateUsersStatusResponseBodyType,
-      UpdateUsersStatusRequestBodyType
+    updateUsers: builder.mutation<
+      UpdateUsersResponseBodyType,
+      UpdateUsersRequestBodyType
     >({
       query: body => ({
-        url: '/user/status',
-        method: 'POST',
+        url: '/user',
+        method: 'PUT',
         body,
       }),
-      async onQueryStarted(
-        { userIds, status, limit, page },
-        { dispatch, queryFulfilled },
-      ) {
-        dispatch(
-          usersApi.util.updateQueryData('getUsers', { limit, page }, draft => {
-            draft.users.forEach(user => {
-              if (userIds.includes(user.id)) Object.assign(user, { status });
-            });
-          }),
-        );
+      async onQueryStarted({ pageInfo, update, userIds }, { dispatch, queryFulfilled }) {
+        const { limit, page } = pageInfo;
 
-        queryFulfilled.catch(() => {
-          dispatch(appApi.util.invalidateTags(['USERS']));
-        });
-      },
-    }),
-    updateUsersAccess: builder.mutation<
-      UpdateUsersAccessResponseBodyType,
-      UpdateUsersAccessRequestBodyType
-    >({
-      query: body => ({
-        url: '/user/access',
-        method: 'POST',
-        body,
-      }),
-      async onQueryStarted(
-        { userIds, access, limit, page },
-        { dispatch, queryFulfilled },
-      ) {
         dispatch(
           usersApi.util.updateQueryData('getUsers', { limit, page }, draft => {
             draft.users.forEach(user => {
-              if (userIds.includes(user.id)) Object.assign(user, { access });
+              if (userIds.includes(user.id)) Object.assign(user, update);
             });
           }),
         );
@@ -94,9 +65,5 @@ export const usersApi = appApi.injectEndpoints({
   }),
 });
 
-export const {
-  useGetUsersQuery,
-  useUpdateUsersStatusMutation,
-  useUpdateUsersAccessMutation,
-  useDeleteUsersMutation,
-} = usersApi;
+export const { useGetUsersQuery, useDeleteUsersMutation, useUpdateUsersMutation } =
+  usersApi;
