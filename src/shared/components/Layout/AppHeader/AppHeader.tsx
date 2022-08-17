@@ -17,6 +17,8 @@ import {
   IconMoonStars,
   IconSearch,
   IconSun,
+  IconTableOptions,
+  IconUser,
 } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +31,7 @@ import {
   selectIsDark,
   selectIsEnglish,
   selectIsSignedIn,
+  selectUserId,
   signOut,
   toggleColorScheme,
   toggleLocale,
@@ -40,6 +43,7 @@ export const AppHeader: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const userId = useAppSelector(selectUserId);
   const isSignedIn = useAppSelector(selectIsSignedIn);
   const isAdmin = useAppSelector(selectIsAdmin);
   const isDark = useAppSelector(selectIsDark);
@@ -53,25 +57,31 @@ export const AppHeader: FC = () => {
   }, [i18n, isEnglish]);
 
   return (
-    <Header height={52} p="sm" style={{ position: 'fixed' }}>
+    <Header height={52} p="sm">
       <Container>
         <Group align="center" position="apart" noWrap>
-          <ActionIcon
-            variant="transparent"
-            onClick={() => navigate(APP_ROUTES.MAIN)}
-            title={t('button_title_homePage')}
-            size={30}
-          >
-            <IconHome size={18} />
-          </ActionIcon>
-          <Group spacing="xs">
-            <Button
-              color={isDark ? 'gray' : 'dark'}
-              variant="default"
-              size="xs"
-              p={5}
-              title={t('button_search')}
+          <Group spacing="xs" align="center" position="left">
+            <ActionIcon
+              variant="transparent"
+              onClick={() => navigate(APP_ROUTES.MAIN)}
+              title={t('button_title_homePage')}
+              size={30}
             >
+              <IconHome size={18} />
+            </ActionIcon>
+            {isSignedIn && (
+              <ActionIcon
+                variant="transparent"
+                onClick={() => navigate(`${APP_ROUTES.USER}/${userId}`)}
+                title={t('button_title_userPage')}
+                size={30}
+              >
+                <IconUser size={18} />
+              </ActionIcon>
+            )}
+          </Group>
+          <Group spacing="xs">
+            <Button color={isDark ? 'gray' : 'dark'} variant="default" size="xs" p={5}>
               <Group position="right">
                 <IconSearch size={16} color="gray" />
                 <MediaQuery smallerThan="xs" styles={{ display: 'none' }}>
@@ -106,16 +116,14 @@ export const AppHeader: FC = () => {
               )}
             </ActionIcon>
             {isAdmin && (
-              <Button
+              <ActionIcon
                 variant="default"
-                color={isDark ? 'gray' : 'dark'}
-                size="xs"
-                p={5}
-                title={t('button_adminPanel')}
                 onClick={() => navigate(APP_ROUTES.ADMIN)}
+                size={30}
+                title={t('button_adminPanel')}
               >
-                {t('button_adminPanel')}
-              </Button>
+                <IconTableOptions size={18} />
+              </ActionIcon>
             )}
             {isSignedIn ? (
               <Button
@@ -123,7 +131,6 @@ export const AppHeader: FC = () => {
                 color={isDark ? 'gray' : 'dark'}
                 size="xs"
                 p={5}
-                title={t('button_signOut')}
                 onClick={() => dispatch(signOut())}
               >
                 {t('button_signOut')}
@@ -134,7 +141,6 @@ export const AppHeader: FC = () => {
                 color={isDark ? 'gray' : 'dark'}
                 size="xs"
                 p={5}
-                title={t('button_signIn')}
                 onClick={() => setOpened(true)}
               >
                 {t('button_signIn')}

@@ -4,7 +4,17 @@ export {
   useGetUsersQuery,
   useDeleteUsersMutation,
   useUpdateUsersMutation,
+  useLazyGetUserNameQuery,
 } from './users';
+export {
+  fileUploadApi,
+  useUploadImageMutation,
+  useCreateCollectionMutation,
+  useGetTopicsQuery,
+  useGetUserCollectionsQuery,
+  useDeleteCollectionMutation,
+  useUpdateCollectionMutation,
+} from './collections';
 
 export type { TokenPayloadType, UserAccessType, UserStatusType } from './auth';
 

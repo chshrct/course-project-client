@@ -134,7 +134,6 @@ export const AdminToolbar: FC<PropsType> = ({
         variant="filled"
         color="red"
         size="xs"
-        title={t('button_title_deleteUser')}
         disabled={isDisabled}
         onClick={onDeleteUsersClick}
       >

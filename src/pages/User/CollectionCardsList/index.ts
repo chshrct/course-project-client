@@ -1,0 +1,1 @@
+export { CollectionCardsList } from './CollectionCardsList';

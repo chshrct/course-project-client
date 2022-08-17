@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { AdminToolbar } from './AdminToolbar';
+import s from './style/Admin.module.css';
 
 import { selectUserAccess, setError } from 'app';
 import { APP_ROUTES } from 'routes/enums';
@@ -107,15 +108,15 @@ export const Admin: FC = () => {
 
   return (
     <Container>
-      <Center style={{ minHeight: '100vh' }}>
-        <Stack style={{ width: '100%' }}>
+      <Center className={s.conteinerHeight}>
+        <Stack className={s.widthFull}>
           <AdminToolbar
             userIds={selectedUserIds}
             page={page}
             limit={limit}
             setSelectedUserIds={setSelectedUserIds}
           />
-          <Stack style={{ position: 'relative' }}>
+          <Stack className={s.positionRelative}>
             <LoadingOverlay visible={isUsersFetching} overlayBlur={2} />
             <Table striped highlightOnHover>
               <thead>
@@ -154,7 +155,7 @@ export const Admin: FC = () => {
             <Select
               title={t('button_title_pageSize')}
               size="xs"
-              style={{ width: '70px' }}
+              className={s.width70}
               value={String(limit)}
               onChange={onLimitChange}
               data={[

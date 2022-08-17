@@ -1,0 +1,20 @@
+.cardWidth {
+    width: 300px;
+}
+
+.selectWidth {
+    width: 100px;
+}
+
+.positionRelative {
+    position: relative;
+}
+
+.positionAbsolute {
+    position: absolute;
+    z-index: 1;
+}
+
+.badgeHover:hover {
+    cursor: pointer;
+}

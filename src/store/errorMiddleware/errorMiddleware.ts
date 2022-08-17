@@ -33,6 +33,14 @@ export const errorMiddleware: Middleware = (api: MiddlewareAPI) => next => actio
           }),
         );
       }
+      if (action.payload.data.name === 'Name allready taken') {
+        api.dispatch(
+          setError({
+            title: i18n.t('error_title_nameTaken'),
+            message: i18n.t('error_message_nameTaken'),
+          }),
+        );
+      }
       if (action.payload.data.name === 'You are not allowed to access this resource') {
         api.dispatch(
           setError({

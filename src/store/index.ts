@@ -5,7 +5,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { errorMiddleware } from './errorMiddleware';
 
 import { appReducer } from 'app/appSlice/appSlice';
-import { appApi } from 'shared/api';
+import { appApi, fileUploadApi } from 'shared/api';
 import { loadState, saveItem } from 'shared/utils';
 
 const SAVE_THROTTLE = 1000;
@@ -15,11 +15,15 @@ const preloadedState = loadState();
 export const store = configureStore({
   reducer: {
     [appApi.reducerPath]: appApi.reducer,
+    [fileUploadApi.reducerPath]: fileUploadApi.reducer,
     app: appReducer,
   },
   preloadedState,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(appApi.middleware).concat(errorMiddleware),
+    getDefaultMiddleware()
+      .concat(appApi.middleware)
+      .concat(fileUploadApi.middleware)
+      .concat(errorMiddleware),
 });
 
 store.subscribe(

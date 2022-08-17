@@ -3,6 +3,8 @@ import { FC, useEffect, useRef } from 'react';
 import { LoadingOverlay, MantineProvider, Notification } from '@mantine/core';
 import { IconX } from '@tabler/icons';
 
+import s from './style/App.module.css';
+
 import {
   selectColorScheme,
   selectErrorMessage,
@@ -60,7 +62,7 @@ export const App: FC = () => {
       {errorTitle && (
         <Notification
           p="sm"
-          style={{ position: 'fixed', bottom: 10, right: 10, zIndex: 999999 }}
+          className={s.notification}
           title={errorTitle}
           icon={<IconX size={18} />}
           color="red"

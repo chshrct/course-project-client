@@ -13,17 +13,22 @@ export const usersApi = appApi.injectEndpoints({
   endpoints: builder => ({
     getUsers: builder.query<GetAllUsersResponseBodyType, GetAllUsersRequestQueryType>({
       query: params => ({
-        url: '/user',
+        url: '/users',
         params,
       }),
       providesTags: ['USERS'],
+    }),
+    getUserName: builder.query<{ name: string }, { id: string }>({
+      query: ({ id }) => ({
+        url: `/users/${id}`,
+      }),
     }),
     updateUsers: builder.mutation<
       UpdateUsersResponseBodyType,
       UpdateUsersRequestBodyType
     >({
       query: body => ({
-        url: '/user',
+        url: '/users',
         method: 'PUT',
         body,
       }),
@@ -45,7 +50,7 @@ export const usersApi = appApi.injectEndpoints({
     }),
     deleteUsers: builder.mutation<void, DeleteUsersRequestBodyType>({
       query: body => ({
-        url: '/user',
+        url: '/users',
         method: 'DELETE',
         body,
       }),
@@ -65,5 +70,9 @@ export const usersApi = appApi.injectEndpoints({
   }),
 });
 
-export const { useGetUsersQuery, useDeleteUsersMutation, useUpdateUsersMutation } =
-  usersApi;
+export const {
+  useGetUsersQuery,
+  useDeleteUsersMutation,
+  useUpdateUsersMutation,
+  useLazyGetUserNameQuery,
+} = usersApi;

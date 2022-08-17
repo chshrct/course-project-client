@@ -4,4 +4,7 @@ export enum APP_ROUTES {
   INDEX = '/',
   MAIN = '/main',
   ADMIN = '/admin',
+  USER = '/user',
+  ID = ':id',
+  COLLECTION = '/collection',
 }

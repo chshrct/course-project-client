@@ -36,7 +36,7 @@ export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
     },
 
     validate: {
-      name: value => (value ? null : t('error_name')),
+      name: value => (value ? null : t('error_required')),
       email: value => (/^\S+@\S+$/.test(value) ? null : t('error_email')),
       password: value => (value.length >= PASSWORD_LENGTH ? null : t('error_password')),
       confirmPassword: (value, values) =>
