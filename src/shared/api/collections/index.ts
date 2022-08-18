@@ -5,4 +5,5 @@ export {
   useGetUserCollectionsQuery,
   useDeleteCollectionMutation,
   useUpdateCollectionMutation,
+  useLazyGetCollectionQuery,
 } from './collectionsApi';

@@ -22,6 +22,7 @@ export const BadgesList: FC<PropsType> = ({ topics }) => {
           color={topicBadgeColorPicker(topic)}
           ml={3}
           title={t('title_topic')}
+          size="sm"
         >
           {topic}
         </Badge>

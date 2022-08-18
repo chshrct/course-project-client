@@ -14,6 +14,7 @@ export {
   useGetUserCollectionsQuery,
   useDeleteCollectionMutation,
   useUpdateCollectionMutation,
+  useLazyGetCollectionQuery,
 } from './collections';
 
 export type { TokenPayloadType, UserAccessType, UserStatusType } from './auth';

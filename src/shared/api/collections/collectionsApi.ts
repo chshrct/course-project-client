@@ -1,35 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-param-reassign */
-import { method } from 'lodash';
 
 import { appApi } from '../appApi';
 
 import {
-  CreateCollectionRequestBodyType,
-  CreateCollectionResponseBodyType,
-  GetUserCollectionsResponseBodyType,
+  CollectionResponseType,
+  CreateCollectionRequestType,
+  CreateCollectionResponseType,
+  GetUserCollectionsResponseType,
   UpdateCollectionRequestBodyType,
   UpdateCollectionRequestParamType,
 } from './types';
 
 export const collectionsApi = appApi.injectEndpoints({
   endpoints: builder => ({
-    getUserCollections: builder.query<
-      GetUserCollectionsResponseBodyType,
-      { userId: string }
-    >({
-      query: ({ userId }) => ({
-        url: `/collections/${userId}`,
+    getCollection: builder.query<CollectionResponseType, { id: string }>({
+      query: ({ id }) => ({
+        url: `/collections/${id}`,
       }),
     }),
+    getUserCollections: builder.query<GetUserCollectionsResponseType, { userId: string }>(
+      {
+        query: ({ userId }) => ({
+          url: `/collections/user/${userId}`,
+        }),
+      },
+    ),
     getTopics: builder.query<string[], void>({
       query: () => ({
         url: '/topics',
       }),
     }),
     createCollection: builder.mutation<
-      CreateCollectionResponseBodyType,
-      CreateCollectionRequestBodyType
+      CreateCollectionResponseType,
+      CreateCollectionRequestType
     >({
       query: body => ({
         url: '/collections',
@@ -124,4 +127,5 @@ export const {
   useGetUserCollectionsQuery,
   useDeleteCollectionMutation,
   useUpdateCollectionMutation,
+  useLazyGetCollectionQuery,
 } = collectionsApi;

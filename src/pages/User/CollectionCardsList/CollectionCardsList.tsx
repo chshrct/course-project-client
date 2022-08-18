@@ -2,12 +2,12 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 
 import {
   CollectionType,
-  GetUserCollectionsResponseBodyType,
+  GetUserCollectionsResponseType,
 } from 'shared/api/collections/types';
 import { CollectionCard } from 'shared/components';
 
 type PropsType = {
-  collectionsData: GetUserCollectionsResponseBodyType;
+  collectionsData: GetUserCollectionsResponseType;
   setCollectionForEdit: Dispatch<SetStateAction<CollectionType | null>>;
   setShowForm: Dispatch<SetStateAction<boolean>>;
 };

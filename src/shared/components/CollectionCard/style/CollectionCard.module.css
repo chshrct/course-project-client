@@ -18,3 +18,8 @@
 .badgeHover:hover {
     cursor: pointer;
 }
+
+.whitespace {
+    white-space: pre-line;
+    overflow-wrap: break-word;
+}

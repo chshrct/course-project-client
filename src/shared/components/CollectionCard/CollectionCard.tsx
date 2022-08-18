@@ -123,7 +123,7 @@ export const CollectionCard: FC<PropsType> = ({
       </Card.Section>
       <Card.Section p="xs">
         <Text size="sm" lineClamp={4}>
-          <ReactMarkdown className="mdWrap">{description}</ReactMarkdown>
+          <ReactMarkdown className={s.whitespace}>{description}</ReactMarkdown>
         </Text>
       </Card.Section>
       {itemFields.length > 0 && <ItemsFieldsAccordion itemFields={itemFields} />}

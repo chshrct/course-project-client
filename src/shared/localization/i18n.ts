@@ -88,6 +88,8 @@ const resources = {
       modal_submit_text_edit: 'Save',
       modal_submit_text_create: 'Create',
       imageDrop_text: 'Drag image here or click to select file',
+      text_spoilerClosed: 'Show more',
+      text_spoilnerOpened: 'Hide',
     },
   },
   ru: {
@@ -173,6 +175,8 @@ const resources = {
       modal_submit_text_edit: 'Сохранить',
       modal_submit_text_create: 'Создать',
       imageDrop_text: 'Перетащите изображение или нажмите и выберите файл',
+      text_spoilerClosed: 'Показать больше',
+      text_spoilnerOpened: 'Спрятать',
     },
   },
 };

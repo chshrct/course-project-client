@@ -11,18 +11,18 @@ import { MutationActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/bu
 import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 
 import {
-  CreateCollectionRequestBodyType,
-  CreateCollectionResponseBodyType,
+  CreateCollectionRequestType,
+  CreateCollectionResponseType,
   UpdateCollectionRequestBodyType,
   UpdateCollectionRequestParamType,
 } from 'shared/api/collections/types';
 
 export type CreateCollection = MutationTrigger<
   MutationDefinition<
-    CreateCollectionRequestBodyType,
+    CreateCollectionRequestType,
     BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>,
     'USERS',
-    CreateCollectionResponseBodyType,
+    CreateCollectionResponseType,
     'appApi'
   >
 >;
@@ -30,13 +30,13 @@ export type CreateCollection = MutationTrigger<
 export type CreateCollectionFormType = UseFormReturnType<CollectionFormInitialValuesType>;
 
 export type CreateCollectionType = (
-  arg: CreateCollectionRequestBodyType,
+  arg: CreateCollectionRequestType,
 ) => MutationActionCreatorResult<
   MutationDefinition<
-    CreateCollectionRequestBodyType,
+    CreateCollectionRequestType,
     BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>,
     'USERS',
-    CreateCollectionResponseBodyType,
+    CreateCollectionResponseType,
     'appApi'
   >
 >;
