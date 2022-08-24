@@ -1,23 +1,27 @@
 import { FC, useEffect } from 'react';
 
 import {
+  Anchor,
   Box,
   Button,
   Center,
   Checkbox,
   Group,
+  LoadingOverlay,
   PasswordInput,
   Space,
-  TextInput,
   Text,
-  Anchor,
-  LoadingOverlay,
+  TextInput,
 } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, yupResolver } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
+
+import s from './style/SignInForm.module.css';
 
 import { setRememberMe } from 'app';
 import { useSignInMutation } from 'shared/api';
+import { WithStar } from 'shared/components/WithStar';
 import { useAppDispatch } from 'store';
 
 type PropsType = {
@@ -32,17 +36,20 @@ export const SignInForm: FC<PropsType> = ({ setHasAccount, setOpened }) => {
   const { t } = useTranslation();
   const [signIn, { isSuccess, isLoading }] = useSignInMutation();
 
+  const signInSchema = Yup.object().shape({
+    email: Yup.string().email(t('error_email')).required(t('error_required')),
+    password: Yup.string()
+      .min(PASSWORD_LENGTH, t('error_password'))
+      .required(t('error_required')),
+  });
+
   const form = useForm({
     initialValues: {
       email: '',
       password: '',
       rememberMe: false,
     },
-
-    validate: {
-      email: value => (/^\S+@\S+$/.test(value) ? null : t('error_email')),
-      password: value => (value.length >= PASSWORD_LENGTH ? null : t('error_password')),
-    },
+    validate: yupResolver(signInSchema),
   });
 
   const { setValues } = form;
@@ -64,20 +71,18 @@ export const SignInForm: FC<PropsType> = ({ setHasAccount, setOpened }) => {
   };
 
   return (
-    <Box sx={{ maxWidth: 300 }} mx="auto">
+    <Box className={s.width300} mx="auto">
       <LoadingOverlay visible={isLoading} overlayBlur={2} />
 
       <form onSubmit={form.onSubmit(onSignInSubmit)}>
         <TextInput
-          required
-          label={t('label_email')}
+          label={<WithStar>{t('label_email')}</WithStar>}
           placeholder="your@email.com"
           {...form.getInputProps('email')}
         />
         <PasswordInput
-          required
           placeholder="123456"
-          label={t('label_password')}
+          label={<WithStar>{t('label_password')}</WithStar>}
           mt="md"
           {...form.getInputProps('password')}
         />

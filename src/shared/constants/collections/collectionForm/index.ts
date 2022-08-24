@@ -1,4 +1,4 @@
-import { CollectionFormInitialValuesType } from 'shared/components/CollectionForm/types';
+import { CollectionFormInitialValuesType } from 'pages/User/CollectionFormModal/CollectionForm/types';
 
 export const initialValuesForCreation: CollectionFormInitialValuesType = {
   title: '',

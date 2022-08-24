@@ -86,14 +86,6 @@ export const onSubmitHandler =
     });
   };
 
-export const getIsSubmitDisabled = (form: CreateCollectionFormType): boolean =>
-  !!form.errors.title ||
-  !!form.errors.description ||
-  !!form.errors.topics ||
-  !form.values.title ||
-  !form.values.description ||
-  !form.values.topics.length;
-
 export const getInitialValuesForEdit = (
   collection: CollectionType,
 ): CollectionFormInitialValuesType => {

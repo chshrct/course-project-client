@@ -6,13 +6,15 @@ import {
   Container,
   Group,
   LoadingOverlay,
+  NavLink,
   Pagination,
   Select,
   Stack,
   Table,
 } from '@mantine/core';
+import { IconChevronRight, IconUserCircle } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { AdminToolbar } from './AdminToolbar';
 import s from './style/Admin.module.css';
@@ -20,16 +22,16 @@ import s from './style/Admin.module.css';
 import { selectUserAccess, setError } from 'app';
 import { APP_ROUTES } from 'routes/enums';
 import { useGetUsersQuery } from 'shared/api';
+import { DEFAULT_PAGE_LIMIT } from 'shared/constants';
 import { useAppDispatch, useAppSelector } from 'store';
-
-const DEFAULT_USERS_PAGE_LIMIT = 5;
 
 export const Admin: FC = () => {
   const { t } = useTranslation();
   const userAccess = useAppSelector(selectUserAccess);
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
-  const [limit, setLimit] = useState(DEFAULT_USERS_PAGE_LIMIT);
+  const [limit, setLimit] = useState(DEFAULT_PAGE_LIMIT);
   const [page, setPage] = useState(1);
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
 
@@ -83,7 +85,16 @@ export const Admin: FC = () => {
             </td>
             <td>{userIndex}</td>
             <td>{id}</td>
-            <td>{name}</td>
+            <td>
+              <NavLink
+                label={name}
+                icon={<IconUserCircle size={16} stroke={1.5} />}
+                rightSection={<IconChevronRight size={12} stroke={1.5} />}
+                component={Link}
+                to={`${APP_ROUTES.USER}/${id}`}
+                active={location.pathname === `${APP_ROUTES.USER}/${id}`}
+              />
+            </td>
             <td>{email}</td>
             <td>{t(access === 'admin' ? 'text_access_admin' : 'text_access_basic')}</td>
             <td>

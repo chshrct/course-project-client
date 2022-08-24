@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { appApi } from '../appApi';
 
 import {
@@ -54,18 +53,7 @@ export const usersApi = appApi.injectEndpoints({
         method: 'DELETE',
         body,
       }),
-      async onQueryStarted({ userIds, limit, page }, { dispatch, queryFulfilled }) {
-        dispatch(
-          usersApi.util.updateQueryData('getUsers', { limit, page }, draft => {
-            draft.users = draft.users.filter(user => !userIds.includes(user.id));
-            draft.count -= userIds.length;
-          }),
-        );
-
-        queryFulfilled.catch(() => {
-          dispatch(appApi.util.invalidateTags(['USERS']));
-        });
-      },
+      invalidatesTags: ['USERS'],
     }),
   }),
 });

@@ -13,10 +13,11 @@ import {
   Textarea,
   TextInput,
 } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, yupResolver } from '@mantine/form';
 import { IconPlus } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import { useResetFormAndQuery, useSendFormOnImageUpload } from './hooks';
 import { ImageDrop } from './ImageDrop';
@@ -25,7 +26,6 @@ import s from './style/CollectionForm.module.css';
 import {
   addItemFieldHandler,
   getInitialValuesForEdit,
-  getIsSubmitDisabled,
   onSubmitHandler,
   setImageHandler,
 } from './utils';
@@ -37,6 +37,7 @@ import {
   useUploadImageMutation,
 } from 'shared/api';
 import { CollectionType } from 'shared/api/collections/types';
+import { WithStar } from 'shared/components';
 import { initialValuesForCreation } from 'shared/constants/collections/collectionForm';
 import { typesIcon } from 'shared/constants/collections/types-icons';
 
@@ -86,18 +87,18 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
     isCollectionLoading ||
     isUpdateCollectionLoading;
 
+  const collectionSchema = Yup.object().shape({
+    title: Yup.string().required(t('error_required')),
+    description: Yup.string().required(t('error_required')),
+    topics: Yup.array().min(1, t('error_topics')),
+  });
+
   const form = useForm({
     initialValues: editMode
       ? getInitialValuesForEdit(collection)
       : initialValuesForCreation,
-    validate: {
-      title: value => (value ? null : t('error_required')),
-      description: value => (value ? null : t('error_required')),
-      topics: value => (value.length ? null : t('error_required')),
-    },
+    validate: yupResolver(collectionSchema),
   });
-
-  const isSubmitDisabled = getIsSubmitDisabled(form);
 
   const onSubmit = onSubmitHandler(
     form,
@@ -134,29 +135,26 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
   };
 
   return (
-    <Box sx={{ maxWidth: 300 }} mx="auto">
+    <Box className={s.width300} mx="auto">
       <LoadingOverlay visible={isLoading} overlayBlur={2} />
       <form onSubmit={form.onSubmit(onSubmit)}>
         <TextInput
-          required
-          label={t('label_title')}
+          label={<WithStar>{t('label_title')}</WithStar>}
           placeholder={t('placeholder_title')}
           {...form.getInputProps('title')}
         />
         <Textarea
-          required
           mt="md"
-          label={t('label_description')}
+          label={<WithStar>{t('label_description')}</WithStar>}
           placeholder={t('placeholder_description')}
           autosize
           minRows={3}
           {...form.getInputProps('description')}
         />
         <MultiSelect
-          required
           mt="md"
           data={topicsData || []}
-          label={t('label_topics')}
+          label={<WithStar>{t('label_topics')}</WithStar>}
           placeholder={t('placeholder_topics')}
           {...form.getInputProps('topics')}
         />
@@ -195,7 +193,7 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
           </ActionIcon>
         </Group>
         <Group position="center" mt="md">
-          <Button type="submit" disabled={isSubmitDisabled}>
+          <Button type="submit">
             {editMode ? t('modal_submit_text_edit') : t('modal_submit_text_create')}
           </Button>
         </Group>

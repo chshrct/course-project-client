@@ -22,7 +22,6 @@ export const ImageDrop: FC<PropsType> = ({ image, setImage, ...props }) => {
       <Dropzone
         mt="md"
         onDrop={setImage}
-        onReject={files => console.log('rejected file', files[0])}
         maxSize={3 * 1024 ** 2}
         accept={IMAGE_MIME_TYPE}
         multiple={false}

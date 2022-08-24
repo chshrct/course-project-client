@@ -12,10 +12,14 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, yupResolver } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
+
+import s from './style/SignUpForm.module.css';
 
 import { useSignUpMutation } from 'shared/api';
+import { WithStar } from 'shared/components/WithStar';
 
 type PropsType = {
   setHasAccount: (val: boolean) => void;
@@ -27,6 +31,17 @@ export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
   const { t } = useTranslation();
   const [signUp, { isSuccess, isLoading }] = useSignUpMutation();
 
+  const signUpSchema = Yup.object().shape({
+    name: Yup.string().required(t('error_required')),
+    email: Yup.string().email(t('error_email')).required(t('error_required')),
+    password: Yup.string()
+      .min(PASSWORD_LENGTH, t('error_password'))
+      .required(t('error_required')),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], t('error_confirm_password'))
+      .required(t('error_required')),
+  });
+
   const form = useForm({
     initialValues: {
       name: '',
@@ -35,13 +50,7 @@ export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
       confirmPassword: '',
     },
 
-    validate: {
-      name: value => (value ? null : t('error_required')),
-      email: value => (/^\S+@\S+$/.test(value) ? null : t('error_email')),
-      password: value => (value.length >= PASSWORD_LENGTH ? null : t('error_password')),
-      confirmPassword: (value, values) =>
-        value === values.password ? null : t('error_confirm_password'),
-    },
+    validate: yupResolver(signUpSchema),
   });
 
   useEffect(() => {
@@ -55,34 +64,30 @@ export const SignUpForm: FC<PropsType> = ({ setHasAccount }) => {
   };
 
   return (
-    <Box sx={{ maxWidth: 300 }} mx="auto">
+    <Box className={s.width300} mx="auto">
       <LoadingOverlay visible={isLoading} overlayBlur={2} />
       <form onSubmit={form.onSubmit(onSignUpSubmit)}>
         <TextInput
-          required
-          label={t('label_name')}
+          label={<WithStar>{t('label_name')}</WithStar>}
           placeholder={t('placeholder_name')}
           {...form.getInputProps('name')}
         />
         <TextInput
           mt="md"
-          required
-          label={t('label_email')}
+          label={<WithStar>{t('label_email')}</WithStar>}
           placeholder="your@email.com"
           {...form.getInputProps('email')}
         />
         <PasswordInput
           mt="md"
-          required
           placeholder="123456"
-          label={t('label_password')}
+          label={<WithStar>{t('label_password')}</WithStar>}
           {...form.getInputProps('password')}
         />
         <PasswordInput
           mt="md"
-          required
           placeholder="123456"
-          label={t('label_confirm_password')}
+          label={<WithStar>{t('label_confirm_password')}</WithStar>}
           {...form.getInputProps('confirmPassword')}
         />
         <Group position="right" mt="md">

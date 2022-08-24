@@ -16,6 +16,14 @@ export {
   useUpdateCollectionMutation,
   useLazyGetCollectionQuery,
 } from './collections';
+export {
+  useCreateItemMutation,
+  useGetCollectionItemsQuery,
+  useDeleteItemsMutation,
+  useUpdateItemMutation,
+  useLazyGetItemQuery,
+} from './items';
+export { useGetTagsQuery } from './tags';
 
 export type { TokenPayloadType, UserAccessType, UserStatusType } from './auth';
 

@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
 import { Badge } from '@mantine/core';
-import { uniqueId } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { topicBadgeColorPicker } from 'shared/utils';
@@ -17,7 +16,7 @@ export const BadgesList: FC<PropsType> = ({ topics }) => {
     <>
       {topics.map(topic => (
         <Badge
-          key={uniqueId()}
+          key={topic}
           variant="filled"
           color={topicBadgeColorPicker(topic)}
           ml={3}

@@ -1,7 +1,6 @@
 import { FC, MouseEventHandler } from 'react';
 
 import { Accordion, Card, Group, Stack, Text } from '@mantine/core';
-import { uniqueId } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { FieldType } from 'shared/api/collections/types';
@@ -32,7 +31,7 @@ export const ItemsFieldsAccordion: FC<PropsType> = ({ itemFields }) => {
           <Accordion.Panel>
             <Stack spacing={3}>
               {itemFields.map(field => (
-                <Group key={uniqueId()} align="center">
+                <Group key={field.title} align="center">
                   <Group>
                     {typesIcon[`${field.type}`]}
                     <Text size="sm">{field.title}</Text>

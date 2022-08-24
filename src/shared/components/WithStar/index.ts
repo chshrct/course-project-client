@@ -1,0 +1,1 @@
+export { WithStar } from './WithStar';

@@ -5,7 +5,6 @@ import {
   Container,
   Group,
   LoadingOverlay,
-  Modal,
   Space,
   Title,
 } from '@mantine/core';
@@ -14,13 +13,13 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import { CollectionCardsList } from './CollectionCardsList';
+import { CollectionFormModal } from './CollectionFormModal';
 import s from './style/User.module.css';
 import { getGreetingMessage } from './utils';
 
 import { selectUserName } from 'app';
 import { useGetUserCollectionsQuery, useLazyGetUserNameQuery } from 'shared/api';
 import { CollectionType } from 'shared/api/collections/types';
-import { CollectionForm } from 'shared/components';
 import { useAppSelector } from 'store';
 
 export const User: FC = () => {
@@ -44,8 +43,6 @@ export const User: FC = () => {
     setCollectionForEdit(null);
     setShowForm(true);
   };
-
-  const onModalClose = (): void => setShowForm(false);
 
   return (
     <Container>
@@ -73,18 +70,11 @@ export const User: FC = () => {
           />
         )}
       </Group>
-      <Modal
-        opened={showForm}
-        onClose={onModalClose}
-        title={
-          collectionForEdit
-            ? t('modal_title_editCollection')
-            : t('modal_title_createCollection')
-        }
-        centered
-      >
-        <CollectionForm setShowForm={setShowForm} collection={collectionForEdit} />
-      </Modal>
+      <CollectionFormModal
+        collectionForEdit={collectionForEdit}
+        setShowForm={setShowForm}
+        showForm={showForm}
+      />
     </Container>
   );
 };

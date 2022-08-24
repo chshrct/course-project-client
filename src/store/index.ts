@@ -20,7 +20,9 @@ export const store = configureStore({
   },
   preloadedState,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware()
+    getDefaultMiddleware({
+      serializableCheck: false,
+    })
       .concat(appApi.middleware)
       .concat(fileUploadApi.middleware)
       .concat(errorMiddleware),

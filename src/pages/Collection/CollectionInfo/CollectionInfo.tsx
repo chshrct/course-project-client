@@ -36,9 +36,11 @@ export const CollectionInfo: FC<PropsType> = ({ collectionData }) => {
       <Space h="sm" />
       <Group align="flex-start" position="apart">
         <Stack spacing="xs" className={!image ? s.fullwidth : s.textWidth}>
-          <Title order={2} className={s.whitespace}>
-            {title}
-          </Title>
+          <Text lineClamp={2}>
+            <Title order={2} className={s.whitespace}>
+              {title}
+            </Title>
+          </Text>
           <Group spacing="xs">
             <BadgesList topics={topics || []} />
           </Group>
