@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 
-import { ActionIcon, Button, Group, Space } from '@mantine/core';
-import { IconEdit, IconPlus } from '@tabler/icons';
+import { ActionIcon, Button, Group, MultiSelect, Space, Stack } from '@mantine/core';
+import { IconEdit, IconHash, IconPlus } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 
 import { ItemFormModal } from './ItemFormModal';
@@ -12,13 +12,16 @@ import { GetCollectionItemsResponseType } from 'shared/api/items/types';
 
 type PropsType = {
   id: string;
-  selectedItemIds: string[];
   limit: number;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  selectedItemIds: string[];
   setSelectedItemIds: Dispatch<SetStateAction<string[]>>;
+  selectedTags: string[];
+  setSelectedTags: Dispatch<SetStateAction<string[]>>;
   collectionItemsData: GetCollectionItemsResponseType;
   itemFields: FieldType[];
+  tags: string[];
 };
 
 export const ItemsTableToolbar: FC<PropsType> = ({
@@ -30,6 +33,9 @@ export const ItemsTableToolbar: FC<PropsType> = ({
   setPage,
   collectionItemsData,
   itemFields,
+  tags,
+  selectedTags,
+  setSelectedTags,
 }) => {
   const [showForm, setShowForm] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -55,7 +61,7 @@ export const ItemsTableToolbar: FC<PropsType> = ({
   };
 
   return (
-    <Group spacing="xs" ml={-10}>
+    <Group spacing="xs" ml={-10} align="flex-start">
       <Space h="md" />
       <ActionIcon
         variant="default"
@@ -69,29 +75,43 @@ export const ItemsTableToolbar: FC<PropsType> = ({
         <IconPlus size={18} />
       </ActionIcon>
       {collectionItemsData.items.length !== 0 && (
-        <>
-          <ActionIcon
-            disabled={isEditDisabled}
-            variant="default"
-            title={t('button_title_editItem')}
-            size={30}
-            onClick={() => {
-              setEditMode(true);
-              setShowForm(true);
-            }}
-          >
-            <IconEdit size={18} />
-          </ActionIcon>
-          <Button
-            variant="filled"
-            color="red"
-            size="xs"
-            disabled={isDeleteDisabled}
-            onClick={onDeleteItemsClick}
-          >
-            {t('button_text_delete')}
-          </Button>
-        </>
+        <Stack spacing="xs">
+          <Group spacing="xs">
+            <ActionIcon
+              disabled={isEditDisabled}
+              variant="default"
+              title={t('button_title_editItem')}
+              size={30}
+              onClick={() => {
+                setEditMode(true);
+                setShowForm(true);
+              }}
+            >
+              <IconEdit size={18} />
+            </ActionIcon>
+            <Button
+              variant="filled"
+              color="red"
+              size="xs"
+              disabled={isDeleteDisabled}
+              onClick={onDeleteItemsClick}
+            >
+              {t('button_text_delete')}
+            </Button>
+          </Group>
+          <MultiSelect
+            size="sm"
+            onChange={setSelectedTags}
+            value={selectedTags}
+            icon={<IconHash size={15} />}
+            data={tags || []}
+            placeholder={t('label_tags')}
+            title={t('placeholder_text_filterByTags')}
+            searchable
+            clearable
+            maxDropdownHeight={120}
+          />
+        </Stack>
       )}
       <ItemFormModal
         collectionId={id}
@@ -101,6 +121,7 @@ export const ItemsTableToolbar: FC<PropsType> = ({
         itemFields={itemFields}
         limit={limit}
         page={page}
+        tags={tags}
       />
     </Group>
   );

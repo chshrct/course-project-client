@@ -2,7 +2,10 @@ import { ChangeEventHandler, Dispatch, FC, SetStateAction } from 'react';
 
 import { Checkbox } from '@mantine/core';
 
+import { SortSettingsType } from '../ItemsTable';
 import { formatFieldData } from '../utils';
+
+import { filterItems, sortItems } from './utils';
 
 import { GetCollectionItemsResponseType } from 'shared/api/items/types';
 
@@ -12,6 +15,8 @@ type PropsType = {
   setSelectedItemIds: Dispatch<SetStateAction<string[]>>;
   limit: number;
   page: number;
+  selectedTags: string[];
+  sortSettings: SortSettingsType;
 };
 
 export const ItemsTableRows: FC<PropsType> = ({
@@ -20,10 +25,15 @@ export const ItemsTableRows: FC<PropsType> = ({
   setSelectedItemIds,
   limit,
   page,
+  selectedTags,
+  sortSettings,
 }) => {
+  const filteredItems = filterItems(selectedTags, collectionItems);
+  const sortedAndFiltered = sortItems(sortSettings, filteredItems);
+
   return (
     <>
-      {collectionItems.items.map(({ id, tags, title, itemFields }, index) => {
+      {sortedAndFiltered.map(({ id, tags, title, itemFields }, index) => {
         const itemChecked = selectedItemIds.includes(id);
         const itemIndex = limit * (page - 1) + index + 1;
 

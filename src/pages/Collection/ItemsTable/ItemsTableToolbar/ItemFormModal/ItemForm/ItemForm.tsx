@@ -20,7 +20,6 @@ import s from './style/ItemForm.module.css';
 
 import {
   useCreateItemMutation,
-  useGetTagsQuery,
   useLazyGetItemQuery,
   useUpdateItemMutation,
 } from 'shared/api';
@@ -36,6 +35,7 @@ type PropsType = {
   limit: number;
   page: number;
   itemId: string | undefined;
+  tags: string[];
 };
 
 export const ItemForm: FC<PropsType> = ({
@@ -45,10 +45,10 @@ export const ItemForm: FC<PropsType> = ({
   limit,
   page,
   itemId,
+  tags,
 }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { data: tagsData, isFetching: isTagsFetching } = useGetTagsQuery();
   const [getItem, { data: itemData, isFetching: isGetItemFetching }] =
     useLazyGetItemQuery();
   const [
@@ -174,12 +174,7 @@ export const ItemForm: FC<PropsType> = ({
   return (
     <Box className={s.width300} mx="auto">
       <LoadingOverlay
-        visible={
-          isTagsFetching ||
-          isCreateItemLoading ||
-          isGetItemFetching ||
-          isUpdateItemLoading
-        }
+        visible={isCreateItemLoading || isGetItemFetching || isUpdateItemLoading}
         overlayBlur={2}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -205,7 +200,7 @@ export const ItemForm: FC<PropsType> = ({
                 value={value}
                 icon={<IconHash size={18} />}
                 label={<WithStar>{t('label_tags')}</WithStar>}
-                data={tagsData || []}
+                data={tags || []}
                 placeholder={t('placeholder_text_selectTags')}
                 searchable
                 creatable

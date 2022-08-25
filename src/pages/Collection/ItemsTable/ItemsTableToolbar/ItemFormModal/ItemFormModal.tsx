@@ -15,6 +15,7 @@ type PropsType = {
   limit: number;
   page: number;
   itemId: string | undefined;
+  tags: string[];
 };
 
 export const ItemFormModal: FC<PropsType> = ({
@@ -25,6 +26,7 @@ export const ItemFormModal: FC<PropsType> = ({
   limit,
   page,
   itemId,
+  tags,
 }) => {
   const { t } = useTranslation();
 
@@ -44,6 +46,7 @@ export const ItemFormModal: FC<PropsType> = ({
         limit={limit}
         page={page}
         itemId={itemId}
+        tags={tags}
       />
     </Modal>
   );

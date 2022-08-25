@@ -102,6 +102,9 @@ const resources = {
       placeholder_text_date: 'August 4, 2022',
       placeholder_text_text: 'Some text',
       placeholder_text_string: 'Some string',
+      placeholder_text_filterByTags: 'Filter by tags',
+      button_title_sortUp: 'Descending',
+      button_title_sortDown: 'Ascending',
     },
   },
   ru: {
@@ -201,6 +204,9 @@ const resources = {
       placeholder_text_date: 'Август 4, 2022',
       placeholder_text_text: 'Какой-то текст',
       placeholder_text_string: 'Какая-то строка',
+      placeholder_text_filterByTags: 'Отфильтровать по тегам',
+      button_title_sortUp: 'По убыванию',
+      button_title_sortDown: 'По возрастанию',
     },
   },
 };

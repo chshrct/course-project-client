@@ -6,6 +6,7 @@ export const tagsApi = appApi.injectEndpoints({
       query: () => ({
         url: '/tags',
       }),
+      providesTags: ['TAGS'],
     }),
   }),
 });

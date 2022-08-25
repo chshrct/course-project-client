@@ -22,6 +22,7 @@ export const itemsApi = appApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['TAGS'],
       async onQueryStarted({ pageInfo }, { dispatch, queryFulfilled }) {
         const {
           data: { id, itemFields, tags, title },
@@ -42,6 +43,7 @@ export const itemsApi = appApi.injectEndpoints({
         method: 'PATCH',
         body: payload,
       }),
+      invalidatesTags: ['TAGS'],
       async onQueryStarted({ id, pageInfo }, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
 
@@ -70,7 +72,7 @@ export const itemsApi = appApi.injectEndpoints({
         method: 'DELETE',
         body,
       }),
-      invalidatesTags: ['ITEMS'],
+      invalidatesTags: ['TAGS', 'ITEMS'],
     }),
   }),
 });

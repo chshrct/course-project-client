@@ -1,0 +1,1 @@
+export { ItemsTableHead } from './ItemsTableHead';
