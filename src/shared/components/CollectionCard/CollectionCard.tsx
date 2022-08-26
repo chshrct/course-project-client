@@ -106,6 +106,7 @@ export const CollectionCard: FC<PropsType> = ({
             variant="filled"
             color="cyan"
             ml={3}
+            mt={3}
             title={t('title_owner')}
             onClick={onOwnerBadgeClick}
           >

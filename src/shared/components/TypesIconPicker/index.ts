@@ -1,0 +1,1 @@
+export { TypesIconPicker } from './TypesIconPicker';

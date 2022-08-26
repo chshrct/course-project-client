@@ -1,12 +1,15 @@
 import { ChangeEventHandler, Dispatch, FC, SetStateAction } from 'react';
 
-import { Checkbox } from '@mantine/core';
+import { Box, Checkbox, Group, UnstyledButton } from '@mantine/core';
+import { IconChevronRight, IconFileDescription } from '@tabler/icons';
+import { useNavigate } from 'react-router-dom';
 
 import { SortSettingsType } from '../ItemsTable';
 import { formatFieldData } from '../utils';
 
 import { filterItems, sortItems } from './utils';
 
+import { APP_ROUTES } from 'routes/enums';
 import { GetCollectionItemsResponseType } from 'shared/api/items/types';
 
 type PropsType = {
@@ -30,6 +33,7 @@ export const ItemsTableRows: FC<PropsType> = ({
 }) => {
   const filteredItems = filterItems(selectedTags, collectionItems);
   const sortedAndFiltered = sortItems(sortSettings, filteredItems);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -49,7 +53,19 @@ export const ItemsTableRows: FC<PropsType> = ({
             </td>
             <td>{itemIndex}</td>
             <td>{id}</td>
-            <td>{title}</td>
+            <td>
+              <UnstyledButton onClick={() => navigate(`${APP_ROUTES.ITEM}/${id}`)}>
+                <Group noWrap align="center">
+                  <Box style={{ height: '16px' }}>
+                    <IconFileDescription size={16} stroke={1.5} />
+                  </Box>
+                  {title}
+                  <Box>
+                    <IconChevronRight size={12} stroke={1.5} />
+                  </Box>
+                </Group>
+              </UnstyledButton>
+            </td>
             {itemFields.length > 0 &&
               itemFields.map(field => (
                 <td key={field.title}>{formatFieldData(field.value, field.type)}</td>

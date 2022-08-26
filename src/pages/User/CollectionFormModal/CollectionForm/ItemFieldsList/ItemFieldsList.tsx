@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next';
 
 import { CollectionFormInitialValuesType } from '../types';
 
-import { typesIcon } from 'shared/constants/collections/types-icons';
+import { FieldTypesType } from 'shared/api/collections/types';
+import { TypesIconPicker } from 'shared/components/TypesIconPicker/TypesIconPicker';
 
 type PropsType = {
   form: UseFormReturnType<CollectionFormInitialValuesType>;
@@ -27,7 +28,7 @@ export const ItemFieldsList: FC<PropsType> = ({ form }) => {
       {form.values.itemFields.map(field => (
         <Group key={field.id} position="apart" align="center">
           <Group>
-            {typesIcon[`${field.type}`]}
+            <TypesIconPicker type={field.type as FieldTypesType} />
             <Text>{field.title}</Text>
           </Group>
           <ActionIcon

@@ -1,20 +1,21 @@
 import { ChangeEventHandler, FC, useEffect, useState } from 'react';
 
 import {
+  Box,
   Center,
   Checkbox,
   Container,
   Group,
   LoadingOverlay,
-  NavLink,
   Pagination,
   Select,
   Stack,
   Table,
+  UnstyledButton,
 } from '@mantine/core';
 import { IconChevronRight, IconUserCircle } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { AdminToolbar } from './AdminToolbar';
 import s from './style/Admin.module.css';
@@ -29,7 +30,6 @@ export const Admin: FC = () => {
   const { t } = useTranslation();
   const userAccess = useAppSelector(selectUserAccess);
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useAppDispatch();
   const [limit, setLimit] = useState(DEFAULT_PAGE_LIMIT);
   const [page, setPage] = useState(1);
@@ -86,14 +86,18 @@ export const Admin: FC = () => {
             <td>{userIndex}</td>
             <td>{id}</td>
             <td>
-              <NavLink
-                label={name}
-                icon={<IconUserCircle size={16} stroke={1.5} />}
-                rightSection={<IconChevronRight size={12} stroke={1.5} />}
-                component={Link}
-                to={`${APP_ROUTES.USER}/${id}`}
-                active={location.pathname === `${APP_ROUTES.USER}/${id}`}
-              />
+              <UnstyledButton onClick={() => navigate(`${APP_ROUTES.USER}/${id}`)}>
+                <Group noWrap align="center">
+                  <Box style={{ height: '16px' }}>
+                    <IconUserCircle size={16} stroke={1.5} />
+                  </Box>
+
+                  {name}
+                  <Box>
+                    <IconChevronRight size={12} stroke={1.5} />
+                  </Box>
+                </Group>
+              </UnstyledButton>
             </td>
             <td>{email}</td>
             <td>{t(access === 'admin' ? 'text_access_admin' : 'text_access_basic')}</td>

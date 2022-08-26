@@ -5,7 +5,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import { AuthCheck } from './AuthCheck';
 import { APP_ROUTES } from './enums';
 
-import { Admin, Collection, Main, NotFound, User } from 'pages';
+import { Admin, Collection, Item, Main, NotFound, User } from 'pages';
 import { Layout } from 'shared/components';
 
 export const AppRouter: FC = () => {
@@ -72,6 +72,20 @@ export const AppRouter: FC = () => {
         {
           path: APP_ROUTES.ID,
           element: <Collection />,
+        },
+      ],
+    },
+    {
+      path: APP_ROUTES.ITEM,
+      element: (
+        <AuthCheck>
+          <Layout />
+        </AuthCheck>
+      ),
+      children: [
+        {
+          path: APP_ROUTES.ID,
+          element: <Item />,
         },
       ],
     },

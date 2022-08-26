@@ -105,6 +105,7 @@ const resources = {
       placeholder_text_filterByTags: 'Filter by tags',
       button_title_sortUp: 'Descending',
       button_title_sortDown: 'Ascending',
+      badge_title_tag: 'tag',
     },
   },
   ru: {
@@ -207,6 +208,7 @@ const resources = {
       placeholder_text_filterByTags: 'Отфильтровать по тегам',
       button_title_sortUp: 'По убыванию',
       button_title_sortDown: 'По возрастанию',
+      badge_title_tag: 'тэг',
     },
   },
 };

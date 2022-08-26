@@ -39,7 +39,6 @@ import {
 import { CollectionType } from 'shared/api/collections/types';
 import { WithStar } from 'shared/components';
 import { initialValuesForCreation } from 'shared/constants/collections/collectionForm';
-import { typesIcon } from 'shared/constants/collections/types-icons';
 
 type PropsType = {
   setShowForm: (val: boolean) => void;
@@ -170,7 +169,7 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
             </Text>
             <NativeSelect
               className={s.selectWidth}
-              data={Object.keys(typesIcon)}
+              data={['title', 'text', 'number', 'date', 'check']}
               value={form.values.itemField.type}
               onChange={e => form.setFieldValue('itemField.type', e.currentTarget.value)}
             />

@@ -4,7 +4,7 @@ import { Accordion, Card, Group, Stack, Text } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
 import { FieldType } from 'shared/api/collections/types';
-import { typesIcon } from 'shared/constants/collections/types-icons';
+import { TypesIconPicker } from 'shared/components/TypesIconPicker/TypesIconPicker';
 
 type PropsType = {
   itemFields: FieldType[];
@@ -33,7 +33,7 @@ export const ItemsFieldsAccordion: FC<PropsType> = ({ itemFields }) => {
               {itemFields.map(field => (
                 <Group key={field.title} align="center">
                   <Group>
-                    {typesIcon[`${field.type}`]}
+                    <TypesIconPicker type={field.type} />
                     <Text size="sm">{field.title}</Text>
                   </Group>
                 </Group>

@@ -7,4 +7,5 @@ export enum APP_ROUTES {
   USER = '/user',
   ID = ':id',
   COLLECTION = '/collection',
+  ITEM = '/item',
 }

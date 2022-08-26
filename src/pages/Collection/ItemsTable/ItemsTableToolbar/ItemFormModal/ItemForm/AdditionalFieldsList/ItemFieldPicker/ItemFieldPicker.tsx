@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { selectLocale } from 'app';
 import { FieldType } from 'shared/api/collections/types';
+import { WithStar } from 'shared/components';
 import { useAppSelector } from 'store';
 
 type PropsType = {
@@ -28,7 +29,7 @@ export const ItemFieldPicker: FC<PropsType> = ({ field, onChange, value, error }
           error={error}
           locale={locale}
           placeholder={t('placeholder_text_date')}
-          label={field.title}
+          label={<WithStar>{field.title}</WithStar>}
           value={value}
           onChange={onChange}
         />
@@ -38,7 +39,7 @@ export const ItemFieldPicker: FC<PropsType> = ({ field, onChange, value, error }
         <NumberInput
           error={error}
           placeholder="451"
-          label={field.title}
+          label={<WithStar>{field.title}</WithStar>}
           value={value}
           onChange={onChange}
         />
@@ -48,7 +49,7 @@ export const ItemFieldPicker: FC<PropsType> = ({ field, onChange, value, error }
         <Textarea
           error={error}
           placeholder={t('placeholder_text_text')}
-          label={field.title}
+          label={<WithStar>{field.title}</WithStar>}
           autosize
           minRows={3}
           value={value}
@@ -61,7 +62,7 @@ export const ItemFieldPicker: FC<PropsType> = ({ field, onChange, value, error }
       return (
         <TextInput
           error={error}
-          label={field.title}
+          label={<WithStar>{field.title}</WithStar>}
           placeholder={t('placeholder_text_string')}
           value={value}
           onChange={onChange}
