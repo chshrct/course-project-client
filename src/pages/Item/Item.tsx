@@ -11,6 +11,8 @@ import {
 } from '@mantine/core';
 import { useParams } from 'react-router-dom';
 
+import { CommentInput } from './CommentInput';
+import { CommentList } from './CommentList';
 import { ItemAdditionalFieldsList } from './ItemAdditionalFieldsList';
 import { ItemTagsList } from './ItemTagsList';
 import s from './style/Item.module.css';
@@ -43,6 +45,11 @@ export const Item: FC = () => {
           <ItemAdditionalFieldsList itemFields={itemData?.itemFields} />
         </Stack>
       </Paper>
+      <Space h="xl" />
+      <Stack align="center">
+        {id && <CommentList item={id} />}
+        <CommentInput item={id} />
+      </Stack>
     </Container>
   );
 };

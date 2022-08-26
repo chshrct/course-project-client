@@ -103,8 +103,8 @@ export const CollectionCard: FC<PropsType> = ({
         <Box className={s.positionRelative}>
           <Badge
             className={`${s.positionAbsolute} ${s.badgeHover}`}
-            variant="filled"
-            color="cyan"
+            variant="gradient"
+            gradient={{ from: 'indigo', to: 'cyan' }}
             ml={3}
             mt={3}
             title={t('title_owner')}

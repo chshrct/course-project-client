@@ -106,6 +106,8 @@ const resources = {
       button_title_sortUp: 'Descending',
       button_title_sortDown: 'Ascending',
       badge_title_tag: 'tag',
+      comment_input_label: 'Leave comment',
+      comment_button_text: 'Send',
     },
   },
   ru: {
@@ -209,6 +211,8 @@ const resources = {
       button_title_sortUp: 'По убыванию',
       button_title_sortDown: 'По возрастанию',
       badge_title_tag: 'тэг',
+      comment_input_label: 'Оставить комментарий',
+      comment_button_text: 'Отправить',
     },
   },
 };

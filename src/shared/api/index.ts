@@ -24,6 +24,7 @@ export {
   useLazyGetItemQuery,
 } from './items';
 export { useGetTagsQuery } from './tags';
+export { useCreateCommentMutation, useGetCommentsQuery } from './comments';
 
 export type { TokenPayloadType, UserAccessType, UserStatusType } from './auth';
 
