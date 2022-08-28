@@ -108,6 +108,8 @@ const resources = {
       badge_title_tag: 'tag',
       comment_input_label: 'Leave comment',
       comment_button_text: 'Send',
+      button_text_like: 'Like!',
+      button_text_unlike: 'Do not like anymore',
     },
   },
   ru: {
@@ -213,6 +215,8 @@ const resources = {
       badge_title_tag: 'тэг',
       comment_input_label: 'Оставить комментарий',
       comment_button_text: 'Отправить',
+      button_text_like: 'Нравится!',
+      button_text_unlike: 'Больше не нравится',
     },
   },
 };

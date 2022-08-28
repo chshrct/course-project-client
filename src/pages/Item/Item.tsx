@@ -15,6 +15,7 @@ import { CommentInput } from './CommentInput';
 import { CommentList } from './CommentList';
 import { ItemAdditionalFieldsList } from './ItemAdditionalFieldsList';
 import { ItemTagsList } from './ItemTagsList';
+import { LikeInfo } from './LikeInfo';
 import s from './style/Item.module.css';
 
 import { selectColorScheme } from 'app';
@@ -30,6 +31,8 @@ export const Item: FC = () => {
     if (id) getItem({ itemId: id });
   }, [getItem, id]);
 
+  if (!id) return null;
+
   return (
     <Container>
       <LoadingOverlay visible={isItemFetching} overlayBlur={2} />
@@ -42,12 +45,13 @@ export const Item: FC = () => {
             </Title>
           </Text>
           <ItemTagsList tags={itemData?.tags} />
+          <LikeInfo item={id} />
           <ItemAdditionalFieldsList itemFields={itemData?.itemFields} />
         </Stack>
       </Paper>
       <Space h="xl" />
       <Stack align="center">
-        {id && <CommentList item={id} />}
+        <CommentList item={id} />
         <CommentInput item={id} />
       </Stack>
     </Container>

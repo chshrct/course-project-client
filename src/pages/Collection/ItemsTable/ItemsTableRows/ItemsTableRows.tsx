@@ -55,11 +55,11 @@ export const ItemsTableRows: FC<PropsType> = ({
             <td>{id}</td>
             <td>
               <UnstyledButton onClick={() => navigate(`${APP_ROUTES.ITEM}/${id}`)}>
-                <Group noWrap align="center">
+                <Group noWrap align="center" spacing={2}>
+                  {title}
                   <Box style={{ height: '16px' }}>
                     <IconFileDescription size={16} stroke={1.5} />
                   </Box>
-                  {title}
                   <Box>
                     <IconChevronRight size={12} stroke={1.5} />
                   </Box>

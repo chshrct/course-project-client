@@ -25,6 +25,11 @@ export {
 } from './items';
 export { useGetTagsQuery } from './tags';
 export { useCreateCommentMutation, useGetCommentsQuery } from './comments';
+export {
+  useGetItemLikesQuery,
+  useCreateLikeMutation,
+  useDeteleLikeMutation,
+} from './likes';
 
 export type { TokenPayloadType, UserAccessType, UserStatusType } from './auth';
 

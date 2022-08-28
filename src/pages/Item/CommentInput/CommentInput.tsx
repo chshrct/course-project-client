@@ -15,7 +15,7 @@ type FieldValues = {
 };
 
 type PropsType = {
-  item: string | undefined;
+  item: string;
 };
 
 export const CommentInput: FC<PropsType> = ({ item }) => {
@@ -30,7 +30,7 @@ export const CommentInput: FC<PropsType> = ({ item }) => {
   }, [isSuccess, reset]);
 
   const onSubmit = (values: FieldValues): void => {
-    createComment({ message: values.message, item: item!, user });
+    createComment({ message: values.message, item, user });
   };
 
   return (

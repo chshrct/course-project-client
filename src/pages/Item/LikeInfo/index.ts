@@ -1,0 +1,1 @@
+export { LikeInfo } from './LikeInfo';
