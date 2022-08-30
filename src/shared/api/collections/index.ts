@@ -6,4 +6,5 @@ export {
   useDeleteCollectionMutation,
   useUpdateCollectionMutation,
   useLazyGetCollectionQuery,
+  useGetFiveBiggestCollectionsQuery,
 } from './collectionsApi';

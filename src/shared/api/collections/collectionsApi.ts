@@ -79,7 +79,7 @@ export const collectionsApi = appApi.injectEndpoints({
         { owner, description, id, image, itemFields, title, topics },
         { dispatch, queryFulfilled },
       ) {
-        const patch = dispatch(
+        const patchUserCollections = dispatch(
           collectionsApi.util.updateQueryData(
             'getUserCollections',
             { userId: owner },
@@ -97,8 +97,29 @@ export const collectionsApi = appApi.injectEndpoints({
             },
           ),
         );
+        const patchBiggestCollections = dispatch(
+          collectionsApi.util.updateQueryData(
+            'getFiveBiggestCollections',
+            undefined,
+            draft => {
+              const collectionToUpdate = draft.find(collection => collection.id === id);
 
-        queryFulfilled.catch(patch.undo);
+              if (collectionToUpdate)
+                Object.assign(collectionToUpdate, {
+                  description,
+                  image,
+                  itemFields,
+                  title,
+                  topics,
+                });
+            },
+          ),
+        );
+
+        queryFulfilled.catch(() => {
+          patchUserCollections.undo();
+          patchBiggestCollections.undo();
+        });
       },
     }),
     deleteCollection: builder.mutation<void, { id: string; userId: string }>({
@@ -106,6 +127,7 @@ export const collectionsApi = appApi.injectEndpoints({
         url: `/collections/${body.id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['BIGGESTCOLLECTIONS'],
       onQueryStarted({ id, userId }, { dispatch, queryFulfilled }) {
         const patch = dispatch(
           collectionsApi.util.updateQueryData('getUserCollections', { userId }, draft => {
@@ -118,6 +140,12 @@ export const collectionsApi = appApi.injectEndpoints({
         queryFulfilled.catch(patch.undo);
       },
     }),
+    getFiveBiggestCollections: builder.query<GetUserCollectionsResponseType, void>({
+      query: () => ({
+        url: '/five',
+      }),
+      providesTags: ['BIGGESTCOLLECTIONS'],
+    }),
   }),
 });
 
@@ -128,4 +156,5 @@ export const {
   useDeleteCollectionMutation,
   useUpdateCollectionMutation,
   useLazyGetCollectionQuery,
+  useGetFiveBiggestCollectionsQuery,
 } = collectionsApi;

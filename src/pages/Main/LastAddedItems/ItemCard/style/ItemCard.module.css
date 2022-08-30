@@ -1,0 +1,53 @@
+.cardSize {
+    width: 300px;
+    height: 200px;
+}
+
+.positionRelative {
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.itemTitle {
+    position: absolute;
+    z-index: 1;
+    top: 25%;
+    left: 25%;
+    cursor: pointer;
+}
+
+.itemInfo {
+    width: 220px;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cursorP {
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.bgImage {
+    position: relative;
+}
+
+.bgImage::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.25);
+}

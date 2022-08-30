@@ -16,6 +16,6 @@ export const appApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['USERS', 'ITEMS', 'TAGS'],
+  tagTypes: ['USERS', 'ITEMS', 'TAGS', 'BIGGESTCOLLECTIONS', 'LATESTITEMS'],
   endpoints: () => ({}),
 });

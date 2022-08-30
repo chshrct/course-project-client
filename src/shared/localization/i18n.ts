@@ -110,6 +110,10 @@ const resources = {
       comment_button_text: 'Send',
       button_text_like: 'Like!',
       button_text_unlike: 'Do not like anymore',
+      badge_title_collection: 'Collection',
+      badge_title_item: 'Item',
+      main_page_title_items: 'Last added items',
+      main_page_title_collections: 'Largest collections',
     },
   },
   ru: {
@@ -217,6 +221,10 @@ const resources = {
       comment_button_text: 'Отправить',
       button_text_like: 'Нравится!',
       button_text_unlike: 'Больше не нравится',
+      badge_title_collection: 'Коллекция',
+      badge_title_item: 'Айтем',
+      main_page_title_items: 'Последние добавленные айтемы',
+      main_page_title_collections: 'Самые большие коллекции',
     },
   },
 };

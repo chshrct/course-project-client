@@ -19,22 +19,14 @@ export const CollectionCardsList: FC<PropsType> = ({
 }) => {
   return (
     <>
-      {collectionsData.map(
-        ({ id, title, description, image, itemFields, owner, topics }) => (
-          <CollectionCard
-            key={id}
-            id={id}
-            description={description}
-            title={title}
-            image={image}
-            itemFields={itemFields}
-            owner={owner}
-            topics={topics}
-            setCollectionForEdit={setCollectionForEdit}
-            setShowForm={setShowForm}
-          />
-        ),
-      )}
+      {collectionsData.map(collection => (
+        <CollectionCard
+          key={collection.id}
+          collection={collection}
+          setCollectionForEdit={setCollectionForEdit}
+          setShowForm={setShowForm}
+        />
+      ))}
     </>
   );
 };

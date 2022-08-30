@@ -1,7 +1,7 @@
 import { FC, MouseEventHandler } from 'react';
 
 import { ActionIcon, Badge, Box, Card, Group, Image, Menu, Text } from '@mantine/core';
-import { IconDots, IconEdit, IconTrash } from '@tabler/icons';
+import { IconDots, IconEdit, IconTrash, IconUser } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate } from 'react-router-dom';
@@ -15,36 +15,34 @@ import { APP_ROUTES } from 'routes/enums';
 import { useDeleteCollectionMutation } from 'shared/api';
 
 export const CollectionCard: FC<PropsType> = ({
-  id,
-  image,
-  title,
-  description,
-  owner,
-  itemFields,
-  topics,
+  collection,
   setCollectionForEdit,
   setShowForm,
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [deleteCollection] = useDeleteCollectionMutation();
+  const {
+    id,
+    owner: { id: ownerId, name: ownerName },
+    image,
+    description,
+    itemFields,
+    topics,
+    title,
+  } = collection;
 
   const onDeleteCollectionClick: MouseEventHandler<HTMLButtonElement> = (e): void => {
     e.stopPropagation();
-    deleteCollection({ id, userId: owner.id });
+    deleteCollection({ id, userId: ownerId });
   };
 
   const onEditCollectionClick: MouseEventHandler<HTMLButtonElement> = (e): void => {
     e.stopPropagation();
     setShowForm(true);
     setCollectionForEdit({
-      id,
-      description,
-      image,
-      itemFields,
-      owner: owner.id,
-      title,
-      topics,
+      ...collection,
+      owner: ownerId,
     });
   };
   const onCardClick = (): void => {
@@ -59,7 +57,7 @@ export const CollectionCard: FC<PropsType> = ({
 
   const onOwnerBadgeClick: MouseEventHandler<HTMLDivElement> = e => {
     e.stopPropagation();
-    navigate(`${APP_ROUTES.USER}/${owner.id}`);
+    navigate(`${APP_ROUTES.USER}/${ownerId}`);
   };
 
   return (
@@ -103,6 +101,7 @@ export const CollectionCard: FC<PropsType> = ({
         <Box className={s.positionRelative}>
           <Badge
             className={`${s.positionAbsolute} ${s.badgeHover}`}
+            size="xs"
             variant="gradient"
             gradient={{ from: 'indigo', to: 'cyan' }}
             ml={3}
@@ -110,7 +109,10 @@ export const CollectionCard: FC<PropsType> = ({
             title={t('title_owner')}
             onClick={onOwnerBadgeClick}
           >
-            {owner.name}
+            <Group spacing={3}>
+              <IconUser size={12} />
+              {ownerName}
+            </Group>
           </Badge>
 
           <Image

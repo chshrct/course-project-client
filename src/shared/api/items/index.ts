@@ -4,4 +4,5 @@ export {
   useDeleteItemsMutation,
   useUpdateItemMutation,
   useLazyGetItemQuery,
+  useGetTenLatestItemsQuery,
 } from './itemsApi';

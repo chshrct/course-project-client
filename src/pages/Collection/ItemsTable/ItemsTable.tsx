@@ -1,11 +1,12 @@
 import { FC, useState } from 'react';
 
-import { Stack, Table } from '@mantine/core';
+import { Box, Stack, Table } from '@mantine/core';
 
 import { ItemsPagination } from './ItemsPagination';
 import { ItemsTableHead } from './ItemsTableHead';
 import { ItemsTableRows } from './ItemsTableRows';
 import { ItemsTableToolbar } from './ItemsTableToolbar';
+import s from './style/ItemsTable.module.css';
 
 import { useGetCollectionItemsQuery, useGetTagsQuery } from 'shared/api';
 import { FieldType, FieldTypesType } from 'shared/api/collections/types';
@@ -54,32 +55,34 @@ export const ItemsTable: FC<PropsType> = ({ id, itemFields }) => {
         setSelectedTags={setSelectedTags}
         limit={limit}
         page={page}
-        tags={tagsData || []}
+        tags={tagsData?.map(tag => tag.value) || []}
       />
       {collectionItemsData.items.length !== 0 && (
-        <Table striped highlightOnHover>
-          <thead>
-            <ItemsTableHead
-              itemFields={itemFields}
-              collectionItemsData={collectionItemsData}
-              selectedItemIds={selectedItemIds}
-              setSelectedItemIds={setSelectedItemIds}
-              sortSettings={sortSettings}
-              setSortSettings={setSortSettings}
-            />
-          </thead>
-          <tbody>
-            <ItemsTableRows
-              collectionItems={collectionItemsData}
-              limit={limit}
-              page={page}
-              selectedItemIds={selectedItemIds}
-              setSelectedItemIds={setSelectedItemIds}
-              selectedTags={selectedTags}
-              sortSettings={sortSettings}
-            />
-          </tbody>
-        </Table>
+        <Box className={s.tableOverflow}>
+          <Table striped highlightOnHover>
+            <thead>
+              <ItemsTableHead
+                itemFields={itemFields}
+                collectionItemsData={collectionItemsData}
+                selectedItemIds={selectedItemIds}
+                setSelectedItemIds={setSelectedItemIds}
+                sortSettings={sortSettings}
+                setSortSettings={setSortSettings}
+              />
+            </thead>
+            <tbody>
+              <ItemsTableRows
+                collectionItems={collectionItemsData}
+                limit={limit}
+                page={page}
+                selectedItemIds={selectedItemIds}
+                setSelectedItemIds={setSelectedItemIds}
+                selectedTags={selectedTags}
+                sortSettings={sortSettings}
+              />
+            </tbody>
+          </Table>
+        </Box>
       )}
       <ItemsPagination
         collectionItemsData={collectionItemsData}

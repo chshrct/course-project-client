@@ -1,14 +1,15 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 
-import { ActionIcon, Button, Group, MultiSelect, Space, Stack } from '@mantine/core';
+import { ActionIcon, Button, Group, MultiSelect, Space } from '@mantine/core';
 import { IconEdit, IconHash, IconPlus } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 
-import { ItemFormModal } from './ItemFormModal';
+import { ItemForm } from './ItemForm';
 
 import { useDeleteItemsMutation } from 'shared/api';
 import { FieldType } from 'shared/api/collections/types';
 import { GetCollectionItemsResponseType } from 'shared/api/items/types';
+import { AppModal } from 'shared/components';
 
 type PropsType = {
   id: string;
@@ -37,7 +38,7 @@ export const ItemsTableToolbar: FC<PropsType> = ({
   selectedTags,
   setSelectedTags,
 }) => {
-  const [showForm, setShowForm] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const isDeleteDisabled = selectedItemIds.length === 0;
   const isEditDisabled = selectedItemIds.length !== 1;
@@ -60,8 +61,10 @@ export const ItemsTableToolbar: FC<PropsType> = ({
     deleteItems({ itemIds: selectedItemIds, pageInfo: { id, limit, page } });
   };
 
+  const itemId = editMode ? selectedItemIds[0] : undefined;
+
   return (
-    <Group spacing="xs" ml={-10} align="flex-start">
+    <Group spacing="xs" ml={-10} align="flex-start" noWrap>
       <Space h="md" />
       <ActionIcon
         variant="default"
@@ -69,13 +72,18 @@ export const ItemsTableToolbar: FC<PropsType> = ({
         size={30}
         onClick={() => {
           setEditMode(false);
-          setShowForm(true);
+          setIsModalOpen(true);
         }}
       >
         <IconPlus size={18} />
       </ActionIcon>
       {collectionItemsData.items.length !== 0 && (
-        <Stack spacing="xs">
+        <Group
+          spacing="xs"
+          position="apart"
+          align="flex-start"
+          style={{ width: '-webkit-fill-available' }}
+        >
           <Group spacing="xs">
             <ActionIcon
               disabled={isEditDisabled}
@@ -84,7 +92,7 @@ export const ItemsTableToolbar: FC<PropsType> = ({
               size={30}
               onClick={() => {
                 setEditMode(true);
-                setShowForm(true);
+                setIsModalOpen(true);
               }}
             >
               <IconEdit size={18} />
@@ -111,18 +119,23 @@ export const ItemsTableToolbar: FC<PropsType> = ({
             clearable
             maxDropdownHeight={120}
           />
-        </Stack>
+        </Group>
       )}
-      <ItemFormModal
-        collectionId={id}
-        itemId={editMode ? selectedItemIds[0] : undefined}
-        showForm={showForm}
-        setShowForm={setShowForm}
-        itemFields={itemFields}
-        limit={limit}
-        page={page}
-        tags={tags}
-      />
+      <AppModal
+        openModal={isModalOpen}
+        setOpenModal={setIsModalOpen}
+        title={itemId ? t('modal_title_editItem') : t('modal_title_addItem')}
+      >
+        <ItemForm
+          itemFields={itemFields}
+          collectionId={id}
+          setShowForm={setIsModalOpen}
+          limit={limit}
+          page={page}
+          itemId={itemId}
+          tags={tags}
+        />
+      </AppModal>
     </Group>
   );
 };

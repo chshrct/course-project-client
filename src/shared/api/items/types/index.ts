@@ -49,3 +49,11 @@ export type DeleteItemsRequestType = {
     page: number;
   };
 };
+
+export type GetLatestItemDataType = {
+  item: { id: string; title: string };
+  collection: { id: string; title: string; image: string | null };
+  owner: { id: string; title: string };
+};
+
+export type GetTenLatestResponse = GetLatestItemDataType[];

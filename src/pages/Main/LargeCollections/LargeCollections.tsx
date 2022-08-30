@@ -1,0 +1,51 @@
+import React, { Dispatch, FC, SetStateAction } from 'react';
+
+import { Carousel } from '@mantine/carousel';
+import { Group } from '@mantine/core';
+
+import { useGetFiveBiggestCollectionsQuery } from 'shared/api';
+import { CollectionType } from 'shared/api/collections/types';
+import { CollectionCard } from 'shared/components';
+
+type PropsType = {
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  setCollectionForEdit: Dispatch<SetStateAction<CollectionType | null>>;
+};
+
+export const LargeCollections: FC<PropsType> = ({
+  setCollectionForEdit,
+  setIsModalOpen,
+}) => {
+  const { data } = useGetFiveBiggestCollectionsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  if (!data) return null;
+
+  return (
+    <Carousel
+      withControls
+      slideSize="33%"
+      slideGap="xs"
+      align="center"
+      loop
+      styles={{
+        controls: {
+          top: 210,
+        },
+      }}
+    >
+      {data.map(collection => (
+        <Carousel.Slide key={collection.id}>
+          <Group position="center">
+            <CollectionCard
+              collection={collection}
+              setCollectionForEdit={setCollectionForEdit}
+              setShowForm={setIsModalOpen}
+            />
+          </Group>
+        </Carousel.Slide>
+      ))}
+    </Carousel>
+  );
+};

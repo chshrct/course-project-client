@@ -15,6 +15,7 @@ export {
   useDeleteCollectionMutation,
   useUpdateCollectionMutation,
   useLazyGetCollectionQuery,
+  useGetFiveBiggestCollectionsQuery,
 } from './collections';
 export {
   useCreateItemMutation,
@@ -22,6 +23,7 @@ export {
   useDeleteItemsMutation,
   useUpdateItemMutation,
   useLazyGetItemQuery,
+  useGetTenLatestItemsQuery,
 } from './items';
 export { useGetTagsQuery } from './tags';
 export { useCreateCommentMutation, useGetCommentsQuery } from './comments';

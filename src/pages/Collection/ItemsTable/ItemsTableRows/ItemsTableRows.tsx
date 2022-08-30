@@ -1,7 +1,7 @@
 import { ChangeEventHandler, Dispatch, FC, SetStateAction } from 'react';
 
 import { Box, Checkbox, Group, UnstyledButton } from '@mantine/core';
-import { IconChevronRight, IconFileDescription } from '@tabler/icons';
+import { IconAlbum, IconChevronRight } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
 
 import { SortSettingsType } from '../ItemsTable';
@@ -58,7 +58,7 @@ export const ItemsTableRows: FC<PropsType> = ({
                 <Group noWrap align="center" spacing={2}>
                   {title}
                   <Box style={{ height: '16px' }}>
-                    <IconFileDescription size={16} stroke={1.5} />
+                    <IconAlbum size={16} stroke={1.5} />
                   </Box>
                   <Box>
                     <IconChevronRight size={12} stroke={1.5} />

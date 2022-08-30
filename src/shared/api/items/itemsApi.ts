@@ -5,6 +5,7 @@ import {
   DeleteItemsRequestType,
   GetCollectionItemsRequestType,
   GetCollectionItemsResponseType,
+  GetTenLatestResponse,
   ItemType,
   UpdateItemRequestType,
 } from './types';
@@ -22,7 +23,7 @@ export const itemsApi = appApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['TAGS'],
+      invalidatesTags: ['TAGS', 'LATESTITEMS'],
       async onQueryStarted({ pageInfo }, { dispatch, queryFulfilled }) {
         const {
           data: { id, itemFields, tags, title },
@@ -43,7 +44,7 @@ export const itemsApi = appApi.injectEndpoints({
         method: 'PATCH',
         body: payload,
       }),
-      invalidatesTags: ['TAGS'],
+      invalidatesTags: ['TAGS', 'LATESTITEMS'],
       async onQueryStarted({ id, pageInfo }, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
 
@@ -72,7 +73,13 @@ export const itemsApi = appApi.injectEndpoints({
         method: 'DELETE',
         body,
       }),
-      invalidatesTags: ['TAGS', 'ITEMS'],
+      invalidatesTags: ['TAGS', 'ITEMS', 'LATESTITEMS'],
+    }),
+    getTenLatestItems: builder.query<GetTenLatestResponse, void>({
+      query: () => ({
+        url: '/items',
+      }),
+      providesTags: ['LATESTITEMS'],
     }),
   }),
 });
@@ -83,4 +90,5 @@ export const {
   useDeleteItemsMutation,
   useUpdateItemMutation,
   useLazyGetItemQuery,
+  useGetTenLatestItemsQuery,
 } = itemsApi;

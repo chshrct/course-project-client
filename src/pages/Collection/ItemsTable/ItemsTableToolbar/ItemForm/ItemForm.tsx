@@ -164,7 +164,7 @@ export const ItemForm: FC<PropsType> = ({
 
     dispatch(
       tagsApi.util.updateQueryData('getTags', undefined, draftPosts => {
-        draftPosts.push(query);
+        draftPosts.push({ value: query, count: 0 });
       }),
     );
 

@@ -1,0 +1,10 @@
+.tagsCloud svg text {
+    user-select: none;
+    cursor: pointer;
+}
+
+.boxSize {
+    position: relative;
+    width: 500px;
+    height: 500px;
+}

@@ -1,0 +1,34 @@
+import { FC, memo, useCallback } from 'react';
+
+import { Box, Group, LoadingOverlay } from '@mantine/core';
+import WordCloud from 'react-d3-cloud';
+
+import s from './style/TagsCloud.module.css';
+
+import { useGetTagsQuery } from 'shared/api';
+
+const WORDCLOUD_MULTIPLAYER = 200;
+
+export const TagsCloud: FC = memo(() => {
+  const { data: tagData, isFetching: isTagsFetching } = useGetTagsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+  const mappedData =
+    tagData?.map(({ count, value }) => ({
+      text: value,
+      value: count * WORDCLOUD_MULTIPLAYER,
+    })) || [];
+
+  const onWordClick = useCallback((event: any, word: any) => {
+    console.log(word.text);
+  }, []);
+
+  return (
+    <Group position="center">
+      <Box className={`${s.boxSize} ${s.tagsCloud}`}>
+        <LoadingOverlay visible={isTagsFetching} overlayBlur={2} />
+        <WordCloud width={300} height={300} data={mappedData} onWordClick={onWordClick} />
+      </Box>
+    </Group>
+  );
+});

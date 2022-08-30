@@ -13,21 +13,22 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import { CollectionCardsList } from './CollectionCardsList';
-import { CollectionFormModal } from './CollectionFormModal';
+import { CollectionForm } from './CollectionForm';
 import s from './style/User.module.css';
 import { getGreetingMessage } from './utils';
 
 import { selectUserName } from 'app';
 import { useGetUserCollectionsQuery, useLazyGetUserNameQuery } from 'shared/api';
 import { CollectionType } from 'shared/api/collections/types';
+import { AppModal } from 'shared/components';
 import { useAppSelector } from 'store';
 
 export const User: FC = () => {
-  const loggedUserName = useAppSelector(selectUserName);
-  const [showForm, setShowForm] = useState(false);
-  const { t } = useTranslation();
-  const [collectionForEdit, setCollectionForEdit] = useState<CollectionType | null>(null);
   const { id } = useParams();
+  const { t } = useTranslation();
+  const loggedUserName = useAppSelector(selectUserName);
+  const [openModal, setOpenModal] = useState(false);
+  const [collectionForEdit, setCollectionForEdit] = useState<CollectionType | null>(null);
   const { data: collectionsData, isFetching } = useGetUserCollectionsQuery(
     { userId: id! },
     { refetchOnMountOrArgChange: true },
@@ -41,7 +42,7 @@ export const User: FC = () => {
 
   const onAddCollectionClick = (): void => {
     setCollectionForEdit(null);
-    setShowForm(true);
+    setOpenModal(true);
   };
 
   return (
@@ -65,16 +66,22 @@ export const User: FC = () => {
         {collectionsData && (
           <CollectionCardsList
             collectionsData={collectionsData}
-            setShowForm={setShowForm}
+            setShowForm={setOpenModal}
             setCollectionForEdit={setCollectionForEdit}
           />
         )}
       </Group>
-      <CollectionFormModal
-        collectionForEdit={collectionForEdit}
-        setShowForm={setShowForm}
-        showForm={showForm}
-      />
+      <AppModal
+        title={
+          collectionForEdit
+            ? t('modal_title_editCollection')
+            : t('modal_title_createCollection')
+        }
+        setOpenModal={setOpenModal}
+        openModal={openModal}
+      >
+        <CollectionForm setShowForm={setOpenModal} collection={collectionForEdit} />
+      </AppModal>
     </Container>
   );
 };
