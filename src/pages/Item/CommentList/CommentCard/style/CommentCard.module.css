@@ -1,5 +1,6 @@
-.width320 {
-    width: 320px;
+.commentSize {
+    max-width: 50%;
+    min-width: 320px;
 }
 
 .cursorPoint {

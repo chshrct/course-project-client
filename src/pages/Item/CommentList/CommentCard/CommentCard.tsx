@@ -29,7 +29,7 @@ export const CommentCard: FC<PropsType> = ({
   };
 
   return (
-    <Card className={s.width320} shadow="sm" withBorder>
+    <Card className={s.commentSize} shadow="sm" withBorder>
       <Card.Section p={3}>
         <Group position="apart" noWrap>
           <Badge

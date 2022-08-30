@@ -18,15 +18,19 @@ export const Main: FC = () => {
 
   return (
     <>
-      <Container>
+      <Container size="xl">
         <Space h="xl" />
         <Stack spacing="xl">
           <Stack spacing="xs">
-            <Title order={4}>{t('main_page_title_items')}</Title>
+            <Title ml={8} order={4}>
+              {t('main_page_title_items')}
+            </Title>
             <LastAddedItems />
           </Stack>
           <Stack spacing="xs">
-            <Title order={4}>{t('main_page_title_collections')}</Title>
+            <Title ml={8} order={4}>
+              {t('main_page_title_collections')}
+            </Title>
             <LargeCollections
               setCollectionForEdit={setCollectionForEdit}
               setIsModalOpen={setIsModalOpen}
@@ -34,6 +38,7 @@ export const Main: FC = () => {
           </Stack>
           <TagsCloud />
         </Stack>
+        <Space h="md" />
       </Container>
       <AppModal
         title={

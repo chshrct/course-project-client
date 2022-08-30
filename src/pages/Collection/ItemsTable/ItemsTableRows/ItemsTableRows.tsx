@@ -4,8 +4,8 @@ import { Box, Checkbox, Group, UnstyledButton } from '@mantine/core';
 import { IconAlbum, IconChevronRight } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
 
+import { FieldDataPicker } from '../FieldDataPicker';
 import { SortSettingsType } from '../ItemsTable';
-import { formatFieldData } from '../utils';
 
 import { filterItems, sortItems } from './utils';
 
@@ -68,7 +68,9 @@ export const ItemsTableRows: FC<PropsType> = ({
             </td>
             {itemFields.length > 0 &&
               itemFields.map(field => (
-                <td key={field.title}>{formatFieldData(field.value, field.type)}</td>
+                <td key={field.title}>
+                  <FieldDataPicker type={field.type} value={field.value} />
+                </td>
               ))}
             <td>{tags.join(', ')}</td>
           </tr>

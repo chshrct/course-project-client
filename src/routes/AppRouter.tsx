@@ -49,11 +49,7 @@ export const AppRouter: FC = () => {
     },
     {
       path: APP_ROUTES.USER,
-      element: (
-        <AuthCheck>
-          <Layout />
-        </AuthCheck>
-      ),
+      element: <Layout />,
       children: [
         {
           path: APP_ROUTES.ID,
@@ -63,11 +59,7 @@ export const AppRouter: FC = () => {
     },
     {
       path: APP_ROUTES.COLLECTION,
-      element: (
-        <AuthCheck>
-          <Layout />
-        </AuthCheck>
-      ),
+      element: <Layout />,
       children: [
         {
           path: APP_ROUTES.ID,
@@ -77,11 +69,7 @@ export const AppRouter: FC = () => {
     },
     {
       path: APP_ROUTES.ITEM,
-      element: (
-        <AuthCheck>
-          <Layout />
-        </AuthCheck>
-      ),
+      element: <Layout />,
       children: [
         {
           path: APP_ROUTES.ID,

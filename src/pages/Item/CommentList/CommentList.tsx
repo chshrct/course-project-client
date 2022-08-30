@@ -17,7 +17,7 @@ export const CommentList: FC<PropsType> = ({ item }) => {
   );
 
   return (
-    <Stack spacing="xs">
+    <Stack spacing="xs" style={{ width: '100%' }} align="flex-start">
       {comments?.map(comment => (
         <CommentCard key={comment.id} comment={comment} />
       ))}

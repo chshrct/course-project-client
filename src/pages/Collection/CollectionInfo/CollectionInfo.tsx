@@ -11,8 +11,8 @@ import {
   Text,
   Title,
 } from '@mantine/core';
+import MDEditor from '@uiw/react-md-editor';
 import { useTranslation } from 'react-i18next';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
 import s from './style/CollectionInfo.module.css';
 
@@ -50,7 +50,10 @@ export const CollectionInfo: FC<PropsType> = ({ collectionData }) => {
               showLabel={t('text_spoilerClosed')}
               hideLabel={t('text_spoilnerOpened')}
             >
-              <ReactMarkdown className={s.whitespace}>{description || ''}</ReactMarkdown>
+              <MDEditor.Markdown
+                source={description || ''}
+                className={`${s.markdown} ${colorScheme === 'light' ? s.textDark : ''}`}
+              />
             </Spoiler>
           </Text>
         </Stack>

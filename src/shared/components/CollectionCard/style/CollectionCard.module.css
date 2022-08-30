@@ -19,7 +19,11 @@
     cursor: pointer;
 }
 
-.whitespace {
-    white-space: pre-line;
-    overflow-wrap: break-word;
+.markdown {
+    white-space: pre-wrap;
+    background-color: transparent;
+}
+
+.textDark {
+    color: black
 }

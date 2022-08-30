@@ -8,7 +8,7 @@ import NotFoundImage from 'shared/assets/images/404.jpg';
 
 export const NotFound: FC = () => {
   return (
-    <Container>
+    <Container size="xl">
       <Center className={s.conteinerHeight}>
         <Image src={NotFoundImage} />
       </Center>

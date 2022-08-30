@@ -25,15 +25,20 @@ export const LargeCollections: FC<PropsType> = ({
   return (
     <Carousel
       withControls
-      slideSize="33%"
+      slideSize="24.9%"
       slideGap="xs"
-      align="center"
-      loop
+      align="start"
+      breakpoints={[
+        { maxWidth: 'lg', slideSize: '33.3333%' },
+        { maxWidth: 'md', slideSize: '50%' },
+        { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
+      ]}
       styles={{
         controls: {
           top: 210,
         },
       }}
+      loop
     >
       {data.map(collection => (
         <Carousel.Slide key={collection.id}>

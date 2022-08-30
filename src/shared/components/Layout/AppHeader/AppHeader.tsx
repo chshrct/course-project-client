@@ -58,7 +58,7 @@ export const AppHeader: FC = () => {
 
   return (
     <Header height={52} p="sm">
-      <Container>
+      <Container size="xl">
         <Group align="center" position="apart" noWrap>
           <Group spacing="xs" align="center" position="left">
             <ActionIcon

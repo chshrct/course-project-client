@@ -1,11 +1,3 @@
-.selectWidth {
-    width: 100px;
-}
-
-.width300 {
-    max-width: 300px;
-}
-
 .editorError {
     border: 1px solid #e03131;
 }

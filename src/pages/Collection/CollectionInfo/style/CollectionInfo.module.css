@@ -22,11 +22,15 @@
     width: 100%;
 }
 
-.whitespace {
-    white-space: pre-line;
-    overflow-wrap: break-word;
+.markdown {
+    white-space: pre-wrap;
+    background-color: transparent;
 }
 
 .maxWidth300 {
     max-width: 300px;
+}
+
+.textDark {
+    color: black
 }

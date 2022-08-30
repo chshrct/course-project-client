@@ -9,6 +9,7 @@ import {
   LoadingOverlay,
   Pagination,
   Select,
+  Space,
   Stack,
   Table,
   UnstyledButton,
@@ -122,7 +123,7 @@ export const Admin: FC = () => {
   }, [dispatch, navigate, t, userAccess]);
 
   return (
-    <Container>
+    <Container size="xl">
       <Center className={s.conteinerHeight}>
         <Stack className={s.widthFull}>
           <AdminToolbar
@@ -183,6 +184,7 @@ export const Admin: FC = () => {
           </Group>
         </Stack>
       </Center>
+      <Space h="md" />
     </Container>
   );
 };

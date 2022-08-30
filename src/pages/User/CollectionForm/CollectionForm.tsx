@@ -8,13 +8,14 @@ import {
   LoadingOverlay,
   MultiSelect,
   NativeSelect,
+  Space,
   Stack,
   Text,
-  Textarea,
   TextInput,
 } from '@mantine/core';
 import { useForm, yupResolver } from '@mantine/form';
 import { IconPlus } from '@tabler/icons';
+import MDEditor from '@uiw/react-md-editor';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -30,6 +31,7 @@ import {
   setImageHandler,
 } from './utils';
 
+import { selectColorScheme } from 'app';
 import {
   useCreateCollectionMutation,
   useGetTopicsQuery,
@@ -39,6 +41,7 @@ import {
 import { CollectionType } from 'shared/api/collections/types';
 import { WithStar } from 'shared/components';
 import { initialValuesForCreation } from 'shared/constants/collections/collectionForm';
+import { useAppSelector } from 'store';
 
 type PropsType = {
   setShowForm: (val: boolean) => void;
@@ -46,6 +49,7 @@ type PropsType = {
 };
 
 export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
+  const colorScheme = useAppSelector(selectColorScheme);
   const { id } = useParams();
   const { t } = useTranslation();
   const editMode = !!collection;
@@ -136,20 +140,28 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
   return (
     <Box className={s.width300} mx="auto">
       <LoadingOverlay visible={isLoading} overlayBlur={2} />
-      <form onSubmit={form.onSubmit(onSubmit)}>
+      <form onSubmit={form.onSubmit(onSubmit)} data-color-mode={colorScheme}>
         <TextInput
           label={<WithStar>{t('label_title')}</WithStar>}
           placeholder={t('placeholder_title')}
           {...form.getInputProps('title')}
         />
-        <Textarea
-          mt="md"
-          label={<WithStar>{t('label_description')}</WithStar>}
-          placeholder={t('placeholder_description')}
-          autosize
-          minRows={3}
+        <Space h="md" />
+        <Text weight={500} size="sm">
+          <WithStar>{t('label_description')}</WithStar>
+        </Text>
+        <MDEditor
+          preview="edit"
           {...form.getInputProps('description')}
+          className={`${form.errors.description ? s.editorError : ''} ${
+            colorScheme === 'dark' ? s.darkbg : ''
+          }`}
         />
+        {form.errors.description && (
+          <Text size="xs" color="red">
+            {form.errors.description}
+          </Text>
+        )}
         <MultiSelect
           mt="md"
           data={topicsData || []}

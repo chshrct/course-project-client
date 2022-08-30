@@ -1,10 +1,13 @@
 import { FC } from 'react';
 
-import { Checkbox, NumberInput, Textarea, TextInput } from '@mantine/core';
+import { Checkbox, NumberInput, Stack, Text, TextInput } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
+import MDEditor from '@uiw/react-md-editor';
 import { useTranslation } from 'react-i18next';
 
-import { selectLocale } from 'app';
+import s from './style/ItemFieldPicker.module.css';
+
+import { selectColorScheme, selectLocale } from 'app';
 import { FieldType } from 'shared/api/collections/types';
 import { WithStar } from 'shared/components';
 import { useAppSelector } from 'store';
@@ -19,6 +22,7 @@ type PropsType = {
 export const ItemFieldPicker: FC<PropsType> = ({ field, onChange, value, error }) => {
   const { t } = useTranslation();
   const locale = useAppSelector(selectLocale);
+  const colorScheme = useAppSelector(selectColorScheme);
 
   switch (field.type) {
     case 'check':
@@ -46,15 +50,33 @@ export const ItemFieldPicker: FC<PropsType> = ({ field, onChange, value, error }
       );
     case 'text':
       return (
-        <Textarea
-          error={error}
-          placeholder={t('placeholder_text_text')}
-          label={<WithStar>{field.title}</WithStar>}
-          autosize
-          minRows={3}
-          value={value}
-          onChange={onChange}
-        />
+        <Stack spacing={0} data-color-mode={colorScheme}>
+          <Text weight={500} size="sm">
+            <WithStar>{t('label_description')}</WithStar>
+          </Text>
+          <MDEditor
+            value={value}
+            onChange={onChange}
+            preview="edit"
+            className={`${error ? s.editorError : ''} ${
+              colorScheme === 'dark' ? s.darkbg : ''
+            }`}
+          />
+          {error && (
+            <Text size="xs" color="red">
+              {error}
+            </Text>
+          )}
+        </Stack>
+        // <Textarea
+        //   error={error}
+        //   placeholder={t('placeholder_text_text')}
+        //   label={<WithStar>{field.title}</WithStar>}
+        //   autosize
+        //   minRows={3}
+        //   value={value}
+        //   onChange={onChange}
+        // />
       );
 
     case 'title':

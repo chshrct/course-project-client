@@ -34,7 +34,7 @@ export const Item: FC = () => {
   if (!id) return null;
 
   return (
-    <Container>
+    <Container size="xl">
       <LoadingOverlay visible={isItemFetching} overlayBlur={2} />
       <Space h="xl" />
       <Paper shadow="sm" p="xs" className={colorScheme === 'dark' ? s.paperDarkbg : ''}>
@@ -50,10 +50,11 @@ export const Item: FC = () => {
         </Stack>
       </Paper>
       <Space h="xl" />
-      <Stack align="center">
+      <Stack align="flex-start">
         <CommentList item={id} />
         <CommentInput item={id} />
       </Stack>
+      <Space h="md" />
     </Container>
   );
 };

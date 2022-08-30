@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 
-import { Button, Stack, Textarea } from '@mantine/core';
+import { Box, Button, Stack, Textarea } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -34,20 +34,22 @@ export const CommentInput: FC<PropsType> = ({ item }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack className={s.width320} spacing="xs">
+    <form onSubmit={handleSubmit(onSubmit)} className={s.formSize}>
+      <Stack spacing="xs">
         <Textarea
           label={t('comment_input_label')}
           {...register('message')}
           disabled={isLoading}
         />
-        <Button
-          type="submit"
-          disabled={watch().message?.length === 0}
-          loading={isLoading}
-        >
-          {t('comment_button_text')}
-        </Button>
+        <Box>
+          <Button
+            type="submit"
+            disabled={watch().message?.length === 0}
+            loading={isLoading}
+          >
+            {t('comment_button_text')}
+          </Button>
+        </Box>
       </Stack>
     </form>
   );

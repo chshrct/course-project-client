@@ -46,7 +46,7 @@ export const User: FC = () => {
   };
 
   return (
-    <Container>
+    <Container size="xl">
       <LoadingOverlay visible={isUserNameFetching} overlayBlur={2} />
       <Space h="md" />
       <Title order={3} align="center">
@@ -61,7 +61,7 @@ export const User: FC = () => {
         <IconPlus size={18} />
       </ActionIcon>
       <Space h="md" />
-      <Group align="flex-start" spacing="xs" className={s.positionRelative}>
+      <Group align="flex-start" spacing={28} className={s.positionRelative}>
         <LoadingOverlay visible={isFetching && !isUserNameFetching} overlayBlur={2} />
         {collectionsData && (
           <CollectionCardsList
@@ -82,6 +82,7 @@ export const User: FC = () => {
       >
         <CollectionForm setShowForm={setOpenModal} collection={collectionForEdit} />
       </AppModal>
+      <Space h="md" />
     </Container>
   );
 };

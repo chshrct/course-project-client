@@ -114,6 +114,7 @@ const resources = {
       badge_title_item: 'Item',
       main_page_title_items: 'Last added items',
       main_page_title_collections: 'Largest collections',
+      field_validation_text_exist: 'Field allready exists',
     },
   },
   ru: {
@@ -225,6 +226,7 @@ const resources = {
       badge_title_item: 'Айтем',
       main_page_title_items: 'Последние добавленные айтемы',
       main_page_title_collections: 'Самые большие коллекции',
+      field_validation_text_exist: 'Такое поле уже есть',
     },
   },
 };

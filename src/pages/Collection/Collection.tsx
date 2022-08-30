@@ -20,12 +20,13 @@ export const Collection: FC = () => {
   if (!collectionData || !id) return null;
 
   return (
-    <Container>
+    <Container size="xl">
       <LoadingOverlay visible={isCollectionFetching} overlayBlur={2} />
       <Space h="xl" />
       <CollectionInfo collectionData={collectionData} />
       <Space h="md" />
       <ItemsTable id={id} itemFields={collectionData.itemFields} />
+      <Space h="md" />
     </Container>
   );
 };

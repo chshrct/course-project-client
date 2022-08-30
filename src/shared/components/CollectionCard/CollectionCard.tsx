@@ -2,8 +2,8 @@ import { FC, MouseEventHandler } from 'react';
 
 import { ActionIcon, Badge, Box, Card, Group, Image, Menu, Text } from '@mantine/core';
 import { IconDots, IconEdit, IconTrash, IconUser } from '@tabler/icons';
+import MDEditor from '@uiw/react-md-editor';
 import { useTranslation } from 'react-i18next';
-import ReactMarkdown from 'react-markdown';
 import { useNavigate } from 'react-router-dom';
 
 import { BadgesList } from './BadgesList';
@@ -11,8 +11,10 @@ import { ItemsFieldsAccordion } from './ItemsFieldsAccordion';
 import s from './style/CollectionCard.module.css';
 import { PropsType } from './types';
 
+import { selectColorScheme } from 'app';
 import { APP_ROUTES } from 'routes/enums';
 import { useDeleteCollectionMutation } from 'shared/api';
+import { useAppSelector } from 'store';
 
 export const CollectionCard: FC<PropsType> = ({
   collection,
@@ -21,6 +23,7 @@ export const CollectionCard: FC<PropsType> = ({
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const colorScheme = useAppSelector(selectColorScheme);
   const [deleteCollection] = useDeleteCollectionMutation();
   const {
     id,
@@ -126,7 +129,10 @@ export const CollectionCard: FC<PropsType> = ({
       </Card.Section>
       <Card.Section p="xs">
         <Text size="sm" lineClamp={4}>
-          <ReactMarkdown className={s.whitespace}>{description}</ReactMarkdown>
+          <MDEditor.Markdown
+            source={description}
+            className={`${s.markdown} ${colorScheme === 'light' ? s.textDark : ''}`}
+          />
         </Text>
       </Card.Section>
       {itemFields.length > 0 && <ItemsFieldsAccordion itemFields={itemFields} />}

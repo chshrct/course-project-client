@@ -1,3 +1,5 @@
-.width320 {
-    width: 320px;
+.formSize {
+    width: 100%;
+    min-width: 320px;
+    max-width: 50%;
 }

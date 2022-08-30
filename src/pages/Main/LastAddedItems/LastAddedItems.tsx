@@ -15,7 +15,19 @@ export const LastAddedItems: FC = () => {
   if (!data) return null;
 
   return (
-    <Carousel withControls height={200} slideSize="33%" slideGap="xs" align="center" loop>
+    <Carousel
+      withControls
+      height={200}
+      slideSize="24.9%"
+      slideGap="xs"
+      align="start"
+      loop
+      breakpoints={[
+        { maxWidth: 'lg', slideSize: '33.3333%' },
+        { maxWidth: 'md', slideSize: '50%' },
+        { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
+      ]}
+    >
       {data.map(itemData => (
         <Carousel.Slide key={itemData.item.id}>
           <Group position="center">

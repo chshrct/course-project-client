@@ -9,6 +9,7 @@ import {
 } from '../types';
 
 import { CollectionType, FieldType } from 'shared/api/collections/types';
+import i18n from 'shared/localization/i18n';
 
 export const addItemFieldHandler = (form: CreateCollectionFormType): void => {
   const itemFields = [...form.values.itemFields];
@@ -19,7 +20,7 @@ export const addItemFieldHandler = (form: CreateCollectionFormType): void => {
   );
 
   if (fieldExists) {
-    form.setFieldError('itemField.title', 'Field allready exists');
+    form.setFieldError('itemField.title', `${i18n.t('field_validation_text_exist')}`);
 
     return;
   }
