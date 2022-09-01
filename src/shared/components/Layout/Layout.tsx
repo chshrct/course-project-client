@@ -7,7 +7,7 @@ import { AppHeader } from './AppHeader';
 
 export const Layout: FC = () => {
   return (
-    <AppShell padding={0} header={<AppHeader />}>
+    <AppShell padding={0} header={<AppHeader />} styles={{ main: { width: '100%' } }}>
       <Outlet />
     </AppShell>
   );

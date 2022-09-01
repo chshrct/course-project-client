@@ -5,6 +5,7 @@ export {
   setRememberMe,
   setError,
   setUserAccessBasic,
+  toggleIsSearchOpen,
 } from './appSlice';
 export {
   selectColorScheme,
@@ -19,4 +20,5 @@ export {
   selectErrorMessage,
   selectErrorTitle,
   selectIsAdmin,
+  selectIsSearchOpen,
 } from './selectors';

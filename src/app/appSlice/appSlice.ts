@@ -18,6 +18,9 @@ const initialState: AppStateType = {
     title: '',
     message: '',
   },
+  search: {
+    isOpen: false,
+  },
 };
 
 export const appSlice = createSlice({
@@ -32,6 +35,9 @@ export const appSlice = createSlice({
     },
     toggleLocale: state => {
       state.locale = state.locale === 'en' ? 'ru' : 'en';
+    },
+    toggleIsSearchOpen: state => {
+      state.search.isOpen = !state.search.isOpen;
     },
     signOut: state => {
       state.userData.id = '';
@@ -75,4 +81,5 @@ export const {
   setRememberMe,
   setError,
   setUserAccessBasic,
+  toggleIsSearchOpen,
 } = appSlice.actions;

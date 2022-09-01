@@ -18,4 +18,6 @@ export {
   setError,
   setUserAccessBasic,
   selectIsAdmin,
+  selectIsSearchOpen,
+  toggleIsSearchOpen,
 } from './appSlice';

@@ -15,6 +15,9 @@ export type AppStateType = {
     rememberMe: boolean;
   };
   error: ErrorType;
+  search: {
+    isOpen: boolean;
+  };
 };
 
 export type ErrorType = {

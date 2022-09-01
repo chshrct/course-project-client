@@ -4,3 +4,25 @@
     right: 10px;
     z-index: 999999;
 }
+
+body {
+    height: 100vh;
+    overflow-y: overlay;
+}
+
+
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgba(192, 194, 197, .5);
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(192, 194, 197);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(183, 185, 185);
+}

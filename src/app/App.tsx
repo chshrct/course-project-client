@@ -15,8 +15,8 @@ import {
 } from 'app';
 import { AppRouter } from 'routes';
 import { useLazyAuthCheckQuery } from 'shared/api';
-import { useAppDispatch, useAppSelector } from 'store';
 import 'shared/localization/i18n';
+import { useAppDispatch, useAppSelector } from 'store';
 
 const HIDE_ERROR_DELAY = 5000;
 

@@ -34,6 +34,9 @@ export const LargeCollections: FC<PropsType> = ({
         { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
       ]}
       styles={{
+        root: {
+          maxWidth: '100%',
+        },
         controls: {
           top: 210,
         },

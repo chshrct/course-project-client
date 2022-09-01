@@ -23,6 +23,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+import { SearchModal } from './SearchModal/SearchModal';
 import { SignInForm } from './SignInForm';
 import { SignUpForm } from './SignUpForm';
 
@@ -34,6 +35,7 @@ import {
   selectUserId,
   signOut,
   toggleColorScheme,
+  toggleIsSearchOpen,
   toggleLocale,
 } from 'app';
 import { APP_ROUTES } from 'routes/enums';
@@ -50,7 +52,7 @@ export const AppHeader: FC = () => {
   const isEnglish = useAppSelector(selectIsEnglish);
 
   const [hasAccount, setHasAccount] = useState(true);
-  const [opened, setOpened] = useState(false);
+  const [isSignOpened, setIsSignOpened] = useState(false);
 
   useEffect(() => {
     i18n.changeLanguage(isEnglish ? 'en' : 'ru');
@@ -81,7 +83,15 @@ export const AppHeader: FC = () => {
             )}
           </Group>
           <Group spacing="xs">
-            <Button color={isDark ? 'gray' : 'dark'} variant="default" size="xs" p={5}>
+            <Button
+              color={isDark ? 'gray' : 'dark'}
+              variant="default"
+              size="xs"
+              p={5}
+              onClick={() => {
+                dispatch(toggleIsSearchOpen());
+              }}
+            >
               <Group position="right">
                 <IconSearch size={16} color="gray" />
                 <MediaQuery smallerThan="xs" styles={{ display: 'none' }}>
@@ -141,7 +151,7 @@ export const AppHeader: FC = () => {
                 color={isDark ? 'gray' : 'dark'}
                 size="xs"
                 p={5}
-                onClick={() => setOpened(true)}
+                onClick={() => setIsSignOpened(true)}
               >
                 {t('button_signIn')}
               </Button>
@@ -150,19 +160,20 @@ export const AppHeader: FC = () => {
         </Group>
       </Container>
       <Drawer
-        opened={opened}
-        onClose={() => setOpened(false)}
+        opened={isSignOpened}
+        onClose={() => setIsSignOpened(false)}
         title={t(hasAccount ? 'button_signIn' : 'title_signUp')}
         padding="xl"
         size="xl"
         position="right"
       >
         {hasAccount ? (
-          <SignInForm setHasAccount={setHasAccount} setOpened={setOpened} />
+          <SignInForm setHasAccount={setHasAccount} setOpened={setIsSignOpened} />
         ) : (
           <SignUpForm setHasAccount={setHasAccount} />
         )}
       </Drawer>
+      <SearchModal />
     </Header>
   );
 };

@@ -56,6 +56,9 @@ export const loadState = (): any => {
           title: '',
           message: '',
         },
+        search: {
+          isOpen: false,
+        },
       },
     };
 

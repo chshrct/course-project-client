@@ -1,0 +1,1 @@
+export { useLazySearchByQueryQuery } from './searchApi';

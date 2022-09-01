@@ -21,3 +21,4 @@ export const selectIsSignedIn = (state: RootState): boolean =>
   Boolean(selectUserId(state));
 export const selectErrorTitle = (state: RootState): string => state.app.error.title;
 export const selectErrorMessage = (state: RootState): string => state.app.error.message;
+export const selectIsSearchOpen = (state: RootState): boolean => state.app.search.isOpen;

@@ -29,7 +29,12 @@ export const ItemFieldRenderPicker: FC<PropsType> = ({ field }) => {
           <Group spacing="xs">
             <TypesIconPicker type={field.type} />
             <Text weight={500}>{`${field.title}: `}</Text>
-            <Text>{field.value.toString()}</Text>
+            <Text>
+              <MDEditor.Markdown
+                source={field.value.toString()}
+                className={`${s.markdown} ${colorScheme === 'light' ? s.textDark : ''}`}
+              />
+            </Text>
           </Group>
         </Stack>
       );

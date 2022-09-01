@@ -33,6 +33,8 @@ export {
   useDeteleLikeMutation,
 } from './likes';
 
+export { useLazySearchByQueryQuery } from './search';
+
 export type { TokenPayloadType, UserAccessType, UserStatusType } from './auth';
 
 export type { UserType } from './users';
