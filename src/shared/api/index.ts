@@ -24,6 +24,7 @@ export {
   useUpdateItemMutation,
   useLazyGetItemQuery,
   useGetTenLatestItemsQuery,
+  useLazyGetItemsByTagQuery,
 } from './items';
 export { useGetTagsQuery } from './tags';
 export { useCreateCommentMutation, useGetCommentsQuery } from './comments';

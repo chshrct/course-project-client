@@ -8,4 +8,6 @@ export enum APP_ROUTES {
   ID = ':id',
   COLLECTION = '/collection',
   ITEM = '/item',
+  TAG = '/tag',
+  TAGTITLE = ':tag',
 }

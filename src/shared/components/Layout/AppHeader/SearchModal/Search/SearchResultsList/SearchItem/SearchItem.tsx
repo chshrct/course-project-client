@@ -1,18 +1,20 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { Button, Group, Mark, Stack, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
+import { getItemTypeLocalization } from './utils';
+
 import { toggleIsSearchOpen } from 'app';
 import { APP_ROUTES } from 'routes/enums';
-import { HighlightType } from 'shared/api/search/types';
+import { HighlightType, SearchItemTypeType } from 'shared/api/search/types';
 import { useAppDispatch } from 'store';
 
 type PropsType = {
   id: string;
   mainText: string;
   highlight?: HighlightType;
-  type: string;
+  type: SearchItemTypeType;
   secondaryText?: string;
 };
 
@@ -26,7 +28,9 @@ export const SearchItem: FC<PropsType> = ({
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const texts = [] as any[];
+  const itemType = getItemTypeLocalization(type);
+
+  const texts = [] as ReactNode[];
 
   if (highlight) {
     highlight.texts.forEach(({ type, value }) => {
@@ -52,7 +56,7 @@ export const SearchItem: FC<PropsType> = ({
         inner: {
           justifyContent: 'left',
         },
-        label: { maxWidth: '90%' },
+        label: { maxWidth: '85%' },
       }}
     >
       <Group position="apart" noWrap style={{ maxWidth: '100%' }}>
@@ -81,7 +85,7 @@ export const SearchItem: FC<PropsType> = ({
             right: 5,
           }}
         >
-          {type}
+          {itemType}
         </Text>
       </Group>
     </Button>

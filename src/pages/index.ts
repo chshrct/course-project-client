@@ -4,3 +4,4 @@ export { Admin } from './Admin';
 export { User } from './User';
 export { Collection } from './Collection';
 export { Item } from './Item';
+export { Tag } from './Tag';

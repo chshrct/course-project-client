@@ -14,7 +14,13 @@ export const SearchResultsList: FC<PropsType> = ({ searchData }) => {
   return (
     <Stack spacing={0}>
       {searchData?.map(({ id, highlight, title, type }) => (
-        <SearchItem key={id} id={id} mainText={title} highlight={highlight} type={type} />
+        <SearchItem
+          key={`${highlight.score}${id}`}
+          id={id}
+          mainText={title}
+          highlight={highlight}
+          type={type}
+        />
       ))}
     </Stack>
   );

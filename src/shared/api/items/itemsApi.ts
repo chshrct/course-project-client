@@ -5,6 +5,8 @@ import {
   DeleteItemsRequestType,
   GetCollectionItemsRequestType,
   GetCollectionItemsResponseType,
+  GetItemsByTagRequestType,
+  GetItemsByTagResponseType,
   GetTenLatestResponse,
   ItemType,
   UpdateItemRequestType,
@@ -81,6 +83,12 @@ export const itemsApi = appApi.injectEndpoints({
       }),
       providesTags: ['LATESTITEMS'],
     }),
+    getItemsByTag: builder.query<GetItemsByTagResponseType, GetItemsByTagRequestType>({
+      query: ({ tag, limit, page }) => ({
+        url: `/items/bytag/${tag}`,
+        params: { limit, page },
+      }),
+    }),
   }),
 });
 
@@ -91,4 +99,5 @@ export const {
   useUpdateItemMutation,
   useLazyGetItemQuery,
   useGetTenLatestItemsQuery,
+  useLazyGetItemsByTagQuery,
 } = itemsApi;

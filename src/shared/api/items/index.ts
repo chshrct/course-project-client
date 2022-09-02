@@ -5,4 +5,5 @@ export {
   useUpdateItemMutation,
   useLazyGetItemQuery,
   useGetTenLatestItemsQuery,
+  useLazyGetItemsByTagQuery,
 } from './itemsApi';

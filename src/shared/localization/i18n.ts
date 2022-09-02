@@ -112,9 +112,11 @@ const resources = {
       button_text_unlike: 'Do not like anymore',
       badge_title_collection: 'Collection',
       badge_title_item: 'Item',
+      badge_title_comment: 'Comment',
       main_page_title_items: 'Last added items',
       main_page_title_collections: 'Largest collections',
       field_validation_text_exist: 'Field allready exists',
+      page_title_itemsByTag: 'Items by tag',
     },
   },
   ru: {
@@ -224,9 +226,11 @@ const resources = {
       button_text_unlike: 'Больше не нравится',
       badge_title_collection: 'Коллекция',
       badge_title_item: 'Айтем',
+      badge_title_comment: 'Комментарий',
       main_page_title_items: 'Последние добавленные айтемы',
       main_page_title_collections: 'Самые большие коллекции',
       field_validation_text_exist: 'Такое поле уже есть',
+      page_title_itemsByTag: 'Айтемы по тэгу',
     },
   },
 };

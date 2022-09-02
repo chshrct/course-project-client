@@ -4,6 +4,7 @@ import { ActionIcon, Button, Group, MultiSelect, Space } from '@mantine/core';
 import { IconEdit, IconHash, IconPlus } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 
+import { CSVButton } from './CSVButton/CSVButton';
 import { ItemForm } from './ItemForm';
 
 import { useDeleteItemsMutation } from 'shared/api';
@@ -77,6 +78,7 @@ export const ItemsTableToolbar: FC<PropsType> = ({
       >
         <IconPlus size={18} />
       </ActionIcon>
+      <CSVButton />
       {collectionItemsData.items.length !== 0 && (
         <Group
           spacing="xs"

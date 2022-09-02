@@ -57,3 +57,18 @@ export type GetLatestItemDataType = {
 };
 
 export type GetTenLatestResponse = GetLatestItemDataType[];
+
+export type GetItemsByTagRequestType = {
+  page: number;
+  limit: number;
+  tag: string;
+};
+
+export type GetItemsByTagResponseType = {
+  items: {
+    item: { id: string; title: string };
+    collection: { id: string; title: string; image: string | null };
+    owner: { id: string; title: string };
+  }[];
+  count: number;
+};

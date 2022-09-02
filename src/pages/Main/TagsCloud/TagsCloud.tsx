@@ -2,14 +2,17 @@ import { FC, memo, useCallback } from 'react';
 
 import { Box, Group, LoadingOverlay } from '@mantine/core';
 import WordCloud from 'react-d3-cloud';
+import { useNavigate } from 'react-router-dom';
 
 import s from './style/TagsCloud.module.css';
 
+import { APP_ROUTES } from 'routes/enums';
 import { useGetTagsQuery } from 'shared/api';
 
 const WORDCLOUD_MULTIPLAYER = 200;
 
 export const TagsCloud: FC = memo(() => {
+  const navigate = useNavigate();
   const { data: tagData, isFetching: isTagsFetching } = useGetTagsQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
@@ -19,9 +22,12 @@ export const TagsCloud: FC = memo(() => {
       value: count * WORDCLOUD_MULTIPLAYER,
     })) || [];
 
-  const onWordClick = useCallback((event: any, word: any) => {
-    console.log(word.text);
-  }, []);
+  const onWordClick = useCallback(
+    (event: any, word: any) => {
+      navigate(`${APP_ROUTES.TAG}/${word.text}`);
+    },
+    [navigate],
+  );
 
   return (
     <Group position="center">
