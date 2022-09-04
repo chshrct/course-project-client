@@ -1,0 +1,1 @@
+export { UsersTablePagination } from './UsersTablePagination';

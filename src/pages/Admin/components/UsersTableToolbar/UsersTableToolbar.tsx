@@ -4,21 +4,16 @@ import { ActionIcon, Button, Group } from '@mantine/core';
 import { IconLock, IconLockOpen } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 
+import { useSelfBlockOrAccessDowngrade, useSelfDelete } from './hooks';
+import { PropsType } from './types';
+
 import { useDeleteUsersMutation, useUpdateUsersMutation } from 'api';
-import { selectUserId, setError, setUserAccessBasic, signOut } from 'app';
+import { selectUserId } from 'app';
 import { useAppDispatch, useAppSelector } from 'store';
 
-type PropsType = {
-  userIds: string[];
-  page: number;
-  limit: number;
-  setSelectedUserIds: (userIds: string[]) => void;
-};
-
-export const AdminToolbar: FC<PropsType> = ({
-  userIds,
-  limit,
-  page,
+export const UsersTableToolbar: FC<PropsType> = ({
+  selectedUsersIds,
+  pageProps: { limit, page },
   setSelectedUserIds,
 }) => {
   const { t } = useTranslation();
@@ -31,7 +26,7 @@ export const AdminToolbar: FC<PropsType> = ({
     useDeleteUsersMutation();
   const dispatch = useAppDispatch();
   const signedInUserId = useAppSelector(selectUserId);
-  const isDisabled = userIds.length === 0 || isUpdateLoading || isDeleteLoading;
+  const isDisabled = selectedUsersIds.length === 0 || isUpdateLoading || isDeleteLoading;
 
   useEffect(() => {
     if (isDeleteSuccess) {
@@ -39,52 +34,53 @@ export const AdminToolbar: FC<PropsType> = ({
     }
   }, [dispatch, isDeleteSuccess, setSelectedUserIds, signedInUserId]);
 
-  useEffect(() => {
-    if (isDeleteSuccess) {
-      if (userIds.includes(signedInUserId)) {
-        dispatch(
-          setError({
-            title: t('error_title_accountExists'),
-            message: t('error_message_accountExists'),
-          }),
-        );
-        dispatch(signOut());
-      }
-    }
-  }, [dispatch, isDeleteSuccess, setSelectedUserIds, signedInUserId, t, userIds]);
+  useSelfDelete({
+    dispatch,
+    isDeleteSuccess,
+    signedInUserId,
+    selectedUsersIds,
+  });
 
-  useEffect(() => {
-    if (isUpdateSuccess && usersData) {
-      if (userIds.includes(signedInUserId) && usersData.users[0].access === 'basic')
-        dispatch(setUserAccessBasic());
-      if (userIds.includes(signedInUserId) && usersData.users[0].status === 'blocked') {
-        dispatch(
-          setError({
-            title: t('error_title_userStatus'),
-            message: t('error_message_userStatus'),
-          }),
-        );
-        dispatch(signOut());
-      }
-    }
-  }, [dispatch, isUpdateSuccess, signedInUserId, t, userIds, usersData]);
+  useSelfBlockOrAccessDowngrade({
+    dispatch,
+    isUpdateSuccess,
+    signedInUserId,
+    selectedUsersIds,
+    usersData,
+  });
 
   const onBlockUsersClick = (): void => {
-    updateUsers({ userIds, update: { status: 'blocked' }, pageInfo: { limit, page } });
+    updateUsers({
+      userIds: selectedUsersIds,
+      update: { status: 'blocked' },
+      pageInfo: { limit, page },
+    });
   };
   const onUnblockUsersClick = (): void => {
-    updateUsers({ userIds, update: { status: 'active' }, pageInfo: { limit, page } });
+    updateUsers({
+      userIds: selectedUsersIds,
+      update: { status: 'active' },
+      pageInfo: { limit, page },
+    });
   };
 
   const onAdminUsersClick = (): void => {
-    updateUsers({ userIds, update: { access: 'admin' }, pageInfo: { limit, page } });
+    updateUsers({
+      userIds: selectedUsersIds,
+      update: { access: 'admin' },
+      pageInfo: { limit, page },
+    });
   };
 
   const onBasicUsersClick = (): void => {
-    updateUsers({ userIds, update: { access: 'basic' }, pageInfo: { limit, page } });
+    updateUsers({
+      userIds: selectedUsersIds,
+      update: { access: 'basic' },
+      pageInfo: { limit, page },
+    });
   };
   const onDeleteUsersClick = (): void => {
-    deleteUsers({ userIds, limit, page });
+    deleteUsers({ userIds: selectedUsersIds, limit, page });
   };
 
   return (
