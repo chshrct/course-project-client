@@ -11,7 +11,7 @@ import { LazyQueryTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import {
   GetCollectionItemsRequestType,
   GetCollectionItemsResponseType,
-} from 'shared/api/items/types';
+} from 'api/items/types';
 
 export type GetCollectionItemsType = LazyQueryTrigger<
   QueryDefinition<

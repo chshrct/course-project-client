@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 
 import s from './style/CommentInput.module.css';
 
+import { useCreateCommentMutation } from 'api';
 import { selectUserId } from 'app';
-import { useCreateCommentMutation } from 'shared/api';
 import { useAppSelector } from 'store';
 
 type FieldValues = {

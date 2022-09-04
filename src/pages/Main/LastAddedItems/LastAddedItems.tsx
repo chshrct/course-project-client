@@ -5,7 +5,7 @@ import { Group } from '@mantine/core';
 
 import { ItemCard } from './ItemCard/ItemCard';
 
-import { useGetTenLatestItemsQuery } from 'shared/api';
+import { useGetTenLatestItemsQuery } from 'api';
 
 export const LastAddedItems: FC = () => {
   const { data } = useGetTenLatestItemsQuery(undefined, {

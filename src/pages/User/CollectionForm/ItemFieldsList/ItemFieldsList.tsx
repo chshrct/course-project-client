@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 
 import { CollectionFormInitialValuesType } from '../types';
 
-import { FieldTypesType } from 'shared/api/collections/types';
-import { TypesIconPicker } from 'shared/components/TypesIconPicker/TypesIconPicker';
+import { FieldTypesType } from 'api/collections/types';
+import { TypesIconPicker } from 'components/TypesIconPicker/TypesIconPicker';
 
 type PropsType = {
   form: UseFormReturnType<CollectionFormInitialValuesType>;

@@ -4,7 +4,7 @@ import { Stack } from '@mantine/core';
 
 import { ItemFieldRenderPicker } from './ItemFieldRenderPicker';
 
-import { ItemFieldType } from 'shared/api/items/types';
+import { ItemFieldType } from 'api/items/types';
 
 type PropsType = {
   itemFields: ItemFieldType[] | undefined;

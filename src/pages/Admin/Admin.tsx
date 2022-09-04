@@ -21,10 +21,10 @@ import { useNavigate } from 'react-router-dom';
 import { AdminToolbar } from './AdminToolbar';
 import s from './style/Admin.module.css';
 
+import { useGetUsersQuery } from 'api';
 import { selectUserAccess, setError } from 'app';
-import { APP_ROUTES } from 'routes/enums';
-import { useGetUsersQuery } from 'shared/api';
-import { DEFAULT_PAGE_LIMIT } from 'shared/constants';
+import { DEFAULT_PAGE_LIMIT } from 'constant';
+import { APP_ROUTES } from 'routes';
 import { useAppDispatch, useAppSelector } from 'store';
 
 export const Admin: FC = () => {
@@ -41,16 +41,14 @@ export const Admin: FC = () => {
     { refetchOnMountOrArgChange: true },
   );
   const count = data ? data.count : 0;
-
   const total = Math.ceil(count / limit);
+  const areUsersChecked = data
+    ? data.users.every(({ id }) => selectedUserIds.includes(id))
+    : false;
 
   useEffect(() => {
     if (data && total < page) setPage(total);
   }, [data, page, total]);
-
-  const usersChecked = data
-    ? data.users.every(user => selectedUserIds.includes(user.id))
-    : false;
 
   const onLimitChange = (value: string): void => {
     setLimit(Number(value));
@@ -60,7 +58,7 @@ export const Admin: FC = () => {
   const onUsersChange: ChangeEventHandler<HTMLInputElement> = e => {
     if (!data) return;
     if (e.currentTarget.checked) {
-      setSelectedUserIds(data.users.map(user => user.id));
+      setSelectedUserIds(data.users.map(({ id }) => id));
 
       return;
     }
@@ -141,7 +139,7 @@ export const Admin: FC = () => {
                     <Checkbox
                       size="xs"
                       onChange={onUsersChange}
-                      checked={usersChecked}
+                      checked={areUsersChecked}
                       title={t('button_title_toggleAll')}
                     />
                   </th>

@@ -6,7 +6,7 @@ import {
   UpdateCollectionType,
 } from '../types';
 
-import { FieldType } from 'shared/api/collections/types';
+import { FieldType } from 'api/collections/types';
 
 export const useResetFormAndQuery = (
   collectionReset: () => void,

@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 
 import s from './style/ItemFieldRenderPicker.module.css';
 
+import { ItemFieldType } from 'api/items/types';
 import { selectColorScheme, selectLocale } from 'app';
-import { ItemFieldType } from 'shared/api/items/types';
-import { TypesIconPicker } from 'shared/components';
+import { TypesIconPicker } from 'components';
 import { useAppSelector } from 'store';
 
 type PropsType = {

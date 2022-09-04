@@ -7,8 +7,8 @@ import { LargeCollections } from './LargeCollections';
 import { LastAddedItems } from './LastAddedItems';
 import { TagsCloud } from './TagsCloud';
 
-import { CollectionType } from 'shared/api/collections/types';
-import { AppModal, CollectionForm } from 'shared/components';
+import { CollectionType } from 'api/collections/types';
+import { AppModal, CollectionForm } from 'components';
 
 export const Main: FC = () => {
   const { t } = useTranslation();

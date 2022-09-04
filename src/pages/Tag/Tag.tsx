@@ -4,9 +4,9 @@ import { Box, Button, Container, Group, Mark, Space, Stack, Title } from '@manti
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
+import { useLazyGetItemsByTagQuery } from 'api';
+import { DEFAULT_PAGE_LIMIT } from 'constant';
 import { ItemCard } from 'pages/Main/LastAddedItems/ItemCard/ItemCard';
-import { useLazyGetItemsByTagQuery } from 'shared/api';
-import { DEFAULT_PAGE_LIMIT } from 'shared/constants';
 
 export const Tag: FC = () => {
   const { tag } = useParams();

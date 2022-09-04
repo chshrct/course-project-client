@@ -18,8 +18,8 @@ import { ItemTagsList } from './ItemTagsList';
 import { LikeInfo } from './LikeInfo';
 import s from './style/Item.module.css';
 
+import { useLazyGetItemQuery } from 'api';
 import { selectColorScheme } from 'app';
-import { useLazyGetItemQuery } from 'shared/api';
 import { useAppSelector } from 'store';
 
 export const Item: FC = () => {

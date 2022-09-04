@@ -31,16 +31,16 @@ import {
   setImageHandler,
 } from './utils';
 
-import { selectColorScheme } from 'app';
 import {
   useCreateCollectionMutation,
   useGetTopicsQuery,
   useUpdateCollectionMutation,
   useUploadImageMutation,
-} from 'shared/api';
-import { CollectionType } from 'shared/api/collections/types';
-import { WithStar } from 'shared/components';
-import { initialValuesForCreation } from 'shared/constants/collections/collectionForm';
+} from 'api';
+import { CollectionType } from 'api/collections/types';
+import { selectColorScheme } from 'app';
+import { WithStar } from 'components';
+import { initialValuesForCreation } from 'constant/collections/collectionForm';
 import { useAppSelector } from 'store';
 
 type PropsType = {

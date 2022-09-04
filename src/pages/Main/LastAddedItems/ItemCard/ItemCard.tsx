@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 import s from './style/ItemCard.module.css';
 
+import { GetLatestItemDataType } from 'api/items/types';
 import { APP_ROUTES } from 'routes/enums';
-import { GetLatestItemDataType } from 'shared/api/items/types';
 
 type PropsType = {
   itemData: GetLatestItemDataType;

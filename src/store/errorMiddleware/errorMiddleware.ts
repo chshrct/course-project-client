@@ -2,7 +2,7 @@ import { isRejectedWithValue } from '@reduxjs/toolkit';
 import type { MiddlewareAPI, Middleware } from '@reduxjs/toolkit';
 
 import { setError, setUserAccessBasic, signOut } from 'app';
-import i18n from 'shared/localization/i18n';
+import i18n from 'localization/i18n';
 
 export const errorMiddleware: Middleware = (api: MiddlewareAPI) => next => action => {
   if (isRejectedWithValue(action)) {

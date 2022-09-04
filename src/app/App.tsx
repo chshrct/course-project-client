@@ -5,6 +5,7 @@ import { IconX } from '@tabler/icons';
 
 import s from './style/App.module.css';
 
+import { useLazyAuthCheckQuery } from 'api';
 import {
   selectColorScheme,
   selectErrorMessage,
@@ -14,8 +15,7 @@ import {
   setError,
 } from 'app';
 import { AppRouter } from 'routes';
-import { useLazyAuthCheckQuery } from 'shared/api';
-import 'shared/localization/i18n';
+import 'localization/i18n';
 import { useAppDispatch, useAppSelector } from 'store';
 
 const HIDE_ERROR_DELAY = 5000;

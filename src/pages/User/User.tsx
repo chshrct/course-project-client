@@ -17,10 +17,10 @@ import { CollectionForm } from './CollectionForm';
 import s from './style/User.module.css';
 import { getGreetingMessage } from './utils';
 
+import { useGetUserCollectionsQuery, useLazyGetUserNameQuery } from 'api';
+import { CollectionType } from 'api/collections/types';
 import { selectUserName } from 'app';
-import { useGetUserCollectionsQuery, useLazyGetUserNameQuery } from 'shared/api';
-import { CollectionType } from 'shared/api/collections/types';
-import { AppModal } from 'shared/components';
+import { AppModal } from 'components';
 import { useAppSelector } from 'store';
 
 export const User: FC = () => {

@@ -4,9 +4,9 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { errorMiddleware } from './errorMiddleware';
 
+import { appApi, fileUploadApi } from 'api';
 import { appReducer } from 'app/appSlice/appSlice';
-import { appApi, fileUploadApi } from 'shared/api';
-import { loadState, saveItem } from 'shared/utils';
+import { loadState, saveItem } from 'utils';
 
 const SAVE_THROTTLE = 1000;
 

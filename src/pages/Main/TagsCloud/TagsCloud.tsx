@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 import s from './style/TagsCloud.module.css';
 
+import { useGetTagsQuery } from 'api';
 import { APP_ROUTES } from 'routes/enums';
-import { useGetTagsQuery } from 'shared/api';
 
 const WORDCLOUD_MULTIPLAYER = 200;
 

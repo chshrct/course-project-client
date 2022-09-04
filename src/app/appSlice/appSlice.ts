@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppStateType, ErrorType } from './types';
 
-import { authApi } from 'shared/api/auth/authApi';
+import { authApi } from 'api/auth/authApi';
 
 const initialState: AppStateType = {
   colorScheme: 'light',

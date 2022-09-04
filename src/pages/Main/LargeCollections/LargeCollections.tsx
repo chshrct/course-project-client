@@ -3,9 +3,9 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import { Carousel } from '@mantine/carousel';
 import { Group } from '@mantine/core';
 
-import { useGetFiveBiggestCollectionsQuery } from 'shared/api';
-import { CollectionType } from 'shared/api/collections/types';
-import { CollectionCard } from 'shared/components';
+import { useGetFiveBiggestCollectionsQuery } from 'api';
+import { CollectionType } from 'api/collections/types';
+import { CollectionCard } from 'components';
 
 type PropsType = {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;

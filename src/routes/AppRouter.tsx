@@ -5,8 +5,8 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import { AuthCheck } from './AuthCheck';
 import { APP_ROUTES } from './enums';
 
+import { Layout } from 'components';
 import { Admin, Collection, Item, Main, NotFound, Tag, User } from 'pages';
-import { Layout } from 'shared/components';
 
 export const AppRouter: FC = () => {
   const appRoutes = useRoutes([

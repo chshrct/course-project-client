@@ -1,10 +1,7 @@
 import React, { Dispatch, FC, SetStateAction } from 'react';
 
-import {
-  CollectionType,
-  GetUserCollectionsResponseType,
-} from 'shared/api/collections/types';
-import { CollectionCard } from 'shared/components';
+import { CollectionType, GetUserCollectionsResponseType } from 'api/collections/types';
+import { CollectionCard } from 'components';
 
 type PropsType = {
   collectionsData: GetUserCollectionsResponseType;

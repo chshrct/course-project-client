@@ -4,12 +4,8 @@ import { ActionIcon, Group, Text } from '@mantine/core';
 import { IconThumbUp } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 
+import { useCreateLikeMutation, useDeteleLikeMutation, useGetItemLikesQuery } from 'api';
 import { selectUserId } from 'app';
-import {
-  useCreateLikeMutation,
-  useDeteleLikeMutation,
-  useGetItemLikesQuery,
-} from 'shared/api';
 import { useAppSelector } from 'store';
 
 type PropsType = {

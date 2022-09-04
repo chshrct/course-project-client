@@ -1,0 +1,1 @@
+export { CollectionCardMenu } from './CollectionCardMenu';

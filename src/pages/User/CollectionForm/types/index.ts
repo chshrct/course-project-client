@@ -15,7 +15,7 @@ import {
   CreateCollectionResponseType,
   UpdateCollectionRequestBodyType,
   UpdateCollectionRequestParamType,
-} from 'shared/api/collections/types';
+} from 'api/collections/types';
 
 export type CreateCollection = MutationTrigger<
   MutationDefinition<

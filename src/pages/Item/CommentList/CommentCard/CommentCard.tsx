@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 import s from './style/CommentCard.module.css';
 
+import { CommentResponseType } from 'api/comments/types';
 import { selectLocale } from 'app';
 import { APP_ROUTES } from 'routes/enums';
-import { CommentResponseType } from 'shared/api/comments/types';
 import { useAppSelector } from 'store';
 
 type PropsType = {

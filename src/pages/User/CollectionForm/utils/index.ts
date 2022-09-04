@@ -8,15 +8,13 @@ import {
   UploadImageType,
 } from '../types';
 
-import { CollectionType, FieldType } from 'shared/api/collections/types';
-import i18n from 'shared/localization/i18n';
+import { CollectionType, FieldType } from 'api/collections/types';
+import i18n from 'localization/i18n';
 
 export const addItemFieldHandler = (form: CreateCollectionFormType): void => {
   const itemFields = [...form.values.itemFields];
   const fieldExists = itemFields.some(
-    field =>
-      field.type === form.values.itemField.type &&
-      field.title === form.values.itemField.title,
+    field => field.title === form.values.itemField.title,
   );
 
   if (fieldExists) {

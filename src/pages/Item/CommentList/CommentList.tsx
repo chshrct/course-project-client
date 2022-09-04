@@ -4,7 +4,7 @@ import { Stack } from '@mantine/core';
 
 import { CommentCard } from './CommentCard';
 
-import { useGetCommentsQuery } from 'shared/api';
+import { useGetCommentsQuery } from 'api';
 
 type PropsType = {
   item: string;

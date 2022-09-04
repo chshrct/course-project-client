@@ -4,8 +4,8 @@ import { ActionIcon, Button, Group } from '@mantine/core';
 import { IconLock, IconLockOpen } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 
+import { useDeleteUsersMutation, useUpdateUsersMutation } from 'api';
 import { selectUserId, setError, setUserAccessBasic, signOut } from 'app';
-import { useDeleteUsersMutation, useUpdateUsersMutation } from 'shared/api';
 import { useAppDispatch, useAppSelector } from 'store';
 
 type PropsType = {
