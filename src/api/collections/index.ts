@@ -9,4 +9,9 @@ export {
   useGetFiveBiggestCollectionsQuery,
 } from './collectionsApi';
 
-export type { FieldType, FieldTypesType, CollectionType } from './types';
+export type {
+  FieldType,
+  FieldTypesType,
+  CollectionType,
+  GetUserCollectionsResponseType,
+} from './types';

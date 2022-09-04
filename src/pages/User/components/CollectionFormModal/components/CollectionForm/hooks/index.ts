@@ -40,17 +40,17 @@ export const useSendFormOnImageUpload = (
   imageData: any,
   isUploadSuccess: boolean,
   updateCollection: UpdateCollectionType,
-  editMode: boolean,
-  colId: string,
+  isModeEdit: boolean,
+  collectionId: string,
 ): void => {
   useEffect(() => {
     if (isUploadSuccess && imageData) {
       const { description, itemFields, title, topics } = form.values;
 
-      if (editMode) {
+      if (isModeEdit) {
         updateCollection({
           owner: id!,
-          id: colId,
+          id: collectionId,
           description,
           image: imageData.url,
           topics,
@@ -74,9 +74,9 @@ export const useSendFormOnImageUpload = (
       });
     }
   }, [
-    colId,
+    collectionId,
     createCollection,
-    editMode,
+    isModeEdit,
     form.values,
     id,
     imageData,

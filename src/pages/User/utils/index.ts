@@ -1,4 +1,4 @@
-import { TFunction } from 'react-i18next';
+import i18n from 'localization/i18n';
 
 export const getGreetingMessage = (
   loggedUserName: string,
@@ -7,13 +7,12 @@ export const getGreetingMessage = (
         name: string;
       }
     | undefined,
-  t: TFunction<'translation', undefined>,
 ): string => {
   if (userNameData) {
     return loggedUserName === userNameData.name
-      ? t('text_yourCollections')
-      : `${t('text_collectionsOfUser')} ${
-          userNameData ? userNameData.name : t('text_user')
+      ? i18n.t('text_yourCollections')
+      : `${i18n.t('text_collectionsOfUser')} ${
+          userNameData ? userNameData.name : i18n.t('text_user')
         }`;
   }
 

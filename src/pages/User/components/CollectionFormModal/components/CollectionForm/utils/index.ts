@@ -45,8 +45,8 @@ export const onSubmitHandler =
     createCollection: CreateCollectionType,
     id: string | undefined,
     updateCollection: UpdateCollectionType,
-    editMode: boolean,
-    colId: string,
+    isModeEdit: boolean,
+    collectionId: string,
   ) =>
   ({ image, description, itemFields, title, topics }: typeof form.values): void => {
     if (image && !(typeof image === 'string')) {
@@ -58,10 +58,10 @@ export const onSubmitHandler =
 
       return;
     }
-    if (editMode) {
+    if (isModeEdit) {
       updateCollection({
         owner: id!,
-        id: colId,
+        id: collectionId,
         description,
         image,
         itemFields: itemFields.map(

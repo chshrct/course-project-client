@@ -46,7 +46,7 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
   const colorScheme = useAppSelector(selectColorScheme);
   const { id } = useParams();
   const { t } = useTranslation();
-  const editMode = !!collection;
+  const isModeEdit = !!collection;
   const collectionId = collection ? collection.id : '';
 
   const [
@@ -91,7 +91,7 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
   });
 
   const form = useForm({
-    initialValues: editMode
+    initialValues: isModeEdit
       ? getInitialValuesForEdit(collection)
       : initialValuesForCreation,
     validate: yupResolver(collectionSchema),
@@ -103,7 +103,7 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
     createCollection,
     id,
     updateCollection,
-    editMode,
+    isModeEdit,
     collectionId,
   );
 
@@ -114,7 +114,7 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
     imageData,
     isUploadSuccess,
     updateCollection,
-    editMode,
+    isModeEdit,
     collectionId,
   );
 
@@ -199,7 +199,7 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
         </Group>
         <Group position="center" mt="md">
           <Button type="submit">
-            {editMode ? t('modal_submit_text_edit') : t('modal_submit_text_create')}
+            {isModeEdit ? t('modal_submit_text_edit') : t('modal_submit_text_create')}
           </Button>
         </Group>
       </form>

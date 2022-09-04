@@ -12,15 +12,12 @@ import { IconPlus } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { CollectionCardsList } from './CollectionCardsList';
-import { CollectionForm } from './CollectionForm';
+import { CollectionCardsList, CollectionFormModal } from './components';
 import s from './style/User.module.css';
 import { getGreetingMessage } from './utils';
 
-import { useGetUserCollectionsQuery, useLazyGetUserNameQuery } from 'api';
-import { CollectionType } from 'api/collections/types';
+import { CollectionType, useGetUserCollectionsQuery, useLazyGetUserNameQuery } from 'api';
 import { selectUserName } from 'app';
-import { AppModal } from 'components';
 import { useAppSelector } from 'store';
 
 export const User: FC = () => {
@@ -50,7 +47,7 @@ export const User: FC = () => {
       <LoadingOverlay visible={isUserNameFetching} overlayBlur={2} />
       <Space h="md" />
       <Title order={3} align="center">
-        {getGreetingMessage(loggedUserName, userNameData, t)}
+        {getGreetingMessage(loggedUserName, userNameData)}
       </Title>
       <ActionIcon
         variant="default"
@@ -71,17 +68,11 @@ export const User: FC = () => {
           />
         )}
       </Group>
-      <AppModal
-        title={
-          collectionForEdit
-            ? t('modal_title_editCollection')
-            : t('modal_title_createCollection')
-        }
+      <CollectionFormModal
+        collectionForEdit={collectionForEdit}
         setOpenModal={setOpenModal}
         openModal={openModal}
-      >
-        <CollectionForm setShowForm={setOpenModal} collection={collectionForEdit} />
-      </AppModal>
+      />
       <Space h="md" />
     </Container>
   );
