@@ -1,6 +1,10 @@
 import { UseFormReturnType } from '@mantine/form';
 
-import { CollectionFormInitialValuesType } from '../../types';
+import {
+  CollectionFormInitialValuesType,
+  CreateCollectionType,
+  UpdateCollectionType,
+} from '../../types';
 
 export type UseResetFormAndQueryArgsType = {
   collectionReset: () => void;
@@ -9,17 +13,15 @@ export type UseResetFormAndQueryArgsType = {
   setShowForm: (val: boolean) => void;
   isUpdateCollectionSuccess: boolean;
   updateCollectionReset: () => void;
-  collectionId: string;
-  isModeEdit: boolean;
 };
 
 export type UseSendFormOnImageUploadArgsType = {
-  createCollection: any;
+  createCollection: CreateCollectionType;
   form: UseFormReturnType<CollectionFormInitialValuesType>;
   id: string | undefined;
   imageData: any;
   isUploadSuccess: boolean;
-  updateCollection: any;
+  updateCollection: UpdateCollectionType;
   isModeEdit: boolean;
   collectionId: string;
 };

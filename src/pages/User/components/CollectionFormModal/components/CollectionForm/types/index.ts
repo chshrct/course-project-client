@@ -23,16 +23,6 @@ export type PropsType = {
   collection: CollectionType | null;
 };
 
-export type CreateCollection = MutationTrigger<
-  MutationDefinition<
-    CreateCollectionRequestType,
-    BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>,
-    'USERS',
-    CreateCollectionResponseType,
-    'appApi'
-  >
->;
-
 export type CreateCollectionFormType = UseFormReturnType<CollectionFormInitialValuesType>;
 
 export type CreateCollectionType = (
@@ -80,3 +70,13 @@ export type UpdateCollectionType = MutationTrigger<
     'appApi'
   >
 >;
+
+export type OnSubmitHandlerAgsType = {
+  form: CreateCollectionFormType;
+  uploadImage: UploadImageType;
+  createCollection: CreateCollectionType;
+  id: string | undefined;
+  updateCollection: UpdateCollectionType;
+  isModeEdit: boolean;
+  collectionId: string;
+};

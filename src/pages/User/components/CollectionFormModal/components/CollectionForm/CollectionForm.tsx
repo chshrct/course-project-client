@@ -1,31 +1,28 @@
 import { FC } from 'react';
 
 import {
-  ActionIcon,
   Box,
   Button,
   Group,
   LoadingOverlay,
   MultiSelect,
-  NativeSelect,
   Space,
-  Stack,
   Text,
   TextInput,
 } from '@mantine/core';
 import { useForm, yupResolver } from '@mantine/form';
-import { IconPlus } from '@tabler/icons';
 import MDEditor from '@uiw/react-md-editor';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import * as Yup from 'yup';
 
-import { ImageDrop, ItemFieldsList } from './components';
+import { ImageDrop, ItemFieldsCreator, ItemFieldsList } from './components';
+import { initialValuesForCreation } from './constant';
 import { useResetFormAndQuery, useSendFormOnImageUpload } from './hooks';
 import s from './style/CollectionForm.module.css';
 import { PropsType } from './types';
 import {
   addItemFieldHandler,
+  getCollectionSchema,
   getInitialValuesForEdit,
   onSubmitHandler,
   setImageHandler,
@@ -39,7 +36,6 @@ import {
 } from 'api';
 import { selectColorScheme } from 'app';
 import { WithStar } from 'components';
-import { initialValuesForCreation } from 'constant/collections/collectionForm';
 import { useAppSelector } from 'store';
 
 export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
@@ -84,20 +80,14 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
     isCollectionLoading ||
     isUpdateCollectionLoading;
 
-  const collectionSchema = Yup.object().shape({
-    title: Yup.string().required(t('error_required')),
-    description: Yup.string().required(t('error_required')),
-    topics: Yup.array().min(1, t('error_topics')),
-  });
-
   const form = useForm({
     initialValues: isModeEdit
       ? getInitialValuesForEdit(collection)
       : initialValuesForCreation,
-    validate: yupResolver(collectionSchema),
+    validate: yupResolver(getCollectionSchema()),
   });
 
-  const onSubmit = onSubmitHandler(
+  const onSubmit = onSubmitHandler({
     form,
     uploadImage,
     createCollection,
@@ -105,9 +95,9 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
     updateCollection,
     isModeEdit,
     collectionId,
-  );
+  });
 
-  useSendFormOnImageUpload(
+  useSendFormOnImageUpload({
     createCollection,
     form,
     id,
@@ -116,16 +106,16 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
     updateCollection,
     isModeEdit,
     collectionId,
-  );
+  });
 
-  useResetFormAndQuery(
+  useResetFormAndQuery({
     collectionReset,
     imageReset,
     isCreateCollectionSuccess,
     setShowForm,
     isUpdateCollectionSuccess,
     updateCollectionReset,
-  );
+  });
 
   const onAddItemFieldClick = (): void => {
     addItemFieldHandler(form);
@@ -168,35 +158,7 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
           {t('text_itemsFields')}
         </Text>
         <ItemFieldsList form={form} />
-        <Group mt="md" align="flex-start" noWrap>
-          <Stack spacing={0} align="flex-start">
-            <Text size="sm" weight={500} align="center">
-              {t('text_fieldType')}
-            </Text>
-            <NativeSelect
-              className={s.selectWidth}
-              data={['title', 'text', 'number', 'date', 'check']}
-              value={form.values.itemField.type}
-              onChange={e => form.setFieldValue('itemField.type', e.currentTarget.value)}
-            />
-          </Stack>
-          <Stack spacing={0} align="flex-start">
-            <Text size="sm" weight={500} align="center">
-              {t('text_fieldTitle')}
-            </Text>
-            <TextInput {...form.getInputProps('itemField.title')} />
-          </Stack>
-          <ActionIcon
-            variant="default"
-            onClick={onAddItemFieldClick}
-            title={t('button_title_homePage')}
-            size="md"
-            mt={26}
-            disabled={!form.values.itemField.title}
-          >
-            <IconPlus size={18} />
-          </ActionIcon>
-        </Group>
+        <ItemFieldsCreator form={form} onAddItemFieldClick={onAddItemFieldClick} />
         <Group position="center" mt="md">
           <Button type="submit">
             {isModeEdit ? t('modal_submit_text_edit') : t('modal_submit_text_create')}

@@ -1,11 +1,10 @@
 import { uniqueId } from 'lodash';
+import * as Yup from 'yup';
 
 import {
   CollectionFormInitialValuesType,
   CreateCollectionFormType,
-  CreateCollectionType,
-  UpdateCollectionType,
-  UploadImageType,
+  OnSubmitHandlerAgsType,
 } from '../types';
 
 import { CollectionType, FieldType } from 'api/collections/types';
@@ -39,15 +38,15 @@ export const setImageHandler =
   };
 
 export const onSubmitHandler =
-  (
-    form: CreateCollectionFormType,
-    uploadImage: UploadImageType,
-    createCollection: CreateCollectionType,
-    id: string | undefined,
-    updateCollection: UpdateCollectionType,
-    isModeEdit: boolean,
-    collectionId: string,
-  ) =>
+  ({
+    form,
+    uploadImage,
+    createCollection,
+    id,
+    updateCollection,
+    isModeEdit,
+    collectionId,
+  }: OnSubmitHandlerAgsType) =>
   ({ image, description, itemFields, title, topics }: typeof form.values): void => {
     if (image && !(typeof image === 'string')) {
       const formData = new FormData();
@@ -102,3 +101,10 @@ export const getInitialValuesForEdit = (
     },
   };
 };
+
+export const getCollectionSchema = (): any =>
+  Yup.object().shape({
+    title: Yup.string().required(i18n.t('error_required')),
+    description: Yup.string().required(i18n.t('error_required')),
+    topics: Yup.array().min(1, i18n.t('error_topics')),
+  });

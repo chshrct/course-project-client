@@ -1,21 +1,17 @@
 import { useEffect } from 'react';
 
-import {
-  CreateCollection,
-  CreateCollectionFormType,
-  UpdateCollectionType,
-} from '../types';
+import { UseResetFormAndQueryArgsType, UseSendFormOnImageUploadArgsType } from './types';
 
-import { FieldType } from 'api/collections/types';
+import { FieldType } from 'api';
 
-export const useResetFormAndQuery = (
-  collectionReset: () => void,
-  imageReset: () => void,
-  isCreateCollectionSuccess: boolean,
-  setShowForm: (val: boolean) => void,
-  isUpdateCollectionSuccess: boolean,
-  updateCollectionReset: () => void,
-): void => {
+export const useResetFormAndQuery = ({
+  collectionReset,
+  imageReset,
+  isCreateCollectionSuccess,
+  setShowForm,
+  isUpdateCollectionSuccess,
+  updateCollectionReset,
+}: UseResetFormAndQueryArgsType): void => {
   useEffect(() => {
     if (isCreateCollectionSuccess || isUpdateCollectionSuccess) {
       collectionReset();
@@ -33,16 +29,16 @@ export const useResetFormAndQuery = (
   ]);
 };
 
-export const useSendFormOnImageUpload = (
-  createCollection: CreateCollection,
-  form: CreateCollectionFormType,
-  id: string | undefined,
-  imageData: any,
-  isUploadSuccess: boolean,
-  updateCollection: UpdateCollectionType,
-  isModeEdit: boolean,
-  collectionId: string,
-): void => {
+export const useSendFormOnImageUpload = ({
+  createCollection,
+  form,
+  id,
+  imageData,
+  isUploadSuccess,
+  updateCollection,
+  isModeEdit,
+  collectionId,
+}: UseSendFormOnImageUploadArgsType): void => {
   useEffect(() => {
     if (isUploadSuccess && imageData) {
       const { description, itemFields, title, topics } = form.values;
