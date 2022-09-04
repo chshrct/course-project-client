@@ -12,7 +12,7 @@ export const LastAddedItems: FC = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  if (!data) return null;
+  if (!data || data.length < 1) return null;
 
   return (
     <Carousel

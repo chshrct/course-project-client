@@ -20,7 +20,7 @@ export const LargeCollections: FC<PropsType> = ({
     refetchOnMountOrArgChange: true,
   });
 
-  if (!data) return null;
+  if (!data || data.length < 1) return null;
 
   return (
     <Carousel

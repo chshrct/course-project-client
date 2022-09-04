@@ -17,6 +17,8 @@ import { useForm, yupResolver } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
+import { GithubSignIn } from './GithubSignIn';
+import { GoogleSignIn } from './GoogleSignIn';
 import s from './style/SignInForm.module.css';
 
 import { setRememberMe } from 'app';
@@ -86,15 +88,20 @@ export const SignInForm: FC<PropsType> = ({ setHasAccount, setOpened }) => {
           mt="md"
           {...form.getInputProps('password')}
         />
-        <Checkbox
-          mt="md"
-          label={t('label_rememberMe')}
-          {...form.getInputProps('rememberMe', { type: 'checkbox' })}
-        />
-        <Group position="right" mt="md">
+
+        <Group position="apart" mt="md" align="center">
           <Button type="submit">{t('button_signIn')}</Button>
+          <Checkbox
+            label={t('label_rememberMe')}
+            {...form.getInputProps('rememberMe', { type: 'checkbox' })}
+          />
         </Group>
       </form>
+      <Space h="md" />
+      <Group>
+        <GoogleSignIn signIn={signIn} rememberMe={form.values.rememberMe} />
+        <GithubSignIn rememberMe={form.values.rememberMe} setOpened={setOpened} />
+      </Group>
       <Space h="xl" />
       <Center>
         <Text>

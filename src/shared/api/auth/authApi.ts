@@ -2,6 +2,7 @@ import { appApi } from '../appApi';
 
 import {
   AuthCheckResponseBodyType,
+  GithubSignInRequestType,
   SignInRequestBodyType,
   SignInResponseBodyType,
   SignUpRequestBodyType,
@@ -29,7 +30,19 @@ export const authApi = appApi.injectEndpoints({
       }),
       invalidatesTags: ['USERS'],
     }),
+    githubSignIn: builder.mutation<SignInResponseBodyType, GithubSignInRequestType>({
+      query: body => ({
+        url: 'auth/github',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useSignUpMutation, useSignInMutation, useLazyAuthCheckQuery } = authApi;
+export const {
+  useSignUpMutation,
+  useSignInMutation,
+  useLazyAuthCheckQuery,
+  useGithubSignInMutation,
+} = authApi;

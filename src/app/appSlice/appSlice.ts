@@ -70,6 +70,15 @@ export const appSlice = createSlice({
         state.userData.token = token;
       },
     );
+    builder.addMatcher(
+      authApi.endpoints.githubSignIn.matchFulfilled,
+      (state, { payload: { access, id, name, token } }) => {
+        state.userData.access = access;
+        state.userData.id = id;
+        state.userData.name = name;
+        state.userData.token = token;
+      },
+    );
   },
 });
 

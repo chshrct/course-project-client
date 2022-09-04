@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { Box, Button, Container, Group, Space, Stack, Title } from '@mantine/core';
+import { Box, Button, Container, Group, Mark, Space, Stack, Title } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
@@ -28,7 +28,12 @@ export const Tag: FC = () => {
     <Container size="xl">
       <Space h="xl" />
       <Stack spacing="md">
-        <Title order={4}>{`${t('page_title_itemsByTag')}: ${tag}`}</Title>
+        <Title order={4}>
+          {`${t('page_title_itemsByTag')}: `}
+          <Mark px={4} style={{ borderRadius: '4px' }}>
+            {tag}
+          </Mark>
+        </Title>
         <Group>
           {data?.items.map(itemData => (
             <ItemCard key={itemData.item.id} itemData={itemData} />

@@ -30,3 +30,7 @@ export type AuthCheckResponseBodyType = {
   name: string;
   access: UserAccessType;
 };
+
+export type GithubSignInRequestType = {
+  code: string;
+};

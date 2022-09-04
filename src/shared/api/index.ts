@@ -1,5 +1,10 @@
 export { appApi } from './appApi';
-export { useLazyAuthCheckQuery, useSignInMutation, useSignUpMutation } from './auth';
+export {
+  useLazyAuthCheckQuery,
+  useSignInMutation,
+  useSignUpMutation,
+  useGithubSignInMutation,
+} from './auth';
 export {
   useGetUsersQuery,
   useDeleteUsersMutation,
@@ -25,6 +30,7 @@ export {
   useLazyGetItemQuery,
   useGetTenLatestItemsQuery,
   useLazyGetItemsByTagQuery,
+  useLazyGetCollectionItemsQuery,
 } from './items';
 export { useGetTagsQuery } from './tags';
 export { useCreateCommentMutation, useGetCommentsQuery } from './comments';

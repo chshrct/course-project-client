@@ -100,4 +100,5 @@ export const {
   useLazyGetItemQuery,
   useGetTenLatestItemsQuery,
   useLazyGetItemsByTagQuery,
+  useLazyGetCollectionItemsQuery,
 } = itemsApi;

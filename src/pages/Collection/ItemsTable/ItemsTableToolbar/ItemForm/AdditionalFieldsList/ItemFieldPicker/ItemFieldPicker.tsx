@@ -41,6 +41,8 @@ export const ItemFieldPicker: FC<PropsType> = ({ field, onChange, value, error }
     case 'number':
       return (
         <NumberInput
+          precision={1}
+          step={0.1}
           error={error}
           placeholder="451"
           label={<WithStar>{field.title}</WithStar>}

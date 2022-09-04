@@ -1,4 +1,9 @@
-export { useLazyAuthCheckQuery, useSignInMutation, useSignUpMutation } from './authApi';
+export {
+  useLazyAuthCheckQuery,
+  useSignInMutation,
+  useSignUpMutation,
+  useGithubSignInMutation,
+} from './authApi';
 export type {
   AuthCheckResponseBodyType,
   AuthMiddlewareBodyType,

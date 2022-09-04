@@ -78,7 +78,7 @@ export const ItemsTableToolbar: FC<PropsType> = ({
       >
         <IconPlus size={18} />
       </ActionIcon>
-      <CSVButton />
+      <CSVButton collectionId={id} />
       {collectionItemsData.items.length !== 0 && (
         <Group
           spacing="xs"

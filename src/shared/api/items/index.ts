@@ -6,4 +6,5 @@ export {
   useLazyGetItemQuery,
   useGetTenLatestItemsQuery,
   useLazyGetItemsByTagQuery,
+  useLazyGetCollectionItemsQuery,
 } from './itemsApi';
