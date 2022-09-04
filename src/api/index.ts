@@ -46,8 +46,13 @@ export type { TokenPayloadType, UserAccessType, UserStatusType } from './auth';
 
 export type { UserType } from './users';
 
-export type { FieldType, FieldTypesType } from './collections';
+export type { FieldType, FieldTypesType, CollectionType } from './collections';
 
-export type { GetCollectionItemsResponseType, ItemType, ItemFieldType } from './items';
+export type {
+  GetCollectionItemsResponseType,
+  ItemType,
+  ItemFieldType,
+  GetLatestItemDataType,
+} from './items';
 
 export type { CommentResponseType } from './comments';

@@ -5,7 +5,7 @@ import { UseFormReturnType } from '@mantine/form';
 import { IconMinus } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 
-import { CollectionFormInitialValuesType } from '../types';
+import { CollectionFormInitialValuesType } from '../../types';
 
 import { FieldTypesType } from 'api/collections/types';
 import { TypesIconPicker } from 'components/TypesIconPicker/TypesIconPicker';

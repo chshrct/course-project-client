@@ -9,4 +9,4 @@ export {
   useGetFiveBiggestCollectionsQuery,
 } from './collectionsApi';
 
-export type { FieldType, FieldTypesType } from './types';
+export type { FieldType, FieldTypesType, CollectionType } from './types';

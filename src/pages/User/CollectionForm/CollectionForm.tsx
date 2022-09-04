@@ -20,10 +20,10 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { ImageDrop, ItemFieldsList } from './components';
 import { useResetFormAndQuery, useSendFormOnImageUpload } from './hooks';
-import { ImageDrop } from './ImageDrop';
-import { ItemFieldsList } from './ItemFieldsList';
 import s from './style/CollectionForm.module.css';
+import { PropsType } from './types';
 import {
   addItemFieldHandler,
   getInitialValuesForEdit,
@@ -37,23 +37,17 @@ import {
   useUpdateCollectionMutation,
   useUploadImageMutation,
 } from 'api';
-import { CollectionType } from 'api/collections/types';
 import { selectColorScheme } from 'app';
 import { WithStar } from 'components';
 import { initialValuesForCreation } from 'constant/collections/collectionForm';
 import { useAppSelector } from 'store';
-
-type PropsType = {
-  setShowForm: (val: boolean) => void;
-  collection: CollectionType | null;
-};
 
 export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
   const colorScheme = useAppSelector(selectColorScheme);
   const { id } = useParams();
   const { t } = useTranslation();
   const editMode = !!collection;
-  const colId = collection ? collection.id : '';
+  const collectionId = collection ? collection.id : '';
 
   const [
     uploadImage,
@@ -110,7 +104,7 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
     id,
     updateCollection,
     editMode,
-    colId,
+    collectionId,
   );
 
   useSendFormOnImageUpload(
@@ -121,7 +115,7 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
     isUploadSuccess,
     updateCollection,
     editMode,
-    colId,
+    collectionId,
   );
 
   useResetFormAndQuery(

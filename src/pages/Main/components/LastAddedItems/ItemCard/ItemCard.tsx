@@ -6,13 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import s from './style/ItemCard.module.css';
+import { PropsType } from './types';
 
-import { GetLatestItemDataType } from 'api/items/types';
-import { APP_ROUTES } from 'routes/enums';
-
-type PropsType = {
-  itemData: GetLatestItemDataType;
-};
+import { APP_ROUTES } from 'routes';
 
 export const ItemCard: FC<PropsType> = ({ itemData: { collection, item, owner } }) => {
   const { t } = useTranslation();
@@ -32,13 +28,10 @@ export const ItemCard: FC<PropsType> = ({ itemData: { collection, item, owner } 
     navigate(`${APP_ROUTES.ITEM}/${item.id}`);
   };
 
+  const cardClass = `${s.cardSize} ${s.positionRelative}`;
+
   return (
-    <Card
-      className={`${s.cardSize} ${s.positionRelative}`}
-      p={0}
-      onClick={onItemClick}
-      withBorder
-    >
+    <Card className={cardClass} p={0} onClick={onItemClick} withBorder>
       <Image
         className={s.bgImage}
         src={collection.image || undefined}

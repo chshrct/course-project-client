@@ -10,12 +10,18 @@ import {
 import { MutationActionCreatorResult } from '@reduxjs/toolkit/dist/query/core/buildInitiate';
 import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 
+import { CollectionType } from 'api';
 import {
   CreateCollectionRequestType,
   CreateCollectionResponseType,
   UpdateCollectionRequestBodyType,
   UpdateCollectionRequestParamType,
 } from 'api/collections/types';
+
+export type PropsType = {
+  setShowForm: (val: boolean) => void;
+  collection: CollectionType | null;
+};
 
 export type CreateCollection = MutationTrigger<
   MutationDefinition<
