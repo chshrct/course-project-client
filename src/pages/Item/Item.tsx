@@ -11,11 +11,13 @@ import {
 } from '@mantine/core';
 import { useParams } from 'react-router-dom';
 
-import { CommentInput } from './CommentInput';
-import { CommentList } from './CommentList';
-import { ItemAdditionalFieldsList } from './ItemAdditionalFieldsList';
-import { ItemTagsList } from './ItemTagsList';
-import { LikeInfo } from './LikeInfo';
+import {
+  CommentInput,
+  CommentList,
+  ItemAdditionalFieldsList,
+  ItemTagsList,
+  LikeInfo,
+} from './components';
 import s from './style/Item.module.css';
 
 import { useLazyGetItemQuery } from 'api';
@@ -25,34 +27,36 @@ import { useAppSelector } from 'store';
 export const Item: FC = () => {
   const colorScheme = useAppSelector(selectColorScheme);
   const [getItem, { data: itemData, isFetching: isItemFetching }] = useLazyGetItemQuery();
-  const { id } = useParams();
+  const { id: itemId } = useParams();
 
   useEffect(() => {
-    if (id) getItem({ itemId: id });
-  }, [getItem, id]);
+    if (itemId) getItem({ itemId });
+  }, [getItem, itemId]);
 
-  if (!id) return null;
+  if (!itemId) return null;
 
   return (
     <Container size="xl">
       <LoadingOverlay visible={isItemFetching} overlayBlur={2} />
       <Space h="xl" />
-      <Paper shadow="sm" p="xs" className={colorScheme === 'dark' ? s.paperDarkbg : ''}>
-        <Stack spacing="md">
-          <Text lineClamp={2}>
-            <Title order={2} className={s.whitespace}>
-              {itemData?.title}
-            </Title>
-          </Text>
-          <ItemTagsList tags={itemData?.tags} />
-          <LikeInfo item={id} />
-          <ItemAdditionalFieldsList itemFields={itemData?.itemFields} />
-        </Stack>
-      </Paper>
+      {itemData && (
+        <Paper shadow="sm" p="xs" className={colorScheme === 'dark' ? s.paperDarkbg : ''}>
+          <Stack spacing="md">
+            <Text lineClamp={2}>
+              <Title order={2} className={s.whitespace}>
+                {itemData.title}
+              </Title>
+            </Text>
+            <ItemTagsList tags={itemData.tags} />
+            <LikeInfo item={itemId} />
+            <ItemAdditionalFieldsList itemFields={itemData.itemFields} />
+          </Stack>
+        </Paper>
+      )}
       <Space h="xl" />
       <Stack align="flex-start">
-        <CommentList item={id} />
-        <CommentInput item={id} />
+        <CommentList itemId={itemId} />
+        <CommentInput itemId={itemId} />
       </Stack>
       <Space h="md" />
     </Container>

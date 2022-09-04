@@ -4,13 +4,11 @@ import { ActionIcon, Group, Text } from '@mantine/core';
 import { IconThumbUp } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 
+import { PropsType } from './types';
+
 import { useCreateLikeMutation, useDeteleLikeMutation, useGetItemLikesQuery } from 'api';
 import { selectUserId } from 'app';
 import { useAppSelector } from 'store';
-
-type PropsType = {
-  item: string;
-};
 
 export const LikeInfo: FC<PropsType> = ({ item }) => {
   const { t } = useTranslation();
@@ -24,6 +22,8 @@ export const LikeInfo: FC<PropsType> = ({ item }) => {
   const [createLike] = useCreateLikeMutation();
   const [deleteLike] = useDeteleLikeMutation();
   const isLiked = likesData?.users.includes(user);
+  const likesCount = likesData?.users.length;
+  const loading = isLikesFetching;
 
   const onLikeClick = (): void => {
     if (isLiked) {
@@ -33,7 +33,6 @@ export const LikeInfo: FC<PropsType> = ({ item }) => {
     }
     createLike({ item, user });
   };
-  const loading = isLikesFetching;
 
   return (
     <Group spacing="xs">
@@ -46,7 +45,7 @@ export const LikeInfo: FC<PropsType> = ({ item }) => {
       >
         <IconThumbUp size={20} fill={isLiked ? 'yellow' : 'white'} />
       </ActionIcon>
-      <Text>{likesData?.users.length}</Text>
+      <Text>{likesCount}</Text>
     </Group>
   );
 };

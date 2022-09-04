@@ -48,4 +48,6 @@ export type { UserType } from './users';
 
 export type { FieldType, FieldTypesType } from './collections';
 
-export type { GetCollectionItemsResponseType, ItemType } from './items';
+export type { GetCollectionItemsResponseType, ItemType, ItemFieldType } from './items';
+
+export type { CommentResponseType } from './comments';

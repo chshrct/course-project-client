@@ -3,9 +3,7 @@ import React, { FC } from 'react';
 import { Badge, Group } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
-type PropsType = {
-  tags: string[] | undefined;
-};
+import { PropsType } from './types';
 
 export const ItemTagsList: FC<PropsType> = ({ tags }) => {
   const { t } = useTranslation();

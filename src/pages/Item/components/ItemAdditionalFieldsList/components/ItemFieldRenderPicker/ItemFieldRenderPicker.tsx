@@ -6,34 +6,33 @@ import MDEditor from '@uiw/react-md-editor';
 import { useTranslation } from 'react-i18next';
 
 import s from './style/ItemFieldRenderPicker.module.css';
+import { PropsType } from './types';
 
-import { ItemFieldType } from 'api/items/types';
 import { selectColorScheme, selectLocale } from 'app';
 import { TypesIconPicker } from 'components';
 import { useAppSelector } from 'store';
 
-type PropsType = {
-  field: ItemFieldType;
-};
-
-export const ItemFieldRenderPicker: FC<PropsType> = ({ field }) => {
+export const ItemFieldRenderPicker: FC<PropsType> = ({
+  field: { type, title, value },
+}) => {
   const { t } = useTranslation();
   const locale = useAppSelector(selectLocale);
   const colorScheme = useAppSelector(selectColorScheme);
 
-  switch (field.type) {
+  const markdownClass = `${s.markdown} ${colorScheme === 'light' ? s.textDark : ''}`;
+  const dateString = new Date(value as Date).toLocaleDateString(locale);
+  const checkIcon = value ? <IconCheckbox size={20} /> : <IconSquare size={20} />;
+
+  switch (type) {
     case 'title':
     case 'number':
       return (
         <Stack>
           <Group spacing="xs">
-            <TypesIconPicker type={field.type} />
-            <Text weight={500}>{`${field.title}: `}</Text>
+            <TypesIconPicker type={type} />
+            <Text weight={500}>{`${title}: `}</Text>
             <Text>
-              <MDEditor.Markdown
-                source={field.value.toString()}
-                className={`${s.markdown} ${colorScheme === 'light' ? s.textDark : ''}`}
-              />
+              <MDEditor.Markdown source={value.toString()} className={markdownClass} />
             </Text>
           </Group>
         </Stack>
@@ -42,9 +41,9 @@ export const ItemFieldRenderPicker: FC<PropsType> = ({ field }) => {
       return (
         <Stack spacing="xs">
           <Group spacing="xs">
-            <TypesIconPicker type={field.type} />
-            <Text weight={500}>{`${field.title}: `}</Text>
-            <Text>{new Date(field.value as Date).toLocaleDateString(locale)}</Text>
+            <TypesIconPicker type={type} />
+            <Text weight={500}>{`${title}: `}</Text>
+            <Text>{dateString}</Text>
           </Group>
         </Stack>
       );
@@ -52,8 +51,8 @@ export const ItemFieldRenderPicker: FC<PropsType> = ({ field }) => {
       return (
         <Stack spacing="xs">
           <Group spacing="xs" align="center">
-            {field.value ? <IconCheckbox size={20} /> : <IconSquare size={20} />}
-            <Text weight={500}>{`${field.title}`}</Text>
+            {checkIcon}
+            <Text weight={500}>{`${title}`}</Text>
           </Group>
         </Stack>
       );
@@ -61,8 +60,8 @@ export const ItemFieldRenderPicker: FC<PropsType> = ({ field }) => {
       return (
         <Stack spacing="xs">
           <Group spacing="xs">
-            <TypesIconPicker type={field.type} />
-            <Text weight={500}>{`${field.title}: `}</Text>
+            <TypesIconPicker type={type} />
+            <Text weight={500}>{`${title}: `}</Text>
           </Group>
           <Text size="md">
             <Spoiler
@@ -70,10 +69,7 @@ export const ItemFieldRenderPicker: FC<PropsType> = ({ field }) => {
               showLabel={t('text_spoilerClosed')}
               hideLabel={t('text_spoilnerOpened')}
             >
-              <MDEditor.Markdown
-                source={field.value as string}
-                className={`${s.markdown} ${colorScheme === 'light' ? s.textDark : ''}`}
-              />
+              <MDEditor.Markdown source={value as string} className={markdownClass} />
             </Spoiler>
           </Text>
         </Stack>

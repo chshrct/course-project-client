@@ -4,15 +4,11 @@ import { Badge, Card, Group, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
 import s from './style/CommentCard.module.css';
+import { PropsType } from './types';
 
-import { CommentResponseType } from 'api/comments/types';
 import { selectLocale } from 'app';
-import { APP_ROUTES } from 'routes/enums';
+import { APP_ROUTES } from 'routes';
 import { useAppSelector } from 'store';
-
-type PropsType = {
-  comment: CommentResponseType;
-};
 
 export const CommentCard: FC<PropsType> = ({
   comment: {
@@ -23,6 +19,7 @@ export const CommentCard: FC<PropsType> = ({
 }) => {
   const locale = useAppSelector(selectLocale);
   const navigate = useNavigate();
+  const commentDate = new Date(date).toLocaleDateString(locale);
 
   const onAuthorBadgeClick = (): void => {
     navigate(`${APP_ROUTES.USER}/${id}`);
@@ -42,7 +39,7 @@ export const CommentCard: FC<PropsType> = ({
             <Text transform="capitalize">{name}</Text>
           </Badge>
           <Text transform="lowercase" mr={5} size="xs" weight={500}>
-            {new Date(date).toLocaleDateString(locale)}
+            {commentDate}
           </Text>
         </Group>
       </Card.Section>

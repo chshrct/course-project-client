@@ -9,4 +9,4 @@ export {
   useLazyGetCollectionItemsQuery,
 } from './itemsApi';
 
-export type { GetCollectionItemsResponseType, ItemType } from './types';
+export type { GetCollectionItemsResponseType, ItemType, ItemFieldType } from './types';

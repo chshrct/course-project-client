@@ -2,17 +2,14 @@ import React, { FC } from 'react';
 
 import { Stack } from '@mantine/core';
 
-import { CommentCard } from './CommentCard';
+import { CommentCard } from './components';
+import { PropsType } from './types';
 
 import { useGetCommentsQuery } from 'api';
 
-type PropsType = {
-  item: string;
-};
-
-export const CommentList: FC<PropsType> = ({ item }) => {
+export const CommentList: FC<PropsType> = ({ itemId }) => {
   const { data: comments } = useGetCommentsQuery(
-    { id: item },
+    { id: itemId },
     { refetchOnMountOrArgChange: true },
   );
 

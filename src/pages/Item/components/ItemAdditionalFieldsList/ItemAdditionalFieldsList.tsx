@@ -2,13 +2,8 @@ import { FC } from 'react';
 
 import { Stack } from '@mantine/core';
 
-import { ItemFieldRenderPicker } from './ItemFieldRenderPicker';
-
-import { ItemFieldType } from 'api/items/types';
-
-type PropsType = {
-  itemFields: ItemFieldType[] | undefined;
-};
+import { ItemFieldRenderPicker } from './components';
+import { PropsType } from './types';
 
 export const ItemAdditionalFieldsList: FC<PropsType> = ({ itemFields }) => {
   return (

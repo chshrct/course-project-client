@@ -5,32 +5,30 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import s from './style/CommentInput.module.css';
+import { FieldValues, PropsType } from './types';
 
 import { useCreateCommentMutation } from 'api';
 import { selectUserId } from 'app';
 import { useAppSelector } from 'store';
 
-type FieldValues = {
-  message: string;
-};
-
-type PropsType = {
-  item: string;
-};
-
-export const CommentInput: FC<PropsType> = ({ item }) => {
+export const CommentInput: FC<PropsType> = ({ itemId }) => {
   const { t } = useTranslation();
-  const user = useAppSelector(selectUserId);
-  const [createComment, { isLoading, isSuccess }] = useCreateCommentMutation();
+  const userId = useAppSelector(selectUserId);
+  const [
+    createComment,
+    { isLoading: isCreateCommentLoading, isSuccess: isCreateCommentSuccess },
+  ] = useCreateCommentMutation();
 
   const { handleSubmit, register, watch, reset } = useForm<FieldValues>();
 
+  const isSendDisabled = watch().message?.length === 0;
+
   useEffect(() => {
-    if (isSuccess) reset();
-  }, [isSuccess, reset]);
+    if (isCreateCommentSuccess) reset();
+  }, [isCreateCommentSuccess, reset]);
 
   const onSubmit = (values: FieldValues): void => {
-    createComment({ message: values.message, item, user });
+    createComment({ message: values.message, item: itemId, user: userId });
   };
 
   return (
@@ -39,13 +37,13 @@ export const CommentInput: FC<PropsType> = ({ item }) => {
         <Textarea
           label={t('comment_input_label')}
           {...register('message')}
-          disabled={isLoading}
+          disabled={isCreateCommentLoading}
         />
         <Box>
           <Button
             type="submit"
-            disabled={watch().message?.length === 0}
-            loading={isLoading}
+            disabled={isSendDisabled}
+            loading={isCreateCommentLoading}
           >
             {t('comment_button_text')}
           </Button>
