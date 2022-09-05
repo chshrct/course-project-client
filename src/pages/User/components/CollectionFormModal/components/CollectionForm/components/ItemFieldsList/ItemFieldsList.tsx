@@ -12,9 +12,10 @@ import { TypesIconPicker } from 'components/TypesIconPicker/TypesIconPicker';
 
 type PropsType = {
   form: UseFormReturnType<CollectionFormInitialValuesType>;
+  isModeEdit: boolean;
 };
 
-export const ItemFieldsList: FC<PropsType> = ({ form }) => {
+export const ItemFieldsList: FC<PropsType> = ({ form, isModeEdit }) => {
   const { t } = useTranslation();
   const deleteItemFieldHandler = (fieldId: string): void => {
     form.setFieldValue(
@@ -31,16 +32,18 @@ export const ItemFieldsList: FC<PropsType> = ({ form }) => {
             <TypesIconPicker type={field.type as FieldTypesType} />
             <Text>{field.title}</Text>
           </Group>
-          <ActionIcon
-            variant="default"
-            onClick={() => {
-              deleteItemFieldHandler(field.id);
-            }}
-            title={t('button_title_homePage')}
-            size="sm"
-          >
-            <IconMinus size={18} />
-          </ActionIcon>
+          {!isModeEdit && (
+            <ActionIcon
+              variant="default"
+              onClick={() => {
+                deleteItemFieldHandler(field.id);
+              }}
+              title={t('button_title_homePage')}
+              size="sm"
+            >
+              <IconMinus size={18} />
+            </ActionIcon>
+          )}
         </Group>
       ))}
     </Stack>

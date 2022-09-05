@@ -4,6 +4,7 @@ export type PropsType = {
   collectionData: {
     collectionId: string;
     itemFields: FieldType[];
+    owner: string;
   };
 };
 

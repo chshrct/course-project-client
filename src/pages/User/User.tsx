@@ -17,12 +17,14 @@ import s from './style/User.module.css';
 import { getGreetingMessage } from './utils';
 
 import { CollectionType, useGetUserCollectionsQuery, useLazyGetUserNameQuery } from 'api';
-import { selectUserName } from 'app';
+import { selectIsAdmin, selectUserId, selectUserName } from 'app';
 import { useAppSelector } from 'store';
 
 export const User: FC = () => {
   const { id } = useParams();
   const { t } = useTranslation();
+  const userId = useAppSelector(selectUserId);
+  const isAdmin = useAppSelector(selectIsAdmin);
   const loggedUserName = useAppSelector(selectUserName);
   const [openModal, setOpenModal] = useState(false);
   const [collectionForEdit, setCollectionForEdit] = useState<CollectionType | null>(null);
@@ -42,6 +44,8 @@ export const User: FC = () => {
     setOpenModal(true);
   };
 
+  const isOwnerOrAdmin = userId === id || isAdmin;
+
   return (
     <Container size="xl">
       <LoadingOverlay visible={isUserNameFetching} overlayBlur={2} />
@@ -49,14 +53,16 @@ export const User: FC = () => {
       <Title order={3} align="center">
         {getGreetingMessage(loggedUserName, userNameData)}
       </Title>
-      <ActionIcon
-        variant="default"
-        onClick={onAddCollectionClick}
-        title={t('button_title_addCollection')}
-        size={30}
-      >
-        <IconPlus size={18} />
-      </ActionIcon>
+      {isOwnerOrAdmin && (
+        <ActionIcon
+          variant="default"
+          onClick={onAddCollectionClick}
+          title={t('button_title_addCollection')}
+          size={30}
+        >
+          <IconPlus size={18} />
+        </ActionIcon>
+      )}
       <Space h="md" />
       <Group align="flex-start" spacing={28} className={s.positionRelative}>
         <LoadingOverlay visible={isFetching && !isUserNameFetching} overlayBlur={2} />

@@ -7,11 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { PropsType } from './types';
 
 import { useCreateLikeMutation, useDeteleLikeMutation, useGetItemLikesQuery } from 'api';
-import { selectUserId } from 'app';
+import { selectIsSignedIn, selectUserId } from 'app';
 import { useAppSelector } from 'store';
 
 export const LikeInfo: FC<PropsType> = ({ item }) => {
   const { t } = useTranslation();
+  const isSignedIn = useAppSelector(selectIsSignedIn);
   const user = useAppSelector(selectUserId);
   const { data: likesData, isFetching: isLikesFetching } = useGetItemLikesQuery(
     {
@@ -41,7 +42,7 @@ export const LikeInfo: FC<PropsType> = ({ item }) => {
         onClick={onLikeClick}
         title={isLiked ? t('button_text_unlike') : t('button_text_like')}
         size={23}
-        disabled={loading}
+        disabled={loading || !isSignedIn}
       >
         <IconThumbUp size={20} fill={isLiked ? 'yellow' : 'white'} />
       </ActionIcon>

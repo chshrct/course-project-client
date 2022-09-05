@@ -1,9 +1,33 @@
 .githubButton {
     padding: 0;
-    width: auto;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
     display: inline;
     margin: 0;
     background-color: transparent;
-    border: none;
+    border: 1px solid #ced4da;
     outline: none;
+    cursor: pointer;
+}
+
+.githubButton:hover {
+    background-color: rgba(206, 212, 218, .1);
+}
+
+.githubButtonDark {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    display: inline;
+    margin: 0;
+    background-color: #25262b;
+    border: 1px solid #373A40;
+    outline: none;
+    cursor: pointer;
+}
+
+.githubButtonDark:hover {
+    background-color: rgba(206, 212, 218, .1);
 }

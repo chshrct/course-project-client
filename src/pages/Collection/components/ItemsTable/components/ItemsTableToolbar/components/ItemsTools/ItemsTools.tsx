@@ -1,20 +1,10 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 
 import { ActionIcon, Button, Group, MultiSelect } from '@mantine/core';
 import { IconEdit, IconHash } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 
-type PropsType = {
-  selectedTagsProps: {
-    selectedTags: string[];
-    setSelectedTags: Dispatch<SetStateAction<string[]>>;
-  };
-  selectedItemsIds: string[];
-  onDeleteItemsClick: () => void;
-  tags: string[];
-  setEditMode: Dispatch<SetStateAction<boolean>>;
-  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-};
+import { PropsType } from './types';
 
 export const ItemsTools: FC<PropsType> = ({
   selectedTagsProps: { selectedTags, setSelectedTags },
@@ -23,6 +13,7 @@ export const ItemsTools: FC<PropsType> = ({
   setEditMode,
   setIsModalOpen,
   tags,
+  isOwnerOrAdmin,
 }) => {
   const { t } = useTranslation();
   const isDeleteDisabled = selectedItemsIds.length === 0;
@@ -35,29 +26,31 @@ export const ItemsTools: FC<PropsType> = ({
       align="flex-start"
       style={{ width: '-webkit-fill-available' }}
     >
-      <Group spacing="xs">
-        <ActionIcon
-          disabled={isEditDisabled}
-          variant="default"
-          title={t('button_title_editItem')}
-          size={30}
-          onClick={() => {
-            setEditMode(true);
-            setIsModalOpen(true);
-          }}
-        >
-          <IconEdit size={18} />
-        </ActionIcon>
-        <Button
-          variant="filled"
-          color="red"
-          size="xs"
-          disabled={isDeleteDisabled}
-          onClick={onDeleteItemsClick}
-        >
-          {t('button_text_delete')}
-        </Button>
-      </Group>
+      {isOwnerOrAdmin && (
+        <Group spacing="xs">
+          <ActionIcon
+            disabled={isEditDisabled}
+            variant="default"
+            title={t('button_title_editItem')}
+            size={30}
+            onClick={() => {
+              setEditMode(true);
+              setIsModalOpen(true);
+            }}
+          >
+            <IconEdit size={18} />
+          </ActionIcon>
+          <Button
+            variant="filled"
+            color="red"
+            size="xs"
+            disabled={isDeleteDisabled}
+            onClick={onDeleteItemsClick}
+          >
+            {t('button_text_delete')}
+          </Button>
+        </Group>
+      )}
       <MultiSelect
         size="sm"
         onChange={setSelectedTags}

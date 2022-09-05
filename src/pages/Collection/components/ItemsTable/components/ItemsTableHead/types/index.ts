@@ -5,6 +5,7 @@ import { SortSettingsType } from '../../../types';
 import { FieldType, GetCollectionItemsResponseType } from 'api';
 
 export type PropsType = {
+  isOwnerOrAdmin: boolean;
   itemFields: FieldType[];
   collectionItemsData: GetCollectionItemsResponseType;
   selectedItemsProps: {

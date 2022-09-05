@@ -157,8 +157,11 @@ export const CollectionForm: FC<PropsType> = ({ setShowForm, collection }) => {
         <Text mt="md" size="md" align="center">
           {t('text_itemsFields')}
         </Text>
-        <ItemFieldsList form={form} />
-        <ItemFieldsCreator form={form} onAddItemFieldClick={onAddItemFieldClick} />
+        <Space h="md" />
+        <ItemFieldsList form={form} isModeEdit={isModeEdit} />
+        {!isModeEdit && (
+          <ItemFieldsCreator form={form} onAddItemFieldClick={onAddItemFieldClick} />
+        )}
         <Group position="center" mt="md">
           <Button type="submit">
             {isModeEdit ? t('modal_submit_text_edit') : t('modal_submit_text_create')}

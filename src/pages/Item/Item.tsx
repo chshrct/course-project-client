@@ -21,11 +21,12 @@ import {
 import s from './style/Item.module.css';
 
 import { useLazyGetItemQuery } from 'api';
-import { selectColorScheme } from 'app';
+import { selectColorScheme, selectIsSignedIn } from 'app';
 import { useAppSelector } from 'store';
 
 export const Item: FC = () => {
   const colorScheme = useAppSelector(selectColorScheme);
+  const isSignedIn = useAppSelector(selectIsSignedIn);
   const [getItem, { data: itemData, isFetching: isItemFetching }] = useLazyGetItemQuery();
   const { id: itemId } = useParams();
 
@@ -56,7 +57,7 @@ export const Item: FC = () => {
       <Space h="xl" />
       <Stack align="flex-start">
         <CommentList itemId={itemId} />
-        <CommentInput itemId={itemId} />
+        {isSignedIn && <CommentInput itemId={itemId} />}
       </Stack>
       <Space h="md" />
     </Container>

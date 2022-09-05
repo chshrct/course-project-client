@@ -16,6 +16,7 @@ export const TagsCloud: FC = memo(() => {
   const { data: tagData, isFetching: isTagsFetching } = useGetTagsQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
+
   const mappedData =
     tagData?.map(({ count, value }) => ({
       text: value,
@@ -28,6 +29,8 @@ export const TagsCloud: FC = memo(() => {
     },
     [navigate],
   );
+
+  if (!tagData) return null;
 
   return (
     <Group position="center">

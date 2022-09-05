@@ -16,6 +16,7 @@ export const ItemsTableRows: FC<PropsType> = ({
   paginationProps: { limit, page },
   selectedTags,
   sortSettings,
+  isOwnerOrAdmin,
 }) => {
   const filteredItems = filterItems(selectedTags, collectionItems);
   const sortedAndFiltered = sortItems(sortSettings, filteredItems);
@@ -38,9 +39,11 @@ export const ItemsTableRows: FC<PropsType> = ({
 
         return (
           <tr key={id}>
-            <td>
-              <Checkbox size="xs" onChange={onItemChange} checked={itemChecked} />
-            </td>
+            {isOwnerOrAdmin && (
+              <td>
+                <Checkbox size="xs" onChange={onItemChange} checked={itemChecked} />
+              </td>
+            )}
             <td>{itemIndex}</td>
             <td>{id}</td>
             <td>

@@ -18,7 +18,11 @@ export const Collection: FC = () => {
 
   if (!collection || !collectionId) return null;
 
-  const collectionData = { collectionId, itemFields: collection.itemFields };
+  const collectionData = {
+    collectionId,
+    itemFields: collection.itemFields,
+    owner: collection.owner.id,
+  };
 
   return (
     <Container size="xl">

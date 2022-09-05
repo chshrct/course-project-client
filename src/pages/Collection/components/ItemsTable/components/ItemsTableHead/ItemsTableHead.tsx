@@ -11,6 +11,7 @@ export const ItemsTableHead: FC<PropsType> = ({
   collectionItemsData,
   selectedItemsProps: { selectedItemsIds, setSelectedItemsIds },
   sortSettingsProps: { setSortSettings, sortSettings },
+  isOwnerOrAdmin,
 }) => {
   const { t } = useTranslation();
   const areAllItemsSelected = collectionItemsData.items.every(({ id }) =>
@@ -32,14 +33,16 @@ export const ItemsTableHead: FC<PropsType> = ({
 
   return (
     <tr>
-      <th>
-        <Checkbox
-          size="xs"
-          onChange={onItemsChange}
-          checked={areAllItemsSelected}
-          title={t('button_title_toggleAll')}
-        />
-      </th>
+      {isOwnerOrAdmin && (
+        <th>
+          <Checkbox
+            size="xs"
+            onChange={onItemsChange}
+            checked={areAllItemsSelected}
+            title={t('button_title_toggleAll')}
+          />
+        </th>
+      )}
 
       <th>#</th>
       <th>Id</th>

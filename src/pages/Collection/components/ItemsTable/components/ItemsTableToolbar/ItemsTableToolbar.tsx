@@ -9,6 +9,8 @@ import { useSuccessDelete } from './hooks';
 import { PropsType } from './types';
 
 import { useDeleteItemsMutation } from 'api';
+import { selectIsAdmin, selectUserId } from 'app';
+import { useAppSelector } from 'store';
 
 export const ItemsTableToolbar: FC<PropsType> = ({
   collectionData,
@@ -22,6 +24,10 @@ export const ItemsTableToolbar: FC<PropsType> = ({
   const { collectionId } = collectionData;
   const { limit, page } = paginationProps;
   const isCollectionEmpty = collectionItemsData.items.length === 0;
+  const ownerId = useAppSelector(selectUserId);
+  const isAdmin = useAppSelector(selectIsAdmin);
+  const isOwnerOrAdmin = ownerId === collectionData.owner || isAdmin;
+
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModeEdit, setIsModeEdit] = useState(false);
@@ -57,28 +63,34 @@ export const ItemsTableToolbar: FC<PropsType> = ({
   return (
     <Group spacing="xs" ml={-10} align="flex-start" noWrap>
       <Space h="md" />
-      <ActionIcon
-        variant="default"
-        title={t('button_title_addItem')}
-        size={30}
-        onClick={() => {
-          setIsModeEdit(false);
-          setIsModalOpen(true);
-        }}
-      >
-        <IconPlus size={18} />
-      </ActionIcon>
-      <CSVButton collectionId={collectionId} />
-      {!isCollectionEmpty && (
-        <ItemsTools
-          tags={tags}
-          selectedTagsProps={selectedTagsProps}
-          selectedItemsIds={selectedItemsIds}
-          setEditMode={setIsModeEdit}
-          setIsModalOpen={setIsModalOpen}
-          onDeleteItemsClick={deleteItemsHandler}
-        />
+      {isOwnerOrAdmin && (
+        <ActionIcon
+          variant="default"
+          title={t('button_title_addItem')}
+          size={30}
+          onClick={() => {
+            setIsModeEdit(false);
+            setIsModalOpen(true);
+          }}
+        >
+          <IconPlus size={18} />
+        </ActionIcon>
       )}
+      {!isCollectionEmpty && (
+        <>
+          <CSVButton collectionId={collectionId} />
+          <ItemsTools
+            isOwnerOrAdmin={isOwnerOrAdmin}
+            tags={tags}
+            selectedTagsProps={selectedTagsProps}
+            selectedItemsIds={selectedItemsIds}
+            setEditMode={setIsModeEdit}
+            setIsModalOpen={setIsModalOpen}
+            onDeleteItemsClick={deleteItemsHandler}
+          />
+        </>
+      )}
+
       <ItemFormModal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
